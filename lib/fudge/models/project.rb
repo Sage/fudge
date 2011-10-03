@@ -55,24 +55,20 @@ module Fudge
         git.merge('origin/master')
       end
 
-      def build!
-        update!
-
+      def next_build
         build = Build.new(self, next_build_number)
-        build.commit = latest_commit
-        build.diff = diff
-        build.status = :started
+        build.status = :queued
         build.save!
-        build.build!
+        build
+      end
+
+      def latest_commit
+        Git::Object::Commit.new(git, 'HEAD')
       end
 
       private
       def git
         @git || Git.open(File.expand_path('source', path))
-      end
-
-      def latest_commit
-        Git::Object::Commit.new(git, 'HEAD')
       end
 
       def last_build

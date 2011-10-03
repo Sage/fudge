@@ -5,4 +5,5 @@ module Fudge
   autoload :Models, 'fudge/models'
   autoload :Config, 'fudge/config'
   autoload :Application, 'fudge/application'
+  autoload :Builder, 'fudge/builder'
 end

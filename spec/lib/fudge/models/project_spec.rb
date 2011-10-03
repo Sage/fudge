@@ -121,24 +121,17 @@ describe Fudge::Models::Project do
     end
   end
 
-  describe :build! do
+  describe :next_build do
     it "should create new build with the next build number and the given project" do
       build_project_and_builds
 
       mock_build = mock(Fudge::Models::Build)
       Fudge::Models::Build.should_receive(:new).with(@project, 11).and_return(mock_build)
-      mock_build.should_receive(:build!)
 
-      mock_build.should_receive(:commit=).with('bla')
-      mock_build.should_receive(:diff=).with('diff')
-      mock_build.should_receive(:status=).with(:started)
+      mock_build.should_receive(:status=).with(:queued)
       mock_build.should_receive(:save!)
 
-      @project.stub(:update!)
-      @project.stub(:latest_commit).and_return('bla')
-      @project.stub(:diff).and_return('diff')
-
-      @project.build!
+      @project.next_build
     end
   end
 

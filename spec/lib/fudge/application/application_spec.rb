@@ -5,12 +5,15 @@ require 'ostruct'
 describe Fudge::Application::Application do
   include Rack::Test::Methods
 
+  before :each do
+    Fudge::Builder::Queue.stub(:new).and_return(mock(Object, :start! => nil, :<< => nil))
+  end
+
   let(:app) { Fudge::Application::Application }
 
   it "should be a Sinatra::Base" do
     Fudge::Application::Application.ancestors.should include Sinatra::Base
   end
-
 
   describe :homepage do
     before :each do
@@ -53,7 +56,7 @@ describe Fudge::Application::Application do
     it "should display the project name in a heading" do
       get '/projects/foo'
 
-      last_response.body.should include "<h1>foo</h1>"
+      last_response.body.should match /<h1>\s*<a href='\/projects\/foo'>foo<\/a>\s*<\/h1>/
     end
 
     it "should display a list of builds with their statuses" do
@@ -84,8 +87,8 @@ describe Fudge::Application::Application do
     it "should display the build information" do
       get '/projects/foo/builds/1'
 
-      last_response.body.should include "<h1>foo</h1>"
-      last_response.body.should include "<h2>Build 1</h2>"
+      last_response.body.should match /<h1>\s*<a href='\/projects\/foo'>foo<\/a>\s*<\/h1>/
+      last_response.body.should match /<h2>\s*<a href=''>Build 1<\/a>\s*<\/h2>/
 
       last_response.body.should include "Status: this_is_a_status"
       last_response.body.should include "Commit: this_is_a_sha1"

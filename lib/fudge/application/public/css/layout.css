@@ -31,6 +31,9 @@ body{
 .failure{
   background-color: #cc3322;
 }
+.queued{
+  background-color: #aaa;
+}
 #projects, #builds{
   text-align: center;
 }

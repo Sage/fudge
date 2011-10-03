@@ -6,6 +6,12 @@ module Fudge
     class Application < Sinatra::Base
       set :root, File.dirname(__FILE__)
 
+      def initialize
+        super
+        @queue = Fudge::Builder::Queue.new
+        Thread.new { @queue.start! }
+      end
+
       get '/' do
         @projects = Fudge::Models::Project.all
         haml :index
@@ -18,7 +24,7 @@ module Fudge
 
       post '/projects/:name' do
         @project = Fudge::Models::Project.load_by_name params[:name]
-        Thread.new { @project.build! }
+        @queue << @project.next_build
         redirect '/projects/' + params[:name]
       end
 

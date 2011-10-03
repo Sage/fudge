@@ -69,6 +69,9 @@ describe Fudge::Models::Build do
     before :each do
       clear_filesystem
       Git.stub(:clone)
+      project.stub(:latest_commit).and_return('commit')
+      project.stub(:diff).and_return('diff')
+      project.stub(:update!)
       project.save!
     end
 
@@ -86,24 +89,18 @@ describe Fudge::Models::Build do
 
     it "should set the status to success if the command succeeded" do
       build = Fudge::Models::Build.new(project, 11)
-      build.save!
-
       build.stub(:system).and_return(true)
-
       build.build!
 
-      Fudge::Models::Build.load(build.path + '/build.yml').status.should == :success
+      build.status.should == :success
     end
 
     it "should set the status to failure if the command failed" do
       build = Fudge::Models::Build.new(project, 11)
-      build.save!
-
       build.stub(:system).and_return(false)
-
       build.build!
 
-      Fudge::Models::Build.load(build.path + '/build.yml').status.should == :failure
+      build.status.should == :failure
     end
   end
 

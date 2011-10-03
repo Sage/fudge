@@ -24,7 +24,11 @@ module Fudge
       end
 
       def build!
-        status = system("cd #{project.path}/source && ls > #{path}/output.txt 2>&1")
+        project.update!
+
+        self.commit = project.latest_commit
+        self.diff = project.diff
+        status = system("cd #{project.path}/source && rake fudge > #{path}/output.txt 2>&1")
         self.status = status ? :success : :failure
         self.save!
       end
