@@ -1,0 +1,24 @@
+body{
+  background: #DDD;
+}
+.color31 {
+  color: red !important;
+}
+
+.color32 {
+  color: green !important;
+}
+
+.color33 {
+  color: yellow !important;
+}
+
+#diff, #output{
+  padding: 20px;
+  height: 300px;
+  overflow: scroll;
+  background: white;
+  font-size: 8px;
+  font-family: mono;
+  display: block;
+}

@@ -1,0 +1,4 @@
+--- !ruby/object:Fudge::Models::Project
+name: bar
+path: /home/steve/git/fudge/foo/bar
+origin: git@github.com:whilefalse/tools.git

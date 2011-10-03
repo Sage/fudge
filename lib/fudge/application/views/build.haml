@@ -1,0 +1,10 @@
+%h1= @project.name
+%h2= "Build #{@build.number}"
+%p= "Status: #{@build.status}"
+%p= "Commit: #{@build.commit.sha}"
+%p= "Author: #{@build.commit.author.email}"
+%p= "Committer: #{@build.commit.committer.email}"
+%p Diff:
+%div#diff= @build.html_diff
+%p Output:
+%div#output= @build.output

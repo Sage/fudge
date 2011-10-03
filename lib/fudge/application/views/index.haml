@@ -1,0 +1,7 @@
+%h1 Welcome to Fudge!
+%h2 Projects
+%ul
+  - @projects.each do |p|
+    %li
+      %a{:href => "/projects/#{p.name}"}= p.name
+      = " (#{p.status})"

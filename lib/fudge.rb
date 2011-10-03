@@ -1,5 +1,8 @@
-require "fudge/version"
+require 'fudge/version'
+require 'git'
 
 module Fudge
-  # Your code goes here...
+  autoload :Models, 'fudge/models'
+  autoload :Config, 'fudge/config'
+  autoload :Application, 'fudge/application'
 end
