@@ -1,9 +1,11 @@
-%h1= @project.name
-%ul
-  - @project.builds.each do |b|
-    %li
-      %a{:href => "/projects/#{@project.name}/builds/#{b.number}"}= "Build #{b.number}"
-      = "(#{b.status})"
+%h1
+  %a{:href => "/projects/#{@project.name}"}= @project.name
 
 %form{:method => 'POST', :action => ''}
   %input{:type => :submit, :value => 'Force Build'}
+
+%ul#builds
+  - @project.builds.each do |b|
+    %li{:class => b.status}
+      %a{:href => "/projects/#{@project.name}/builds/#{b.number}"}= "Build #{b.number}"
+      = "(#{b.status})"
