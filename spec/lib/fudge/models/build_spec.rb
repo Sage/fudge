@@ -1,12 +1,8 @@
 require 'spec_helper'
 
 describe Fudge::Models::Build do
-  before :all do
-    FakeFS.activate!
-  end
-  after :all do
-    FakeFS.deactivate!
-  end
+  before(:all) { FakeFS.activate! }
+  after(:all) { FakeFS.deactivate! }
 
   let(:project) { Fudge::Models::Project.new('aproject', 'git@github.com:whilefalse/tools.git') }
   subject { Fudge::Models::Build.new(project, 10) }

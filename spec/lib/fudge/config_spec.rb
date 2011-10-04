@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe Fudge::Config do
+  before(:all) { FakeFS.activate! }
+  after(:all) { FakeFS.deactivate! }
+
   describe :root_directory do
     it "should default to the current user's home directory with .fudge added" do
       Fudge::Config.root_directory.should == File.expand_path('~/.fudge')

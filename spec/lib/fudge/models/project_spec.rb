@@ -2,12 +2,8 @@ require 'spec_helper'
 require 'ostruct'
 
 describe Fudge::Models::Project do
-  before :all do
-    FakeFS.activate!
-  end
-  after :all do
-    FakeFS.deactivate!
-  end
+  before(:all) { FakeFS.activate! }
+  after(:all) { FakeFS.deactivate! }
 
   subject { Fudge::Models::Project.new 'project1', 'git@github.com:whilefalse/tools.git' }
 
