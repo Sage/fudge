@@ -61,6 +61,11 @@ describe Fudge::Builder::Queue do
       subject.stub(:puts)
       subject.poll.should be_nil
     end
+
+    it "should check all projects for git updates"
+    it "should create a new project for any new branches"
+    it "should schedule a build for any new projects"
+    it "should schedule a build for and updated projects"
   end
 
   describe :stopping? do
