@@ -14,7 +14,14 @@ module Fudge
 
       # Adds a task to the build
       def task(task_type)
-        @tasks << Task.new
+        @tasks << Task.discover(task_type)
+      end
+
+      # Runs a build
+      def run
+        @tasks.each do |t|
+          t.run
+        end
       end
     end
   end

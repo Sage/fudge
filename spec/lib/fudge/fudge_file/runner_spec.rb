@@ -4,9 +4,11 @@ require 'fudge/fudge_file/runner'
 describe Fudge::FudgeFile::Runner do
   describe :run_build do
     it "should run the default task in the description" do
-      description = Fudge::FudgeFile::Description.new do
-        build :default do
-          task :dummy
+      description = Fudge::FudgeFile::Description.new.tap do |d|
+        d.instance_eval do
+          build :default do
+            task :dummy
+          end
         end
       end
 

@@ -6,6 +6,7 @@ module Fudge
       end
 
       def run_build
+        @description.builds[:default].run
       end
     end
   end
