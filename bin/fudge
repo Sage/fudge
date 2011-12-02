@@ -1,1 +1,2 @@
-p "hello"
+require 'fudge/cli/runner'
+Fudge::Cli::Runner.new.run(*ARGV)

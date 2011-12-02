@@ -9,12 +9,12 @@ module Fudge
 
       # Sets builds to an initial empty array
       def initialize
-        @builds = []
+        @builds = {}
       end
 
       # Adds a build to the current description
-      def build(&block)
-        @builds << Build.new.tap do |b|
+      def build(name, &block)
+        @builds[name] = Build.new.tap do |b|
           b.instance_eval(&block)
         end
       end
