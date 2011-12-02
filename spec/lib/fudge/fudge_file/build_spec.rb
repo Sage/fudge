@@ -1,6 +1,9 @@
 require 'spec_helper'
 require 'fudge/fudge_file/build'
 
+class DummyTask2 < DummyTask; end
+Fudge::FudgeFile::Task.register(:dummy2, DummyTask2)
+
 describe Fudge::FudgeFile::Build do
   describe :task do
     it "should add a task to the tasks array" do
@@ -17,10 +20,11 @@ describe Fudge::FudgeFile::Build do
     it "should run all tasks defined" do
       subject.tasks.should be_empty
 
-      DummyTask.any_instance.should_receive(:run).exactly(2).times
+      DummyTask.any_instance.should_receive(:run)
+      DummyTask2.any_instance.should_receive(:run)
 
       subject.task :dummy
-      subject.task :dummy
+      subject.task :dummy2
 
       subject.run
     end

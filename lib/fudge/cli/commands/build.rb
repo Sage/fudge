@@ -12,7 +12,8 @@ module Fudge
         end
 
         def run
-          Fudge::FudgeFile::Parser.new.parse('Fudgefile')
+          description = Fudge::FudgeFile::Parser.new.parse('Fudgefile')
+          Fudge::FudgeFile::Runner.new(description).run_build
         end
       end
     end

@@ -19,9 +19,7 @@ module Fudge
 
       # Runs a build
       def run
-        @tasks.each do |t|
-          t.run
-        end
+        @tasks.each(&:run)
       end
     end
   end
