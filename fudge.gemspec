@@ -5,18 +5,18 @@ require "fudge/version"
 Gem::Specification.new do |s|
   s.name        = "fudge"
   s.version     = Fudge::VERSION
-  s.authors     = ["Steven Anderson"]
-  s.email       = ["steve@whilefalse.net"]
-  s.homepage    = ""
+  s.authors     = %q{Steven Anderson}
+  s.email       = %q{steve@whilefalse.net}
+  s.homepage    = %q{http://github.com/Sage/fudge}
   s.summary     = %q{Fudge CI Server}
   s.description = %q{Fudge CI Server}
 
   s.rubyforge_project = "fudge"
 
   s.files         = Dir['lib/**/*.rb']
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  s.require_paths = ["lib"]
+  s.test_files    = Dir['spec/**/*.rb']
+  s.executables   = %w{fudge}
+  s.require_paths = %w{lib}
 
   s.add_dependency 'git'
   s.add_dependency 'sinatra'
