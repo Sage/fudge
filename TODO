@@ -11,3 +11,45 @@
 
 * Auto creation of project directory when running fudge server (or perhaps "fudge init in a project")
 * Ability to mount fudge app on any Rack web server, rather than through fudge server (for production)
+
+
+build :defaults do
+  each_directory "sop_*" do
+    rspec :coverage => 100
+    yard :coverage => 100
+  end
+
+# Later on...
+  callbacks do
+    email_owner
+
+    success do
+      email
+    end
+
+    failure do
+      email
+    end
+  end
+end
+
+build :master, :extend => :defaults do
+
+  email_all
+
+  success do
+    push_tag :last_successful_development_build
+  end
+end
+
+build :last_success.. do
+  with_args :edge do
+    deploy_yard
+    deploy_jsdoc
+  end
+end
+
+build :last_suc_release... do
+  deploy_yard
+  deploy_jsdoc
+end
