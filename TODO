@@ -3,7 +3,11 @@
   * Check for new branches and create new projects
 * Projects need to be configurable to branches (currently default to master)
 * A command line "fudge server" to start the server
+
+***
 * A "Fudgefile" to specify what to do for individual builds
-* A "fudge build bla" command which will read the Fudgefile and work out what to do
+* A "fudge build bla" command which will read the Fudgefile and work out what to do (depending on branch)
+***
+
 * Auto creation of project directory when running fudge server (or perhaps "fudge init in a project")
 * Ability to mount fudge app on any Rack web server, rather than through fudge server (for production)

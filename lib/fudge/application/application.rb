@@ -1,4 +1,6 @@
 require 'sinatra/base'
+require 'fudge/queue'
+require 'fudge/models/project'
 require 'haml'
 
 module Fudge
@@ -8,7 +10,7 @@ module Fudge
 
       def initialize
         super
-        @queue = Fudge::Builder::Queue.new
+        @queue = Fudge::Queue.new
         Thread.new { @queue.start! }
       end
 

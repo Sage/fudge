@@ -1,6 +1,7 @@
 require 'spec_helper'
+require 'fudge/queue'
 
-describe Fudge::Builder::Queue do
+describe Fudge::Queue do
   describe :<< do
     it "should add the given build to the build queue" do
       subject << 'bla'

@@ -29,7 +29,7 @@ module Fudge
         self.commit = project.latest_commit
         self.diff = project.diff
         env_to_scrub = Hash[ENV.keys.grep(/BUNDLE|RUBY/).zip([nil])]
-        status = system(env_to_scrub, "cd #{project.path}/source && bundle install && bundle exec rake ci > #{path}/output.txt 2>&1")
+        status = system(env_to_scrub, "cd #{project.path}/source && bundle install && bundle exec fudge build > #{path}/output.txt 2>&1")
         self.status = status ? :success : :failure
         self.save!
       end

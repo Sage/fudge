@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'ostruct'
+require 'fudge/models/project'
 
 describe Fudge::Models::Project do
   before(:all) { FakeFS.activate! }

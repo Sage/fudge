@@ -1,12 +1,13 @@
 require 'spec_helper'
 require 'rack/test'
 require 'ostruct'
+require 'fudge/application/application'
 
 describe Fudge::Application::Application do
   include Rack::Test::Methods
 
   before :each do
-    Fudge::Builder::Queue.stub(:new).and_return(mock(Object, :start! => nil, :<< => nil))
+    Fudge::Queue.stub(:new).and_return(mock(Object, :start! => nil, :<< => nil))
   end
 
   let(:app) { Fudge::Application::Application }

@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'fudge/models/build'
 
 describe Fudge::Models::Build do
   before(:all) { FakeFS.activate! }
@@ -78,7 +79,7 @@ describe Fudge::Models::Build do
       source_dir = File.expand_path('aproject/source', Fudge::Config::root_directory)
       build_dir = File.expand_path('aproject/builds/11', Fudge::Config::root_directory)
 
-      build.should_receive(:system).with("cd #{source_dir} && rake fudge > #{build_dir}/output.txt 2>&1")
+      build.should_receive(:system).with(anything, "cd #{source_dir} && bundle install && bundle exec fudge build > #{build_dir}/output.txt 2>&1")
 
       build.build!
     end
