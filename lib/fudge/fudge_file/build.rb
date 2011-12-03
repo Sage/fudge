@@ -1,4 +1,4 @@
-require 'fudge/fudge_file/task'
+require 'fudge/fudge_file/tasks'
 
 module Fudge
   module FudgeFile
@@ -13,8 +13,8 @@ module Fudge
       end
 
       # Adds a task to the build
-      def task(task_type)
-        @tasks << Task.discover(task_type)
+      def task(task_type, *args)
+        @tasks << Tasks.discover(task_type).new(*args)
       end
 
       # Runs a build

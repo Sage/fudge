@@ -1,4 +1,4 @@
-require 'fudge/fudge_file/task'
+require 'fudge/fudge_file/tasks'
 
 class DummyTask
   class << self
@@ -9,7 +9,7 @@ class DummyTask
     self.class.ran = true
   end
 end
-Fudge::FudgeFile::Task.register(:dummy, DummyTask)
+Fudge::FudgeFile::Tasks.register(:dummy, DummyTask)
 
 RSpec.configure do |c|
   c.after :each do

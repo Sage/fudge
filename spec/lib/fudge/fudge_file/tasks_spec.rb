@@ -1,11 +1,8 @@
 require 'spec_helper'
-require 'fudge/fudge_file/task'
 
-class TestTask < Fudge::FudgeFile::Task; end
+class TestTask;  end
 
-describe Fudge::FudgeFile::Task do
-  it { should be_a Thor::Actions }
-
+describe Fudge::FudgeFile::Tasks do
   describe "Class Methods" do
     subject { described_class }
 
@@ -13,15 +10,15 @@ describe Fudge::FudgeFile::Task do
       it "should register a task for a given symbol" do
         subject.register(:foo, TestTask)
 
-        subject.discover(:foo).should be_a TestTask
+        subject.discover(:foo).should == TestTask
       end
     end
 
     describe :discover do
-      it "should return an instance of the registered class for the given symbol" do
+      it "should return the registered class for the given symbol" do
         subject.register(:bar, TestTask)
 
-        subject.discover(:bar).should be_a TestTask
+        subject.discover(:bar).should == TestTask
       end
 
       it "should raise an exception if the task is not found" do

@@ -5,9 +5,7 @@ module Fudge
   module FudgeFile
     # A class representing a task to run
     #
-    class Task
-      include Thor::Actions
-
+    class Tasks
       # Class methods
       class << self
         # Registers a task under a given name
@@ -19,7 +17,7 @@ module Fudge
         def discover(name)
           task = registered_tasks[name]
           raise Exceptions::TaskNotFound.new(name) unless task
-          task.new
+          task
         end
 
         private

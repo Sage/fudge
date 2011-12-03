@@ -1,8 +1,13 @@
 require 'spec_helper'
 require 'fudge/fudge_file/build'
 
-class DummyTask2 < DummyTask; end
-Fudge::FudgeFile::Task.register(:dummy2, DummyTask2)
+class DummyTask2 < DummyTask
+  attr_accessor :args
+  def initialize(*args)
+    self.args = args
+  end
+end
+Fudge::FudgeFile::Tasks.register(:dummy2, DummyTask2)
 
 describe Fudge::FudgeFile::Build do
   describe :task do
@@ -13,6 +18,14 @@ describe Fudge::FudgeFile::Build do
 
       subject.tasks.should have(1).item
       subject.tasks.first.should be_a DummyTask
+    end
+
+    it "should pass arguments to the initializer" do
+      subject.tasks.should be_empty
+
+      subject.task :dummy2, :foo, :bar
+
+      subject.tasks.first.args.should == [:foo, :bar]
     end
   end
 

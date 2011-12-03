@@ -10,7 +10,6 @@ module Fudge
           "Initialize a new FudgeFile in your project"
         end
 
-        # Runs the command
         def run
           unless File.exists?(File.expand_path('Fudgefile', Dir.pwd))
             FileUtils.cp(File.expand_path('../../templates/Fudgefile', __FILE__), Dir.pwd)
