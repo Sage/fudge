@@ -10,23 +10,16 @@ describe Fudge::FudgeFile::Parser do
       @path = File.expand_path('FudgeFile', Fudge::Config.root_directory)
       Fudge::Config.ensure_root_directory!
       File.open(@path, 'w') do |f|
-        f.write('foo')
+        f.write('@foo = :bar')
       end
     end
 
     it "should read a file and evaluate it" do
-      subject.should_receive(:evaluate).with('foo')
-      subject.parse(@path)
-    end
-  end
-
-  describe :evaluate do
-    it "should return a new description" do
-      subject.evaluate('').should be_a Fudge::FudgeFile::Description
+      subject.parse(@path).should be_a Fudge::FudgeFile::Description
     end
 
-    it "should evaluate the contents in the new description" do
-      subject.evaluate('@foo = :bar').instance_variable_get(:@foo).should == :bar
+    it "should pass the contents to the new description" do
+      subject.parse(@path).instance_variable_get(:@foo).should == :bar
     end
   end
 end

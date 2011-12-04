@@ -8,14 +8,7 @@ module Fudge
       # Parse a FudgeFile at a given location
       def parse(file)
         contents = File.open(file) { |f| f.read }
-        evaluate(contents)
-      end
-
-      #Evaluates a string read from a FudgeFile
-      def evaluate(string)
-        Description.new.tap do |d|
-          d.instance_eval(string)
-        end
+        Description.new(contents)
       end
     end
   end

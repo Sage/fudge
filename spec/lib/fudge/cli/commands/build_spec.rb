@@ -8,7 +8,7 @@ describe Fudge::Cli::Commands::Build do
   describe :run do
     before :each do
       File.open('Fudgefile', 'w') do |f|
-        f.write("build :default do\n\ttask :dummy\nend")
+        f.write("build :default do |b|\n\tb.task :dummy\nend")
       end
     end
 

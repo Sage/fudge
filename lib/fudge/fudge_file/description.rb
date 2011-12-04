@@ -8,15 +8,14 @@ module Fudge
       attr_reader :builds
 
       # Sets builds to an initial empty array
-      def initialize
+      def initialize(fudge_file_contents)
         @builds = {}
+        eval(fudge_file_contents)
       end
 
       # Adds a build to the current description
       def build(name, &block)
-        @builds[name] = Build.new.tap do |b|
-          b.instance_eval(&block)
-        end
+        @builds[name] = Build.new(&block)
       end
     end
   end

@@ -2,7 +2,6 @@ require 'fudge/cli/commands'
 require 'fudge/exceptions/cli/command_not_given'
 require 'fudge/exceptions/cli/command_not_found'
 
-
 module Fudge
   module Cli
     # Parsed command line arguments and runs the specific command
@@ -11,8 +10,9 @@ module Fudge
       def run(*args)
         usage_and_raise Fudge::Exceptions::Cli::CommandNotGiven if args.empty?
 
-        command = find_command(args.first)
-        usage_and_raise Fudge::Exceptions::Cli::CommandNotFound unless command
+        command_name = args.first
+        command = find_command(command_name)
+        usage_and_raise Fudge::Exceptions::Cli::CommandNotFound.new(command_name) unless command
 
         command.new.run
       end

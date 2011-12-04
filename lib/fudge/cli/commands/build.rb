@@ -1,4 +1,5 @@
 require 'fudge/fudge_file/parser'
+require 'fudge/fudge_file/runner'
 
 module Fudge
   module Cli

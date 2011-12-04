@@ -2,7 +2,7 @@ require 'spec_helper'
 
 class TestTask;  end
 
-describe Fudge::FudgeFile::Tasks do
+describe Fudge::FudgeFile::TaskRegistry do
   describe "Class Methods" do
     subject { described_class }
 
