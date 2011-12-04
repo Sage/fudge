@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'fudge/cli/commands/init'
 
 describe Fudge::Cli::Commands::Init do
   use_tmp_dir

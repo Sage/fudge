@@ -1,4 +1,3 @@
-require 'fudge/fudge_file/task_registry'
 require 'fudge/fudge_file/tasks/composite_task'
 
 module Fudge
@@ -6,6 +5,10 @@ module Fudge
     module Tasks
       # A task which runs a number of other tasks in a given directory (relative to the current directory)
       class InDirectory < CompositeTask
+        def self.name
+          :in_directory
+        end
+
         def initialize(directory)
           super()
           @directory = directory
@@ -17,8 +20,8 @@ module Fudge
           end
         end
       end
-    end
 
-    TaskRegistry.register(:in_directory, Tasks::InDirectory)
+      TaskRegistry.register(InDirectory)
+    end
   end
 end

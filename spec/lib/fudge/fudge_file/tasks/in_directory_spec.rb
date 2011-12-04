@@ -1,13 +1,16 @@
 require 'spec_helper'
-require 'fudge/fudge_file/task_registry'
 
 class TestInDirectoryTask
   attr_accessor :pwd
+  def self.name
+    :test_in_directory
+  end
+
   def run
     self.pwd = FileUtils.pwd
   end
 end
-Fudge::FudgeFile::TaskRegistry.register(:test_in_directory, TestInDirectoryTask)
+Fudge::FudgeFile::TaskRegistry.register(TestInDirectoryTask)
 
 describe Fudge::FudgeFile::Tasks::InDirectory do
   subject { described_class.new 'spec' }

@@ -1,4 +1,3 @@
-require 'fudge/cli/commands'
 require 'fudge/exceptions/cli/command_not_given'
 require 'fudge/exceptions/cli/command_not_found'
 
@@ -11,7 +10,7 @@ module Fudge
         usage_and_raise Fudge::Exceptions::Cli::CommandNotGiven if args.empty?
 
         command_name = args.first
-        command = find_command(command_name)
+        command = find_command(command_name.to_sym)
         usage_and_raise Fudge::Exceptions::Cli::CommandNotFound.new(command_name) unless command
 
         command.new.run

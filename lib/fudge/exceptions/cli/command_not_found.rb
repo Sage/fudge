@@ -1,9 +1,11 @@
+require 'fudge/exceptions/base'
+
 module Fudge
   module Exceptions
     module Cli
       # An exception to show that the command was not found on the command line
       #
-      class CommandNotFound < StandardError
+      class CommandNotFound < Fudge::Exceptions::Base
         def initialize(command)
           @command = command
         end

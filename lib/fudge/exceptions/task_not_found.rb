@@ -1,8 +1,10 @@
+require 'fudge/exceptions/base'
+
 module Fudge
   module Exceptions
     # An exception to show that a task was not found
     #
-    class TaskNotFound < StandardError
+    class TaskNotFound < Base
       def initialize(task)
         @task = task
       end

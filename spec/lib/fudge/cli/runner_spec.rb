@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'fudge/cli/runner'
-require 'fudge/exceptions/cli/command_not_found'
 
 describe Fudge::Cli::Runner do
   describe :run do

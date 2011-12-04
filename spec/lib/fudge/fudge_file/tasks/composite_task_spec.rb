@@ -1,14 +1,16 @@
 require 'spec_helper'
-require 'fudge/fudge_file/build'
-require 'fudge/fudge_file/tasks/composite_task'
 
 class DummyTask2 < DummyTask
   attr_accessor :args
+
+  def self.name
+    :dummy2
+  end
   def initialize(*args)
     self.args = args
   end
 end
-Fudge::FudgeFile::TaskRegistry.register(:dummy2, DummyTask2)
+Fudge::FudgeFile::TaskRegistry.register(DummyTask2)
 
 describe Fudge::FudgeFile::Tasks::CompositeTask do
   subject { described_class.new do; end }

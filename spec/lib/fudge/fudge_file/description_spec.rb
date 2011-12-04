@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'fudge/fudge_file/description'
 
 describe Fudge::FudgeFile::Description do
   subject { described_class.new '' }

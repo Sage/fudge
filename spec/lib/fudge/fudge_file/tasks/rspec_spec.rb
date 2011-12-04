@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'fudge/fudge_file/task_registry'
 
 describe Fudge::FudgeFile::Tasks::Rspec do
   it { should be_registered_as :rspec }

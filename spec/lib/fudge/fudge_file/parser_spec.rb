@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'fudge/fudge_file/parser'
 
 describe Fudge::FudgeFile::Parser do
   before(:all) { FakeFS.activate! }

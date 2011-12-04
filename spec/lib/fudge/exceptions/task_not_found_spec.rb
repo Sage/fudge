@@ -1,10 +1,9 @@
 require 'spec_helper'
-require 'fudge/exceptions/task_not_found'
 
 describe Fudge::Exceptions::TaskNotFound do
   subject { described_class.new :foo }
 
-  it { should be_a StandardError }
+  it { should be_a Fudge::Exceptions::Base }
 
   it "should take a task name as a parameter" do
     expect { described_class.new }.to raise_error ArgumentError

@@ -1,6 +1,10 @@
 require 'spec_helper'
 
-class TestTask;  end
+class TestTask
+  def self.name
+    :foo
+  end
+end
 
 describe Fudge::FudgeFile::TaskRegistry do
   describe "Class Methods" do
@@ -8,7 +12,7 @@ describe Fudge::FudgeFile::TaskRegistry do
 
     describe :register do
       it "should register a task for a given symbol" do
-        subject.register(:foo, TestTask)
+        subject.register(TestTask)
 
         subject.discover(:foo).should == TestTask
       end
@@ -16,9 +20,9 @@ describe Fudge::FudgeFile::TaskRegistry do
 
     describe :discover do
       it "should return the registered class for the given symbol" do
-        subject.register(:bar, TestTask)
+        subject.register(TestTask)
 
-        subject.discover(:bar).should == TestTask
+        subject.discover(:foo).should == TestTask
       end
 
       it "should raise an exception if the task is not found" do

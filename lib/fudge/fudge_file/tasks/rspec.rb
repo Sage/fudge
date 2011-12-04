@@ -1,10 +1,12 @@
-require 'fudge/fudge_file/task_registry'
-
 module Fudge
   module FudgeFile
     module Tasks
       class Rspec
         DEFAULT_OPTIONS = { :path => 'spec/' }
+
+        def self.name
+          :rspec
+        end
 
         def initialize(options={})
           @options = DEFAULT_OPTIONS.merge(options)
@@ -14,8 +16,8 @@ module Fudge
           system("rspec #{@options[:path]}")
         end
       end
-    end
 
-    TaskRegistry.register(:rspec, Tasks::Rspec)
+      TaskRegistry.register(Tasks::Rspec)
+    end
   end
 end

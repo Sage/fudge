@@ -1,5 +1,3 @@
-require 'fudge/fudge_file/build'
-
 module Fudge
   module FudgeFile
     # A class that represents a FudgeFile definition in Ruby class form.

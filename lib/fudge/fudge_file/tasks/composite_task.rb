@@ -1,5 +1,3 @@
-require 'fudge/fudge_file/task_registry'
-
 module Fudge
   module FudgeFile
     module Tasks
@@ -20,6 +18,8 @@ module Fudge
         # Runs the task (by default running all other tasks in order)
         def run
           @tasks.each do |t|
+            puts "Running task ".foreground(:blue) + t.class.name.to_s.foreground(:blue).bright + "...".foreground(:blue)
+
             return unless t.run
           end
         end

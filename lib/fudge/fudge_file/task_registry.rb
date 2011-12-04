@@ -1,6 +1,3 @@
-require 'thor/actions'
-require 'fudge/exceptions/task_not_found'
-
 module Fudge
   module FudgeFile
     # A class representing a task to run
@@ -9,8 +6,8 @@ module Fudge
       # Class methods
       class << self
         # Registers a task under a given name
-        def register(name, task_class)
-          registered_tasks[name] = task_class
+        def register(task_class)
+          registered_tasks[task_class.name] = task_class
         end
 
         # Finds a task with a given name
@@ -28,5 +25,3 @@ module Fudge
     end
   end
 end
-
-require 'fudge/fudge_file/tasks'

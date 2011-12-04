@@ -1,5 +1,3 @@
-require 'fudge/fudge_file/description'
-
 module Fudge
   module FudgeFile
     # Handles parsing of fudge file and building the necessary description

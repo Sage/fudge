@@ -1,10 +1,9 @@
 require 'spec_helper'
-require 'fudge/exceptions/cli/command_not_found'
 
 describe Fudge::Exceptions::Cli::CommandNotFound do
   subject { described_class.new :foo }
 
-  it { should be_a StandardError }
+  it { should be_a Fudge::Exceptions::Base }
 
   it "should take a command name as a parameter" do
     expect { described_class.new }.to raise_error ArgumentError

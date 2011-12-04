@@ -11,8 +11,11 @@ module Fudge
         end
 
         def run
-          unless File.exists?(File.expand_path('Fudgefile', Dir.pwd))
+          if File.exists?(File.expand_path('Fudgefile', Dir.pwd))
+            puts "Fudgefile already exists."
+          else
             FileUtils.cp(File.expand_path('../../templates/Fudgefile', __FILE__), Dir.pwd)
+            puts "Fudgefile created."
           end
         end
       end
