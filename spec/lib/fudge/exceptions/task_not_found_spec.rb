@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'fudge/fudge_file/exceptions/task_not_found'
+require 'fudge/exceptions/task_not_found'
 
-describe Fudge::FudgeFile::Exceptions::TaskNotFound do
+describe Fudge::Exceptions::TaskNotFound do
   subject { described_class.new :foo }
 
   it { should be_a StandardError }

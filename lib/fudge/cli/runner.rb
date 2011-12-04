@@ -1,4 +1,7 @@
 require 'fudge/cli/commands'
+require 'fudge/exceptions/cli/command_not_given'
+require 'fudge/exceptions/cli/command_not_found'
+
 
 module Fudge
   module Cli
@@ -6,10 +9,10 @@ module Fudge
     class Runner
       # Runs a given command
       def run(*args)
-        return usage if args.empty?
+        usage_and_raise Fudge::Exceptions::Cli::CommandNotGiven if args.empty?
 
         command = find_command(args.first)
-        return usage_and_die! unless command
+        usage_and_raise Fudge::Exceptions::Cli::CommandNotFound unless command
 
         command.new.run
       end
@@ -31,15 +34,10 @@ TEXT
       end
 
       private
-      # Exits with a non-zero exit status
-      def die!
-        exit(1)
-      end
-
-      # Prints usage and dies
-      def usage_and_die!
+      # Prints usage and raises given exception
+      def usage_and_raise(exception)
         usage
-        die!
+        raise exception
       end
 
       # All defined command classes

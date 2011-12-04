@@ -1,5 +1,5 @@
 require 'thor/actions'
-require 'fudge/fudge_file/exceptions/task_not_found'
+require 'fudge/exceptions/task_not_found'
 
 module Fudge
   module FudgeFile
@@ -16,7 +16,7 @@ module Fudge
         # Finds a task with a given name
         def discover(name)
           task = registered_tasks[name]
-          raise Exceptions::TaskNotFound.new(name) unless task
+          raise Fudge::Exceptions::TaskNotFound.new(name) unless task
           task
         end
 

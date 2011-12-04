@@ -22,7 +22,7 @@ describe Fudge::FudgeFile::Tasks do
       end
 
       it "should raise an exception if the task is not found" do
-        expect { subject.discover(:something) }.to raise_error Fudge::FudgeFile::Exceptions::TaskNotFound
+        expect { subject.discover(:something) }.to raise_error Fudge::Exceptions::TaskNotFound
       end
     end
   end

@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'fudge/cli/runner'
+require 'fudge/exceptions/cli/command_not_found'
 
 describe Fudge::Cli::Runner do
   describe :run do
@@ -9,19 +10,16 @@ describe Fudge::Cli::Runner do
       subject.run(:init)
     end
 
-    it "should print usage and die if no task is found" do
+    it "should print usage raise an exception if no command is found" do
       subject.should_receive(:usage)
-      subject.should_receive(:exit) do |code|
-        code.should_not == 0
-      end
 
-      subject.run(:blabla)
+      expect { subject.run(:blabla) }.to raise_error Fudge::Exceptions::Cli::CommandNotFound
     end
 
-    it "should print usage if no command given" do
+    it "should print usage and raise exception if no command given" do
       subject.should_receive(:usage)
 
-      subject.run
+      expect { subject.run }.to raise_error Fudge::Exceptions::Cli::CommandNotGiven
     end
   end
 
