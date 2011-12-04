@@ -11,8 +11,8 @@ module Fudge
         end
 
         # Adds a task to this task as a child
-        def task(task_type, *args)
-          @tasks << Fudge::FudgeFile::TaskRegistry.discover(task_type).new(*args)
+        def task(task_type, *args, &block)
+          @tasks << Fudge::FudgeFile::TaskRegistry.discover(task_type).new(*args, &block)
         end
 
         # Runs the task (by default running all other tasks in order)

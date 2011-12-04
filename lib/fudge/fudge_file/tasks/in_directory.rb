@@ -15,7 +15,7 @@ module Fudge
         end
 
         def run
-          FileUtils.chdir @directory do
+          Dir.chdir @directory do
             super
           end
         end
