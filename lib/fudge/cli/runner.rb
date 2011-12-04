@@ -27,7 +27,7 @@ Tasks:
 TEXT
 
         commands.each do |klass|
-          usage << "\t#{klass.command}\t#{klass.description}"
+          usage << "\t#{klass.command}\t#{klass.description}\n"
         end
 
         puts usage

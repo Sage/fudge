@@ -1,2 +1,7 @@
 require 'fudge/cli/runner'
-Fudge::Cli::Runner.new.run(*ARGV) rescue exit(1)
+begin
+  Fudge::Cli::Runner.new.run(*ARGV)
+rescue Exception => e
+  puts e
+  exit(1)
+end
