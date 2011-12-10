@@ -1,23 +1,24 @@
 module Fudge
   module FudgeFile
     module Tasks
-      class Rspec
-        DEFAULT_OPTIONS = { :path => 'spec/' }
-
+      class Yard
         def self.name
-          :rspec
+          :yard
         end
 
         def initialize(options={})
-          @options = DEFAULT_OPTIONS.merge(options)
+          @options = options
         end
 
         def run
-          output = `rspec #{path}`
+          cmd = "yard"
+          cmd << " #{arguments}" if arguments
+
+          output = `#{cmd}`
           return false unless $?.success?
 
           if coverage
-            return false unless Fudge::FudgeFile::Utils::CoverageChecker.new.check(output, '\) covered', coverage)
+            return false unless Fudge::FudgeFile::Utils::CoverageChecker.new.check(output, ' documented', coverage)
           end
 
           true
@@ -28,12 +29,11 @@ module Fudge
           @options[:coverage]
         end
 
-        def path
-          @options[:path]
+        def arguments
+          @options[:arguments]
         end
       end
-
-      TaskRegistry.register(Tasks::Rspec)
+      TaskRegistry.register(Yard)
     end
   end
 end

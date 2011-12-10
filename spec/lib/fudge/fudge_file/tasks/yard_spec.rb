@@ -1,27 +1,30 @@
 require 'spec_helper'
 
-describe Fudge::FudgeFile::Tasks::Rspec do
-  it { should be_registered_as :rspec }
+describe Fudge::FudgeFile::Tasks::Yard do
+  subject { described_class.new }
+
+  it { should be_registered_as :yard }
 
   describe :run do
-    it "should run rspec with the path of spec/ by default" do
-      subject.should_receive('`').with('rspec spec/')
+    it "should run yard" do
+      subject.should_receive('`').with('yard')
 
       subject.run
     end
 
-    it "should allow configuring of the directory to run specs for" do
-      subject = described_class.new(:path => 'foo/ bar/')
-      subject.should_receive('`').with('rspec foo/ bar/')
+    it "should accept extra arguments as arguments" do
+      subject = described_class.new :arguments => '-r YardREADME.md'
+
+      subject.should_receive('`').with('yard -r YardREADME.md')
 
       subject.run
     end
 
     describe "coverage checking" do
-      it "should succeed if coverage is greater than specified" do
+      it "should succeed if coverage is greater than given" do
         subject = described_class.new(:coverage => 90)
 
-        subject.should_receive('`').and_return('100.0%) covered')
+        subject.should_receive('`').and_return('100.00% documented')
 
         subject.run.should be_true
       end
@@ -29,7 +32,7 @@ describe Fudge::FudgeFile::Tasks::Rspec do
       it "should fail if coverage is less than given" do
         subject = described_class.new(:coverage => 90)
 
-        subject.should_receive('`').and_return('80.4%) covered')
+        subject.should_receive('`').and_return('80.45% documented')
 
         subject.run.should be_false
       end
@@ -37,7 +40,7 @@ describe Fudge::FudgeFile::Tasks::Rspec do
       it "should pass if coverage is the same as given" do
         subject = described_class.new(:coverage => 100)
 
-        subject.should_receive('`').and_return('100.0%) covered')
+        subject.should_receive('`').and_return('100.00% documented')
 
         subject.run.should be_true
       end

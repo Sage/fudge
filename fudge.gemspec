@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "fudge"
 
-  s.files         = Dir['lib/**/*.rb']
+  s.files         = Dir['lib/**/*']
   s.test_files    = Dir['spec/**/*.rb']
   s.executables   = %w{fudge}
   s.require_paths = %w{lib}
