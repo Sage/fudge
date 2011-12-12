@@ -9,19 +9,27 @@ module Fudge
           :each_directory
         end
 
-        def initialize(pattern)
+        def initialize(pattern, options={})
           super()
           @pattern = pattern
+          @options= options
         end
 
         def run
           Dir[@pattern].select { |path| File.directory? path }.each do |dir|
+            next if exclude.include?(dir)
+
             Dir.chdir dir do
               puts "In directory #{dir}:"
               return false unless super
             end
           end
         end
+      end
+
+      private
+      def exclude
+        @options[:exclude] || []
       end
 
       TaskRegistry.register(EachDirectory)
