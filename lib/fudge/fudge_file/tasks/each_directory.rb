@@ -25,11 +25,11 @@ module Fudge
             end
           end
         end
-      end
 
-      private
-      def exclude
-        @options[:exclude] || []
+        private
+        def exclude
+          @options[:exclude] || []
+        end
       end
 
       TaskRegistry.register(EachDirectory)
