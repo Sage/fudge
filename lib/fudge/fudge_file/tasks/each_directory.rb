@@ -17,7 +17,8 @@ module Fudge
         def run
           Dir[@pattern].select { |path| File.directory? path }.each do |dir|
             Dir.chdir dir do
-              super
+              puts "In directory #{dir}:"
+              return false unless super
             end
           end
         end

@@ -7,7 +7,7 @@ describe Fudge::FudgeFile::Tasks::Rake do
 
   describe :run do
     it "should run rake with the given args" do
-      subject.should_receive(:system).with('rake db:migrate')
+      Fudge::FudgeFile::Utils::CommandRunner.any_instance.should_receive(:run).with('rake db:migrate')
 
       subject.run
     end

@@ -14,7 +14,9 @@ module Fudge
           cmd = "yard"
           cmd << " #{arguments}" if arguments
 
-          output = `#{cmd}`
+          output = Fudge::FudgeFile::Utils::CommandRunner.new.run(
+            cmd
+          )
           return false unless $?.success?
 
           if coverage

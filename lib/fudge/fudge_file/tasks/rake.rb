@@ -11,7 +11,10 @@ module Fudge
         end
 
         def run
-          system("rake #{@cmd}")
+          Fudge::FudgeFile::Utils::CommandRunner.new.run(
+            "rake #{@cmd}"
+          )
+          return $?.success?
         end
       end
       TaskRegistry.register(Rake)

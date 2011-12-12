@@ -13,7 +13,9 @@ module Fudge
         end
 
         def run
-          output = `rspec #{path}`
+          output = Fudge::FudgeFile::Utils::CommandRunner.new.run(
+            "rspec #{path}"
+          )
           return false unless $?.success?
 
           if coverage
