@@ -1,6 +1,3 @@
-require 'fudge/exceptions/cli/command_not_given'
-require 'fudge/exceptions/cli/command_not_found'
-
 module Fudge
   module Cli
     # Parsed command line arguments and runs the specific command

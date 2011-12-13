@@ -29,4 +29,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rb-inotify'
   s.add_development_dependency 'libnotify'
   s.add_development_dependency 'fakefs'
+  s.add_development_dependency 'simplecov'
 end
