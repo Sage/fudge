@@ -1,10 +1,8 @@
 require 'sinatra/base'
-require 'fudge/queue'
-require 'fudge/models/project'
 require 'haml'
 
 module Fudge
-  module Application
+  module Server
     class Application < Sinatra::Base
       set :root, File.dirname(__FILE__)
 

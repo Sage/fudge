@@ -1,4 +1,8 @@
-# Requires all the Cli Commands defined
-Dir[File.expand_path('../commands/*', __FILE__)].each do |f|
-  require f
+module Fudge
+  module Cli
+    module Commands
+      autoload :Init, 'fudge/cli/commands/init'
+      autoload :Build, 'fudge/cli/commands/build'
+    end
+  end
 end

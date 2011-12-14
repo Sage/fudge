@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'fudge/models/build'
 
 describe Fudge::Models::Build do
   before(:all) { FakeFS.activate! }

@@ -1,2 +1,6 @@
-require 'fudge/cli/commands'
-require 'fudge/cli/runner'
+module Fudge
+  module Cli
+    autoload :Runner, 'fudge/cli/runner'
+    autoload :Commands, 'fudge/cli/commands'
+  end
+end

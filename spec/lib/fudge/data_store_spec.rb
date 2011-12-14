@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'fudge/data_store'
 
 describe Fudge::DataStore do
   describe :all do

@@ -1,19 +1,18 @@
 require 'spec_helper'
 require 'rack/test'
 require 'ostruct'
-require 'fudge/application/application'
 
-describe Fudge::Application::Application do
+describe Fudge::Server::Application do
   include Rack::Test::Methods
 
   before :each do
     Fudge::Queue.stub(:new).and_return(mock(Object, :start! => nil, :<< => nil))
   end
 
-  let(:app) { Fudge::Application::Application }
+  let(:app) { described_class }
 
   it "should be a Sinatra::Base" do
-    Fudge::Application::Application.ancestors.should include Sinatra::Base
+    described_class.ancestors.should include Sinatra::Base
   end
 
   describe :homepage do

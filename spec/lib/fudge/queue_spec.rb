@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'fudge/queue'
 
 describe Fudge::Queue do
   describe :<< do

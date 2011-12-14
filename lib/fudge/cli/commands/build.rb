@@ -1,5 +1,3 @@
-require 'fudge/fudge_file'
-
 module Fudge
   module Cli
     module Commands

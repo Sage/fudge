@@ -1,5 +1,6 @@
-require 'fudge/exceptions/base'
-require 'fudge/exceptions/task_not_found'
-require 'fudge/exceptions/build_failed'
-require 'fudge/exceptions/cli/command_not_given'
-require 'fudge/exceptions/cli/command_not_found'
+module Fudge
+  module Exceptions
+    autoload :Cli, 'fudge/exceptions/cli'
+    autoload :Build, 'fudge/exceptions/build'
+  end
+end

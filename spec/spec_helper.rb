@@ -5,8 +5,6 @@ end
 
 require 'rspec'
 require 'fudge'
-require 'fudge/fudge_file'
-require 'fudge/cli'
 require 'haml'
 require 'fakefs/safe'
 
