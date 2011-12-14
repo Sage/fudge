@@ -1,2 +1,3 @@
-build :default do
+build :default do |b|
+  b.task :rspec
 end
