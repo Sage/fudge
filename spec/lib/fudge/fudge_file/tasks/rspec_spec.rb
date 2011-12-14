@@ -5,17 +5,25 @@ describe Fudge::FudgeFile::Tasks::Rspec do
 
   describe :run do
     it "should run rspec with the path of spec/ by default" do
-      Fudge::FudgeFile::Utils::CommandRunner.any_instance.should_receive(:run).with('rspec spec/')
+      Fudge::FudgeFile::Utils::CommandRunner.any_instance.should_receive(:run).with('rspec --tty spec/')
 
       subject.run
     end
 
     it "should allow configuring of the directory to run specs for" do
       subject = described_class.new(:path => 'foo/ bar/')
-      Fudge::FudgeFile::Utils::CommandRunner.any_instance.should_receive(:run).with('rspec foo/ bar/')
+      Fudge::FudgeFile::Utils::CommandRunner.any_instance.should_receive(:run).with('rspec --tty foo/ bar/')
 
       subject.run
     end
+
+    it "should allow turning color off" do
+      subject = described_class.new(:color => false)
+      Fudge::FudgeFile::Utils::CommandRunner.any_instance.should_receive(:run).with('rspec spec/')
+
+      subject.run
+    end
+
 
     describe "coverage checking" do
       it "should succeed if coverage is greater than specified" do

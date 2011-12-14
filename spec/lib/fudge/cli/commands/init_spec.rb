@@ -17,7 +17,7 @@ describe Fudge::Cli::Commands::Init do
       subject.run
 
       File.open('Fudgefile', 'r') do |f|
-        f.read.should include "build :default do\nend"
+        f.read.should include "build :default do |b|\n  b.task :rspec\nend"
       end
     end
 

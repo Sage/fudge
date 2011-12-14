@@ -2,7 +2,7 @@ module Fudge
   module FudgeFile
     module Tasks
       class Rspec
-        DEFAULT_OPTIONS = { :path => 'spec/' }
+        DEFAULT_OPTIONS = { :path => 'spec/', :color => true }
 
         def self.name
           :rspec
@@ -14,7 +14,7 @@ module Fudge
 
         def run
           output = Fudge::FudgeFile::Utils::CommandRunner.new.run(
-            "rspec #{path}"
+            "rspec#{' --tty' if color} #{path}"
           )
           return false unless $?.success?
 
@@ -32,6 +32,10 @@ module Fudge
 
         def path
           @options[:path]
+        end
+
+        def color
+          @options[:color]
         end
       end
 
