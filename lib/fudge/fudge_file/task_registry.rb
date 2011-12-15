@@ -13,7 +13,7 @@ module Fudge
         # Finds a task with a given name
         def discover(name)
           task = registered_tasks[name]
-          raise Fudge::Exceptions::TaskNotFound.new(name) unless task
+          raise Fudge::Exceptions::Build::TaskNotFound.new(name) unless task
           task
         end
 

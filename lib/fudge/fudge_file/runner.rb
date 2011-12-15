@@ -18,7 +18,7 @@ module Fudge
           puts "Build FAILED!".foreground(:red).bright
         end
 
-        raise Exceptions::BuildFailed unless status
+        raise Exceptions::Build::BuildFailed unless status
       end
     end
   end
