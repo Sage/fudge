@@ -12,13 +12,12 @@ module Fudge
         # Run the build
         status = @description.builds[which_build].run
 
+        # Output status
         if status
           puts "Build SUCCEEDED!".foreground(:green).bright
         else
-          puts "Build FAILED!".foreground(:red).bright
+          raise Exceptions::Build::BuildFailed
         end
-
-        raise Exceptions::Build::BuildFailed unless status
       end
     end
   end

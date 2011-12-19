@@ -3,5 +3,6 @@ require 'fudge/cli'
 begin
   Fudge::Cli::Runner.new.run(*ARGV)
 rescue Fudge::Exceptions::Base => e
+  puts e.message
   exit(1)
 end

@@ -1,5 +1,3 @@
-require 'fudge/fudge_file/tasks/composite_task'
-
 module Fudge
   module FudgeFile
     module Tasks

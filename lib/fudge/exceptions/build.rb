@@ -2,8 +2,8 @@ module Fudge
   module Exceptions
     module Build
       class BuildFailed < Fudge::Exceptions::Base
-        def to_s
-          "Build failed"
+        def message
+          "Build FAILED!".foreground(:red).bright
         end
       end
 
@@ -12,7 +12,7 @@ module Fudge
           @task = task
         end
 
-        def to_s
+        def message
           "No task found with name '#{@task}'"
         end
       end
