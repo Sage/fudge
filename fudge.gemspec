@@ -23,6 +23,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'haml'
   s.add_dependency 'thor'
   s.add_dependency 'rainbow'
+  s.add_dependency 'activerecord'
+  s.add_dependency 'sqlite3'
   s.add_development_dependency 'rack-test'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'guard-rspec'

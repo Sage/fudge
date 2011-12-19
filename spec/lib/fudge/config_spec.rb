@@ -36,4 +36,15 @@ describe Fudge::Config do
       File.directory?('foo').should be_true
     end
   end
+
+  describe :database do
+    it "should default to a sqlite3 file in the root directory" do
+      Fudge::Config.root_directory = '/foo'
+
+      Fudge::Config.database.should == {
+          :adapter => "sqlite3",
+          :database => '/foo/fudge.sqlite3'
+      }
+    end
+  end
 end

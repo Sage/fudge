@@ -1,8 +1,6 @@
-require 'yaml'
-
 module Fudge
   module Models
-    class Project
+    class Project < ActiveRecord::Base
       attr_accessor :name, :path, :origin, :diff
 
       def initialize(name, origin)
