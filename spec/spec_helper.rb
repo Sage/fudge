@@ -13,7 +13,7 @@ Fudge::Config.database = {
   :adapter => 'sqlite3',
   :database => ':memory:'
 }
-Fudge::Models.connect!
+require 'fudge/models'
 require 'fudge/schema'
 require 'shoulda-matchers'
 

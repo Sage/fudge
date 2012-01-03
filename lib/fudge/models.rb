@@ -6,8 +6,8 @@ module Fudge
     autoload :Branch, 'fudge/models/branch'
     autoload :Project, 'fudge/models/project'
 
-    def self.connect!
-      ActiveRecord::Base.establish_connection Fudge::Config.database
+    unless ActiveRecord::Base.connected?
+      ActiveRecord::Base.establish_connection(Fudge::Config.database)
     end
   end
 end
