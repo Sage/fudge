@@ -1,20 +1,32 @@
 require 'spec_helper'
 
-describe Fudge::Cli::Commands::Init do
+describe Fudge::Cli do
   use_tmp_dir
-  it_should_behave_like "a cli command"
 
-  describe :run do
+  describe :build do
+    before :each do
+      File.open('Fudgefile', 'w') do |f|
+        f.write("build :default do |b|\n\tb.task :dummy\nend")
+      end
+    end
+
+    it "run the default build" do
+      subject.build
+      DummyTask.ran.should be_true
+    end
+  end
+
+  describe :init do
     it "should create a new FudgeFile in the current directory" do
       File.should_not be_exists('Fudgefile')
 
-      subject.run
+      subject.init
 
       File.should be_exists('Fudgefile')
     end
 
     it "should contain a default build" do
-      subject.run
+      subject.init
 
       File.open('Fudgefile', 'r') do |f|
         f.read.should include "build :default do |b|\n  b.task :rspec\nend"
@@ -26,7 +38,7 @@ describe Fudge::Cli::Commands::Init do
         f.write('foo')
       end
 
-      subject.run
+      subject.init
 
       File.open('Fudgefile') { |f| f.read }.should == 'foo'
     end
