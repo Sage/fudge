@@ -5,6 +5,7 @@ describe Fudge::Config do
 
   describe :root_directory do
     it "should default to the current user's home directory with .fudge added" do
+      Fudge::Config.instance_variable_set(:@root_directory, nil)
       Fudge::Config.root_directory.should == File.expand_path('~/.fudge')
     end
 
