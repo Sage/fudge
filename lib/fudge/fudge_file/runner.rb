@@ -16,7 +16,7 @@ module Fudge
         if status
           puts "Build SUCCEEDED!".foreground(:green).bright
         else
-          raise Exceptions::Build::BuildFailed
+          raise Exceptions::BuildFailed
         end
       end
     end

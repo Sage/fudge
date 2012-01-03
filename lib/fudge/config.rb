@@ -10,6 +10,13 @@ module Fudge
       def ensure_root_directory!
         FileUtils.mkdir_p(root_directory)
       end
+
+      def database
+        {
+          :adapter => "sqlite3",
+          :database => "#{root_directory}/fudge.sqlite3"
+        }
+      end
     end
     self.root_directory = File.expand_path('~/.fudge')
   end

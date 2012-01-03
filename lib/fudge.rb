@@ -7,7 +7,6 @@ module Fudge
   autoload :Models, 'fudge/models'
   autoload :Server, 'fudge/server'
   autoload :Exceptions, 'fudge/exceptions'
-  autoload :DataStore, 'fudge/data_store'
   autoload :Cli, 'fudge/cli'
   autoload :Config, 'fudge/config'
 end

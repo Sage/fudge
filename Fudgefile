@@ -1,5 +1,3 @@
 build :default do |b|
-  b.task :in_directory, '.' do |t|
-    t.task :rspec
-  end
+  b.task :rspec
 end
