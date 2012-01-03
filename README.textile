@@ -18,9 +18,8 @@ h2. Installation
 
 Add to your project's Gemfile:
 
-<ruby>
-  gem 'fudge', :git => 'git@github.com:Sage/fudge.git'
-</ruby>
+bc.
+gem 'fudge', :git => 'git@github.com:Sage/fudge.git'
 
 Run in your project root:
 
@@ -32,32 +31,28 @@ h2. Usage
 
 To create a blank Fudgefile, run in your project root:
 
-<shell>
-  bundle exec fudge init
-</shell>
+bc.
+bundle exec fudge init
 
 To run the default build:
 
-<shell>
-  bundle exec fudge build
-</shell>
+bc.
+bundle exec fudge build
 
 h2. Fudgefile syntax
 
 To define a build with a given name:
 
-<ruby>
-  build :some_name do |b|
-  end
-</ruby>
+bc.
+build :some_name do |b|
+end
 
 To define some tasks on that build:
 
-<ruby>
-  build :some_name do |b|
-    b.task :rspec
-  end
-</ruby>
+bc.
+build :some_name do |b|
+  b.task :rspec
+end
 
 Any options passed to the task method will be passed to the task's initializer.
 
@@ -65,13 +60,12 @@ h3. Composite Tasks
 
 Some tasks are composite tasks, and can have tasks added to themselves, for example the each_directory task:
 
-<ruby>
-  build :some_name do |b|
-    b.task :each_directory, '*' do |t|
-      t.task :rspec
-    end
+bc.
+build :some_name do |b|
+  b.task :each_directory, '*' do |t|
+    t.task :rspec
   end
-</ruby>
+end
 
 h2. Defining tasks
 
@@ -82,32 +76,29 @@ A task is a class that responds to two methods:
 
 For example, here is a simple task which will print some output and always pass:
 
-<ruby>
-  class LoudTask
-    def self.name
-      :loud
-    end
-
-    def run
-      puts "I WAS RUN"
-      true
-    end
+bc..
+class LoudTask
+  def self.name
+    :loud
   end
-</ruby>
+
+  def run
+    puts "I WAS RUN"
+    true
+  end
+end
 
 h3. Registering your task
 
 To make your task available to Fudge, you simply register it in the @TaskRegistry@:
 
-<ruby>
-  require 'fudge'
-  Fudge::FudgeFile::TaskRegistry.register(LoudTask)
-</ruby>
+bc.
+require 'fudge'
+Fudge::FudgeFile::TaskRegistry.register(LoudTask)
 
 This will make the @LoudTask@ task available in your Fudgefile's like so:
 
-<ruby>
-  build :some_name do |b|
-    b.task :loud
-  end
-</ruby>
+bc.
+build :some_name do |b|
+  b.task :loud
+end
