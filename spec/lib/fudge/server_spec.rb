@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'rack/test'
 require 'ostruct'
 
-describe Fudge::Server::Application do
+describe Fudge::Server do
   include Rack::Test::Methods
 
   before :each do
@@ -18,8 +18,8 @@ describe Fudge::Server::Application do
   describe :homepage do
     before :each do
       @projects = []
-      @projects << Fudge::Models::Project.new('foo', '')
-      @projects << Fudge::Models::Project.new('bar', '')
+      @projects << Fudge::Models::Project.new(:name => 'foo')
+      @projects << Fudge::Models::Project.new(:name => 'bar')
       Fudge::Models::Project.stub(:all).and_return(@projects)
     end
 
@@ -45,7 +45,7 @@ describe Fudge::Server::Application do
 
   describe :project_page do
     before :each do
-      @project = Fudge::Models::Project.new('foo', '')
+      @project = Fudge::Models::Project.new(:name => 'foo')
       @project.stub(:builds).and_return([
         OpenStruct.new(:status => :started, :number => 2),
         OpenStruct.new(:status => :failed, :number => 1)
@@ -69,7 +69,7 @@ describe Fudge::Server::Application do
 
   describe :build_page do
     before :each do
-      @project = Fudge::Models::Project.new('foo', '')
+      @project = Fudge::Models::Project.new(:name => 'foo')
       @build = OpenStruct.new(
         :status => 'this_is_a_status',
         :number => 1,

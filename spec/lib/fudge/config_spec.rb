@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 describe Fudge::Config do
-  before(:all) { FakeFS.activate! }
-  after(:all) { FakeFS.deactivate! }
+  use_tmp_dir
 
   describe :root_directory do
     it "should default to the current user's home directory with .fudge added" do
@@ -28,7 +27,6 @@ describe Fudge::Config do
 
   describe :ensure_root_directory! do
     it "should create the directory if it doesn't exist" do
-      FakeFS::FileSystem.clear
       Fudge::Config.root_directory = 'foo'
 
       Fudge::Config.ensure_root_directory!
@@ -41,6 +39,7 @@ describe Fudge::Config do
     it "should default to a sqlite3 file in the root directory" do
       Fudge::Config.root_directory = '/foo'
 
+      Fudge::Config.instance_variable_set(:@database, nil)
       Fudge::Config.database.should == {
           :adapter => "sqlite3",
           :database => '/foo/fudge.sqlite3'

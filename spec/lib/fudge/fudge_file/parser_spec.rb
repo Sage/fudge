@@ -1,13 +1,12 @@
 require 'spec_helper'
 
 describe Fudge::FudgeFile::Parser do
-  before(:all) { FakeFS.activate! }
-  after(:all) { FakeFS.deactivate! }
+  use_tmp_dir
 
   describe :parse do
     before :each do
-      @path = File.expand_path('FudgeFile', Fudge::Config.root_directory)
-      Fudge::Config.ensure_root_directory!
+      @path = 'FudgeFile'
+
       File.open(@path, 'w') do |f|
         f.write('@foo = :bar')
       end

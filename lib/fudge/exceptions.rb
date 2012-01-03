@@ -2,13 +2,13 @@ module Fudge
   module Exceptions
     class Base < StandardError; end
 
-    class BuildFailed < Fudge::Exceptions::Base
+    class BuildFailed < Base
       def message
         "Build FAILED!".foreground(:red).bright
       end
     end
 
-    class TaskNotFound < Fudge::Exceptions::Base
+    class TaskNotFound < Base
       def initialize(task)
         @task = task
       end
