@@ -25,11 +25,12 @@ Gem::Specification.new do |s|
   s.add_dependency 'rainbow'
   s.add_dependency 'activerecord'
   s.add_dependency 'sqlite3'
+  s.add_dependency 'thor'
   s.add_development_dependency 'rack-test'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'guard-rspec'
   s.add_development_dependency 'rb-inotify'
   s.add_development_dependency 'libnotify'
   s.add_development_dependency 'fakefs'
-  s.add_development_dependency 'simplecov'
+  # s.add_development_dependency 'simplecov'
 end

@@ -1,8 +1,9 @@
+require 'yaml'
 require 'cgi'
 
 module Fudge
   module Models
-    class Build < ActiveRecord::Base
+    class Build
       attr_accessor :project, :number, :commit, :status, :diff, :path
 
       def initialize(project, number)
