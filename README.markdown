@@ -1,73 +1,67 @@
-= Fudge - Rails/Git based CI server and build tool.
+# Fudge - Rails/Git based CI server and build tool.
 
 Fudge is a Rails/Git based CI server and build tool.
 
-h2. Features
+## Features
 
 * Defining build processs and success criteria based on a FudgeFile.
 * Abiility to run the build process through 'fudge build' command.
 
-h3. Coming Features
+### Coming Features
 
 * Ability to define different builds and run them specificly.
 * Run a CI server for a project, which picks up git changes and runs a build.
 * Automatic building of new branches in Git.
 * Specifying builds for specific branches, and build them based on the current branch.
 
-h2. Installation
+## Installation
 
 Add to your project's Gemfile:
 
-bc.
-gem 'fudge', :git => 'git@github.com:Sage/fudge.git'
+    gem 'fudge', :git => 'git@github.com:Sage/fudge.git'
 
 Run in your project root:
 
-<shell>
-  bundle install
-</shell>
+    bundle install
 
-h2. Usage
+## Usage
 
 To create a blank Fudgefile, run in your project root:
 
-bc.
-bundle exec fudge init
+
+    bundle exec fudge init
 
 To run the default build:
 
-bc.
-bundle exec fudge build
+    bundle exec fudge build
 
-h2. Fudgefile syntax
+## Fudgefile syntax
 
 To define a build with a given name:
 
-bc.
-build :some_name do |b|
-end
+
+    build :some_name do |b|
+    end
 
 To define some tasks on that build:
 
-bc.
-build :some_name do |b|
-  b.task :rspec
-end
+    build :some_name do |b|
+      b.task :rspec
+    end
 
 Any options passed to the task method will be passed to the task's initializer.
 
-h3. Composite Tasks
+### Composite Tasks
 
 Some tasks are composite tasks, and can have tasks added to themselves, for example the each_directory task:
 
-bc.
-build :some_name do |b|
-  b.task :each_directory, '*' do |t|
-    t.task :rspec
-  end
-end
+    build :some_name do |b|
+      b.task :each_directory, '*' do |t|
+        t.task :rspec
+      end
+    end
 
-h2. Defining tasks
+## Defining tasks
 
 A task is a class that responds to two methods:
 
@@ -76,29 +70,26 @@ A task is a class that responds to two methods:
 
 For example, here is a simple task which will print some output and always pass:
 
-bc..
-class LoudTask
-  def self.name
-    :loud
-  end
+    class LoudTask
+      def self.name
+        :loud
+      end
 
-  def run
-    puts "I WAS RUN"
-    true
-  end
-end
+      def run
+        puts "I WAS RUN"
+        true
+      end
+    end
 
-h3. Registering your task
+### Registering your task
 
 To make your task available to Fudge, you simply register it in the @TaskRegistry@:
 
-bc.
-require 'fudge'
-Fudge::FudgeFile::TaskRegistry.register(LoudTask)
+    require 'fudge'
+    Fudge::FudgeFile::TaskRegistry.register(LoudTask)
 
 This will make the @LoudTask@ task available in your Fudgefile's like so:
 
-bc.
-build :some_name do |b|
-  b.task :loud
-end
+    build :some_name do |b|
+      b.task :loud
+    end
