@@ -11,6 +11,6 @@ describe Fudge::Models::Build do
   it { should have_db_column(:output) }
 
   it "should auto-populate the created_at field" do
-    Fudge::Models::Build.create(:name => 'foo').created_at.date.should == Date.today
+    Fudge::Models::Build.create(:name => 'foo').created_at.to_date.should == Date.today
   end
 end
