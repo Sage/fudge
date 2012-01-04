@@ -17,10 +17,8 @@ describe Fudge::Server do
 
   describe :homepage do
     before :each do
-      @projects = []
-      @projects << Fudge::Models::Project.new(:name => 'foo')
-      @projects << Fudge::Models::Project.new(:name => 'bar')
-      Fudge::Models::Project.stub(:all).and_return(@projects)
+      Fudge::Models::Project.create(:name => 'foo')
+      Fudge::Models::Project.create(:name => 'bar')
     end
 
     it "should say Welcome to Fudge!" do
@@ -46,10 +44,8 @@ describe Fudge::Server do
   describe :project_page do
     before :each do
       @project = Fudge::Models::Project.new(:name => 'foo')
-      @project.stub(:builds).and_return([
-        OpenStruct.new(:status => :started, :number => 2),
-        OpenStruct.new(:status => :failed, :number => 1)
-      ])
+      @project.builds << Fudge::Models::Build.create(:status => :started)
+      @project.builds << Fudge::Models::Build.create(:status => :failed)
       Fudge::Models::Project.stub(:load_by_name).and_return(@project)
     end
 

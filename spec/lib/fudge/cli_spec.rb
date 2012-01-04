@@ -63,7 +63,7 @@ describe Fudge::Cli do
 
       subject.add('foo')
 
-      Fudge::Models::Project.should have(1).item
+      Fudge::Models::Project.count.should == 1
       Fudge::Models::Project.first.name.should == 'foo'
     end
   end
