@@ -3,9 +3,13 @@ module Fudge
     class Project < ActiveRecord::Base
       has_many :builds, :order => :created_at
 
-      # Hack for now to get tests to pass
+      def next_build
+        last_number = builds.maximum('number') || 0
+        builds.build(:number => last_number + 1)
+      end
+
       def status
-        :no_builds
+        builds.last ? builds.last.status : :no_builds
       end
     end
   end

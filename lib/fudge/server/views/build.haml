@@ -4,10 +4,10 @@
 %h2
   %a{:href => ''}= "Build #{@build.number}"
 %p= "Status: #{@build.status}"
-%p= "Commit: #{@build.commit.sha}"
-%p= "Author: #{@build.commit.author.email}"
-%p= "Committer: #{@build.commit.committer.email}"
+%p= "Commit: #{@build.sha}"
+%p= "Author: #{@build.author}"
+%p= "Committer: #{@buildcommitter}"
 %p Diff:
-%div#diff= @build.html_diff
+%div#diff= @build.diff
 %p Output:
 %div#output= @build.output

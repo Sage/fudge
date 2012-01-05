@@ -17,19 +17,19 @@ module Fudge
     end
 
     get '/projects/:name' do
-      @project = Fudge::Models::Project.load_by_name params[:name]
+      @project = Fudge::Models::Project.find_by_name params[:name]
       haml :project
     end
 
     post '/projects/:name' do
-      @project = Fudge::Models::Project.load_by_name params[:name]
+      @project = Fudge::Models::Project.find_by_name params[:name]
       @queue << @project.next_build
       redirect '/projects/' + params[:name]
     end
 
     get '/projects/:name/builds/:number' do
-      @project = Fudge::Models::Project.load_by_name params[:name]
-      @build = @project.builds.select {|x| x.number.to_s == params[:number]}.first
+      @project = Fudge::Models::Project.find_by_name params[:name]
+      @build = @project.builds.find_by_number(params[:number])
 
       haml :build
     end

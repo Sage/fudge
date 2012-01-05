@@ -17,8 +17,10 @@ describe Fudge::Server do
 
   describe :homepage do
     before :each do
-      Fudge::Models::Project.create(:name => 'foo')
-      Fudge::Models::Project.create(:name => 'bar')
+      @projects = [
+        Fudge::Models::Project.create(:name => 'foo'),
+        Fudge::Models::Project.create(:name => 'bar')
+      ]
     end
 
     it "should say Welcome to Fudge!" do
@@ -44,9 +46,8 @@ describe Fudge::Server do
   describe :project_page do
     before :each do
       @project = Fudge::Models::Project.new(:name => 'foo')
-      @project.builds << Fudge::Models::Build.create(:status => :started)
-      @project.builds << Fudge::Models::Build.create(:status => :failed)
-      Fudge::Models::Project.stub(:load_by_name).and_return(@project)
+      @project.builds << Fudge::Models::Build.create(:status => :started, :number => 1)
+      @project.builds << Fudge::Models::Build.create(:status => :failed, :number => 2)
     end
 
     it "should display the project name in a heading" do
@@ -65,19 +66,17 @@ describe Fudge::Server do
 
   describe :build_page do
     before :each do
-      @project = Fudge::Models::Project.new(:name => 'foo')
-      @build = OpenStruct.new(
+      @project = Fudge::Models::Project.create(:name => 'foo')
+      @build = Fudge::Models::Build.create(
         :status => 'this_is_a_status',
         :number => 1,
-        :commit => OpenStruct.new(
-          :sha => 'this_is_a_sha1', 
-          :author => OpenStruct.new(:email => 'this_is_an_author'),
-          :committer => OpenStruct.new(:email => 'this_is_a_committer')),
-        :html_diff => 'this_is_a_diff',
+        :sha => 'this_is_a_sha1',
+        :author => 'this_is_an_author',
+        :committer => 'this_is_a_committer',
+        :diff => 'this_is_a_diff',
         :output => 'this_is_output'
       )
-      @project.stub(:builds).and_return([@build])
-      Fudge::Models::Project.stub(:load_by_name).and_return(@project)
+      @project.builds << @build
     end
 
     it "should display the build information" do
