@@ -1,3 +1,9 @@
 #!/usr/bin/env ruby
 require 'fudge'
-Fudge::Cli.start
+begin
+  Fudge::Cli.start
+rescue Fudge::Exceptions::Base => e
+  puts e.message
+  exit 1
+end
+
