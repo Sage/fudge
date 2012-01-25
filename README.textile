@@ -1,0 +1,101 @@
+h1. Fudge
+
+Fudge is a CI build tool for Ruby/Rails projects.
+
+It allows you to:
+
+* Define your CI build process in a Ruby DSL.
+* Keep your build definition in your code repository and version control.
+* Define different build processes for different branches of your code.
+* Run common tasks including code coverage assertion.
+* Define custom tasks for your build process.
+
+h2. Installation
+
+Add to your project's Gemfile:
+
+    gem 'fudge', :git => 'git@github.com:Sage/fudge.git'
+
+Run in your project root:
+
+    bundle install
+
+h2. Usage
+
+To create a blank Fudgefile, run in your project root:
+
+    bundle exec fudge init
+
+To run the CI build (this is what you'd put in your CI server):
+
+    bundle exec fudge build
+
+h2. Fudgefile syntax
+
+To define a build with a given name (or for a given branch):
+
+    build :some_name do |b|
+    end
+
+To define some tasks on that build:
+
+    build :some_name do
+      task :rspec, :coverage => 100
+    end
+
+Any options passed to the task method will be passed to the task's initializer.
+
+You can also use one of these alternative syntaxes:
+
+    build :some_name do |b|
+      b.task :rspec, :coverage => 100
+    end
+
+Or:
+
+    build :some_name do |b|
+      rspec :coverage => 100
+    end
+
+h3. Composite Tasks
+
+Some tasks are composite tasks, and can have tasks added to themselves, for example the each_directory task:
+
+    build :some_name do
+      task :each_directory, '*' do
+        task :rspec
+      end
+    end
+
+h2. Defining tasks
+
+A task is a class that responds to two methods:
+
+@self.name@ => A class method that returns a symbol representing the task. This is what will be used to identify your task in the Fudgefile.
+@run@ => An instance method which carries out the contents of the task. Should return @true@ or @false@ depending on whether the task succeeded.
+
+For example, here is a simple task which will print some output and always pass:
+
+    class LoudTask
+      def self.name
+        :loud
+      end
+
+      def run
+        puts "I WAS RUN"
+        true
+      end
+    end
+
+h3. Registering your task
+
+To make your task available to Fudge, you simply register it in @Fudge::Tasks@:
+
+    require 'fudge'
+    Fudge::Tasks.register(LoudTask)
+
+This will make the @LoudTask@ task available in your Fudgefile's like so:
+
+    build :some_name do
+      task :loud
+    end
