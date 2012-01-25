@@ -21,32 +21,8 @@ RUBY
 
     desc "build", "Run a build"
     def build
-      description = Fudge::FudgeFile::Parser.new.parse('Fudgefile')
-      Fudge::FudgeFile::Runner.new(description).run_build
-    end
-
-    desc "install", "Installs the root directory and database for Fudge"
-    def install
-      if File.exists?(Fudge::Config.root_directory)
-        puts "Fudge already installed"
-      else
-        Fudge::Config.ensure_root_directory!
-        require 'fudge/models'
-        require 'fudge/schema'
-
-        puts "Installed."
-      end
-    end
-
-    desc "add NAME", "Adds a project to the Fudge server"
-    def add(name)
-      Fudge::Models::Project.create(:name => name)
-      puts "#{name} added."
-    end
-
-    desc "server", "Runs the Fudge server"
-    def server
-      Fudge::Server.run!
+      description = Fudge::Parser.new.parse('Fudgefile')
+      Fudge::Runner.new(description).run_build
     end
   end
 end

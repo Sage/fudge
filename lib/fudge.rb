@@ -1,12 +1,12 @@
-require 'git'
 require 'rainbow'
+require 'active_support/core_ext/array'
 
 module Fudge
-  autoload :Queue, 'fudge/queue'
-  autoload :FudgeFile, 'fudge/fudge_file'
-  autoload :Models, 'fudge/models'
-  autoload :Server, 'fudge/server'
-  autoload :Exceptions, 'fudge/exceptions'
+  autoload :Build, 'fudge/build'
   autoload :Cli, 'fudge/cli'
-  autoload :Config, 'fudge/config'
+  autoload :Description, 'fudge/description'
+  autoload :Exceptions, 'fudge/exceptions'
+  autoload :Parser, 'fudge/parser'
+  autoload :Runner, 'fudge/runner'
+  autoload :Tasks, 'fudge/tasks'
 end

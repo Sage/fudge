@@ -1,3 +1,4 @@
 build :default do |b|
-  b.task :rspec, :coverage => 100
+  rspec :coverage => 100
+  yard  :coverage => 100
 end

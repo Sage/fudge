@@ -1,3 +1,5 @@
+require 'tmpdir'
+
 def use_tmp_dir
   around :each do |example|
     Dir.mktmpdir do |dir|
