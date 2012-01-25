@@ -4,6 +4,9 @@ require 'haml'
 module Fudge
   class Server < Sinatra::Base
     set :root, File.expand_path('server', File.dirname(__FILE__))
+    set :server, :thin
+    set :bind, 'localhost'
+    set :port, 4000
 
     def initialize
       super
