@@ -6,11 +6,11 @@ describe Fudge::Tasks::Rspec do
 
   describe :run do
     it "should turn on color if not specified" do
-      subject.should run_command_with '--tty'
+      subject.should run_command /--tty/
     end
 
     it "should turn off color if specified" do
-      described_class.new(:color => false).should run_command_without '--tty'
+      described_class.new(:color => false).should_not run_command /--tty/
     end
 
     it "should append any arguments passed in" do
@@ -23,6 +23,12 @@ describe Fudge::Tasks::Rspec do
   end
 
   describe :coverage do
-    it { should check_for_coverage_using ') covered' }
+    subject { described_class.new :coverage => 99 }
+
+    it { should_not succeed_with_output 'some dummy output with no coverage' }
+    it { should_not succeed_with_output '98.99999%) covered' }
+    it { should_not succeed_with_output '0.00%) covered' }
+    it { should succeed_with_output '99.99999%) covered' }
+    it { should succeed_with_output '100.0%) covered' }
   end
 end

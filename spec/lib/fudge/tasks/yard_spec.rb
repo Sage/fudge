@@ -11,10 +11,13 @@ describe Fudge::Tasks::Yard do
       described_class.new('-r YardREADME.md').should run_command 'yard -r YardREADME.md'
     end
   end
+  describe :coverage do
+    subject { described_class.new :coverage => 99 }
 
-  describe :suffix do
-    it "should be the yard suffix" do
-      subject.send(:suffix).should == ' documented'
-    end
+    it { should_not succeed_with_output 'some dummy output with no coverage' }
+    it { should_not succeed_with_output '98.99999% documented' }
+    it { should_not succeed_with_output '0.00% documented' }
+    it { should succeed_with_output '99.99999% documented' }
+    it { should succeed_with_output '100.0% documented' }
   end
 end

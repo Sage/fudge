@@ -12,19 +12,24 @@ module Fudge
       end
 
       def run
-        @output = ''
-        IO.popen(cmd) do |f|
-          until f.eof?
-            bit = f.getc
-            @output << bit
-            putc bit
-          end
-        end
-
+        @output = run_command(cmd)
         $?.success?
       end
 
       private
+
+      def run_command(cmd)
+        output = ''
+        IO.popen(cmd) do |f|
+          until f.eof?
+            bit = f.getc
+            output << bit
+            putc bit
+          end
+        end
+
+        output
+      end
 
       def cmd
         arguments
