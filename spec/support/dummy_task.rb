@@ -11,7 +11,7 @@ class DummyTask
     self.class.ran = true
   end
 end
-Fudge::FudgeFile::TaskRegistry.register(DummyTask)
+Fudge::Tasks.register(DummyTask)
 
 RSpec.configure do |c|
   c.after :each do

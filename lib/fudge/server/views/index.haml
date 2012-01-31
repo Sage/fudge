@@ -1,6 +1,0 @@
-%h1 Welcome to Fudge!
-%ul#projects
-  - @projects.each do |p|
-    %li{:class => p.status}
-      %a{:href => "/projects/#{p.name}"}= p.name
-      = " (#{p.status})"

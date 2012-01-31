@@ -18,21 +18,14 @@ Gem::Specification.new do |s|
   s.executables   = %w{fudge}
   s.require_paths = %w{lib}
 
-  s.add_dependency 'git'
-  s.add_dependency 'sinatra'
-  s.add_dependency 'haml'
   s.add_dependency 'thor'
   s.add_dependency 'rainbow'
-  s.add_dependency 'activerecord'
-  s.add_dependency 'sqlite3'
-  s.add_dependency 'thor'
-  s.add_dependency 'thin'
-  s.add_development_dependency 'rack-test'
-  s.add_development_dependency 'shoulda-matchers'
+  s.add_dependency 'activesupport'
   s.add_development_dependency 'rspec', '>= 2.6'
   s.add_development_dependency 'guard-rspec'
+  s.add_development_dependency 'yard'
+  s.add_development_dependency 'simplecov'
   s.add_development_dependency 'rb-inotify'
   s.add_development_dependency 'libnotify'
   s.add_development_dependency 'pry'
-  # s.add_development_dependency 'simplecov'
 end

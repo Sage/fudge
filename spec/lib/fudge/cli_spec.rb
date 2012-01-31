@@ -43,36 +43,4 @@ describe Fudge::Cli do
       File.open('Fudgefile') { |f| f.read }.should == 'foo'
     end
   end
-
-  describe :install do
-    it "should create the root directory and add the db" do
-      Fudge::Config.root_directory = './test_root'
-      File.should_not be_exists('./test_root')
-
-      subject.install
-
-      File.should be_exists('./test_root')
-
-      lambda { Fudge::Models::Project.all }.should_not raise_error
-    end
-  end
-
-  describe :add do
-    it "should add a project to the database" do
-      Fudge::Models::Project.delete_all
-
-      subject.add('foo')
-
-      Fudge::Models::Project.count.should == 1
-      Fudge::Models::Project.first.name.should == 'foo'
-    end
-  end
-
-  describe :server do
-    it "should start the sinatra app" do
-      Fudge::Server.should_receive(:run!)
-
-      subject.server
-    end
-  end
 end
