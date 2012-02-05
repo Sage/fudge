@@ -4,13 +4,13 @@ describe Fudge::Tasks::Yard do
   subject { described_class.new }
 
   it { should be_registered_as :yard }
-  it { should be_a Fudge::Tasks::ShellWithCoverage }
 
   describe :run do
     it "should run yard with any arguments passed in" do
       described_class.new('-r YardREADME.md').should run_command 'yard -r YardREADME.md'
     end
   end
+
   describe :coverage do
     subject { described_class.new :coverage => 99 }
 

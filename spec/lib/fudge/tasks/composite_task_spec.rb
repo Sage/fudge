@@ -33,7 +33,7 @@ describe Fudge::Tasks::CompositeTask do
       subject.task :dummy
 
       subject.tasks.should have(1).item
-      subject.tasks.first.should be_a DummyTask
+      subject.tasks.first[0].should be_a DummyTask
     end
 
     it "should pass arguments to the initializer" do
@@ -41,7 +41,7 @@ describe Fudge::Tasks::CompositeTask do
 
       subject.task :dummy2, :foo, :bar
 
-      subject.tasks.first.args.should == [:foo, :bar]
+      subject.tasks.first[0].args.should == [:foo, :bar]
     end
 
     it "should forward missing methods to task" do
@@ -49,7 +49,11 @@ describe Fudge::Tasks::CompositeTask do
 
       subject.dummy2 :foo, :bar
 
-      subject.tasks.first.args.should == [:foo, :bar]
+      subject.tasks.first[0].args.should == [:foo, :bar]
+    end
+
+    it "should super method_missing if no task found" do
+      expect { subject.non_existeng_task :foo, :bar }.to raise_error(NoMethodError)
     end
   end
 

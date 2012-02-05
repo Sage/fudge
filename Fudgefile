@@ -1,4 +1,16 @@
-build :default do |b|
+task_group :spec do
   rspec :coverage => 100
-  yard  :coverage => 100
+end
+
+task_group :docs do
+  yard :coverage => 100
+end
+
+build :default do
+  task_group :spec
+  task_group :docs
+end
+
+build :nodoc do
+  task_group :spec
 end

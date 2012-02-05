@@ -1,7 +1,7 @@
 module Fudge
   module Tasks
-    class Rspec < ShellWithCoverage
-      attr_accessor :color
+    class Rspec < Shell
+      attr_accessor :color, :coverage
 
       def self.name
         :rspec
@@ -13,8 +13,12 @@ module Fudge
         "rspec#{' --tty' unless color == false} #{arguments}"
       end
 
-      def suffix
-        '\) covered'
+      def check_for
+        if coverage
+          [/(\d+\.\d+)%\) covered/, lambda { |matches| matches[1].to_f >= coverage ? true : 'Insufficient Coverage.' }]
+        else
+          super
+        end
       end
     end
 
