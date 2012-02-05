@@ -23,13 +23,19 @@ describe Fudge::Tasks::EachDirectory do
   end
 
   describe :run do
-    it "should change to the given directories and run child tasks" do
-      subject.task :test_each_directory
+    let(:task) { TestEachDirectoryTask.new }
+    let(:dirs) do
+      Dir[File.expand_path('../../../../*', __FILE__)].select { |path| File.directory? path }
+    end
 
+    before :each do
+      subject.tasks << [task, []]
+    end
+
+    it "should change to the given directories and run child tasks" do
       subject.run
 
-      dirs = Dir[File.expand_path('../../../../*', __FILE__)].select { |path| File.directory? path }
-      subject.tasks.first[0].pwds.should == dirs
+      task.pwds.should == dirs
     end
   end
 end

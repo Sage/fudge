@@ -34,7 +34,7 @@ h2. Fudgefile syntax
 
 To define a build with a given name (or for a given branch):
 
-    build :some_name do |b|
+    build :some_name do
     end
 
 To define some tasks on that build:
@@ -45,13 +45,7 @@ To define some tasks on that build:
 
 Any options passed to the task method will be passed to the task's initializer.
 
-You can also use one of these alternative syntaxes:
-
-    build :some_name do |b|
-      b.task :rspec, :coverage => 100
-    end
-
-Or:
+You can also use one of the alternative method missing syntax:
 
     build :some_name do |b|
       rspec :coverage => 100
@@ -65,6 +59,81 @@ Some tasks are composite tasks, and can have tasks added to themselves, for exam
       task :each_directory, '*' do
         task :rspec
       end
+    end
+
+h3. Task Groups
+
+You can define task groups to be reused later on in your Fudgefile. For example:
+
+    task_group :tests do
+      rspec
+    end
+
+    task_group :docs do
+      yard
+    end
+
+    build :some_name do
+      task_group :tests
+      task_group :docs
+    end
+
+    build :nodoc do
+      task_group :tests
+    end
+
+Task groups can take arguments, so you can make conditional task groups for sharing between build. For example:
+
+    task_group :deploy do |to|
+      shell "cp -r site/ #{to}"
+    end
+
+    build :default do
+      task_group :deploy, '/var/www/dev'
+    end
+
+    build :production do
+      task_group :deploy, '/var/www/live'
+    end
+
+h3. Callbacks
+
+You can define success and failure callbacks using the following syntax:
+
+    build :default do
+      rspec
+
+      on_success do
+        shell 'deploy.sh'
+      end
+
+      on_failure do
+        shell 'send_errors.sh'
+      end
+    end
+
+Build will by default run WITHOUT callbacks enabled. To run a build with callbacks, run:
+
+    bundle exec fudge build --callbacks
+
+You can mix task_groups with callbacks however you like, for example:
+
+    task_group :deploy do
+      shell 'deploy.sh'
+    end
+
+    task_group :error_callbacks do
+      on_failure do
+        shell 'send_errors.sh'
+      end
+    end
+
+    build :default do
+      on_success do
+        task_group :deploy
+      end
+
+      task_group :error_callbacks
     end
 
 h2. Defining tasks

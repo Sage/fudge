@@ -1,10 +1,16 @@
-class DummyTask
+class DummyTask < Fudge::Tasks::Task
   class << self
     attr_accessor :ran
   end
+  attr_accessor :args
 
   def self.name
     :dummy
+  end
+
+  def initialize(*args)
+    super
+    self.args = args
   end
 
   def run

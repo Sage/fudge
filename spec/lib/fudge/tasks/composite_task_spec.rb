@@ -13,72 +13,24 @@ end
 Fudge::Tasks.register(DummyTask2)
 
 describe Fudge::Tasks::CompositeTask do
-  let(:desc) { Fudge::Description.new '' }
-  subject { described_class.new :description => desc do; end }
-
-  describe :initialize do
-    it "should yield itself" do
-      build = nil
-      described_class.new do |b|
-        build = b
-      end
-
-      build.should be_a Fudge::Tasks::CompositeTask
-    end
-  end
-
-  describe :task do
-    it "should add a task to the tasks array" do
-      subject.tasks.should be_empty
-
-      subject.task :dummy
-
-      subject.tasks.should have(1).item
-      subject.tasks.first[0].should be_a DummyTask
-    end
-
-    it "should pass arguments to the initializer" do
-      subject.tasks.should be_empty
-
-      subject.task :dummy2, :foo, :bar
-
-      subject.tasks.first[0].args.should == [:foo, :bar]
-    end
-
-    it "should forward missing methods to task" do
-      subject.tasks.should be_empty
-
-      subject.dummy2 :foo, :bar
-
-      subject.tasks.first[0].args.should == [:foo, :bar]
-    end
-
-    it "should super method_missing if no task found" do
-      expect { subject.non_existeng_task :foo, :bar }.to raise_error(NoMethodError)
-    end
-  end
+  subject { described_class.new do; end }
 
   describe :run do
-    it "should run all tasks defineid and return true if they all succeed" do
-      subject.tasks.should be_empty
+    before :each do
+      subject.tasks << [DummyTask.new, []]
+      subject.tasks << [DummyTask2.new, []]
+    end
 
+    it "should run all tasks defined and return true if they all succeed" do
       DummyTask.any_instance.should_receive(:run).and_return(true)
       DummyTask2.any_instance.should_receive(:run).and_return(true)
-
-      subject.task :dummy
-      subject.task :dummy2
 
       subject.run.should be_true
     end
 
     it "should return false if any of the tasks fail" do
-      subject.tasks.should be_empty
-
       DummyTask.any_instance.should_receive(:run).and_return(false)
       DummyTask2.any_instance.should_not_receive(:run)
-
-      subject.task :dummy
-      subject.task :dummy2
 
       subject.run.should be_false
     end

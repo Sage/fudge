@@ -9,13 +9,6 @@ describe Fudge::Runner do
       DummyTask.ran.should be_true
     end
 
-    it "should support the old yielding syntax" do
-      description = Fudge::Description.new('build :default do |b|; b.task :dummy; end')
-
-      described_class.new(description).run_build
-      DummyTask.ran.should be_true
-    end
-
     it "should raise an exception if the build fails" do
       description = Fudge::Description.new('build :default do; task :dummy; end')
       Fudge::Build.any_instance.stub(:run).and_return(false)

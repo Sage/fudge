@@ -29,7 +29,6 @@ module Fudge
       yield if block_given?
     end
 
-
     # Adds a task group to the current description or includes a task group
     def task_group(name, *args, &block)
       if block

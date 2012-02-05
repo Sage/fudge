@@ -23,12 +23,17 @@ describe Fudge::Tasks::InDirectory do
   end
 
   describe :run do
-    it "should change to the given directory and run child tasks" do
-      subject.task :test_in_directory
+    let(:task) { TestInDirectoryTask.new }
+    let(:path) { File.expand_path('spec', FileUtils.pwd) }
 
+    before :each do
+      subject.tasks << [task, []]
+    end
+
+    it "should change to the given directory and run child tasks" do
       subject.run
 
-      subject.tasks.first[0].pwd.should == File.expand_path('spec', FileUtils.pwd)
+      task.pwd.should == path
     end
   end
 end
