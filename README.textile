@@ -236,15 +236,21 @@ The above task will only pass if the output contains "n files found", where n is
 
 h3. Defining composite tasks
 
-Some tasks may require you to run a number of commands one after the other. You can hook into other fudge tasks by using the @task@ class macro:
+Some tasks may require you to run a number of commands one after the other. You can hook into other fudge tasks by including the Fudge DSL into your composite task:
 
     class DeployTask < Fudge::Tasks::CompositeTask
+      include Fudge::TaskDSL
+
       def self.name
         :deploy
       end
 
-      task :shell, 'build_docs.sh'
-      task :shell, 'cp -r docs/ /var/ww/deploy/docs'
+      def initialize(*args)
+        super
+
+        task :shell, 'build_docs.sh'
+        task :shell, 'cp -r docs/ /var/ww/deploy/docs'
+      end
     end
     Fudge::Tasks.register(DeployTask)
 
@@ -253,3 +259,18 @@ The above will run the given tasks in the order defined, and only pass if both t
     build :default do
       task :deploy
     end
+
+h3. Requiring local tasks
+
+Because the Fudgefile is eval'd, using Ruby's built in @require@ method doesn't work with paths.
+
+If you wish to load some local tasks that are in a file but not provided by a gem, you can use @local_tasks@, for example:
+
+  local_tasks 'ci/tasks.rb'
+
+This will require a file called @ci/tasks.rb@ in the same directory as your Fudgefile. For example, this is the directory structure expected by the above:
+
+root/
+  Fudgefile
+  ci/
+    tasks.rb

@@ -1,5 +1,5 @@
 require 'rainbow'
-require 'active_support/core_ext'
+require 'active_support/all'
 
 module Fudge
   autoload :Build, 'fudge/build'
@@ -9,4 +9,5 @@ module Fudge
   autoload :Parser, 'fudge/parser'
   autoload :Runner, 'fudge/runner'
   autoload :Tasks, 'fudge/tasks'
+  autoload :TaskDSL, 'fudge/task_dsl'
 end

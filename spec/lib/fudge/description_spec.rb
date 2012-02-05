@@ -12,13 +12,15 @@ describe Fudge::Description do
     build.callbacks = callbacks
   end
 
-  subject { described_class.new '' }
+  let(:input) { '' }
+  let(:file) { StringIO.new(input).tap { |s| s.stub(:path).and_return('') } }
+  subject { described_class.new file }
 
   describe :initialize do
-    it "should add the builds in the given string" do
-      desc = described_class.new "build :foo do; end"
+    let(:input) { 'build :foo do; end' }
 
-      desc.builds[:foo].should be_a Fudge::Build
+    it "should add the builds in the given string" do
+      subject.builds[:foo].should be_a Fudge::Build
     end
   end
 

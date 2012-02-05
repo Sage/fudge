@@ -4,8 +4,9 @@ module Fudge
   class Parser
     # Parse a FudgeFile at a given location
     def parse(file)
-      contents = File.open(file) { |f| f.read }
-      Description.new(contents)
+      File.open(file) do |f|
+        Description.new(f)
+      end
     end
   end
 end

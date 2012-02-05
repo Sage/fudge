@@ -31,16 +31,29 @@ describe Fudge::Tasks::CompositeTask do
     end
   end
 
-  describe "Class Methods" do
+  describe "Using TaskDSL" do
     describe :task do
       class AnotherCompositeTask < Fudge::Tasks::CompositeTask
-        task :shell, 'foo', 'bar'
+        include Fudge::TaskDSL
+
+        def initialize(*args)
+          super
+
+          task :shell, 'foo', 'bar'
+          task :dummy_composite do
+            task :dummy
+          end
+        end
       end
 
       subject { AnotherCompositeTask.new }
 
       it "should define a task for each new instance of the composite task" do
         subject.should run_command 'foo bar'
+      end
+
+      it "should support defining composite tasks" do
+        subject.tasks[1].tasks.first.should be_a DummyTask
       end
     end
   end

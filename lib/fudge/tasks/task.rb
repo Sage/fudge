@@ -4,7 +4,7 @@ module Fudge
       attr_reader :args
 
       def initialize(*args)
-        @args = args
+        @args = args.dup
         options = args.extract_options!
 
         options.each do |k,v|
