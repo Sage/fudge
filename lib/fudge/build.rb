@@ -5,15 +5,16 @@ module Fudge
     attr_accessor :callbacks
 
     def initialize(*args)
-      super
-
       @success_hooks = []
       @failure_hooks = []
+
+      super
     end
 
     def on_success(&block)
-      @success_hooks << Fudge::Tasks::CompositeTask.new(
+      task = Fudge::Tasks::CompositeTask.new(
         :description => description, &block)
+      @success_hooks << task
     end
 
     def on_failure(&block)
@@ -25,11 +26,14 @@ module Fudge
     def run
       success = super
       if callbacks
+        puts "Running #{success ? 'success' : 'failure'} callbacks...".foreground(:red).bright
         hooks = success ? @success_hooks : @failure_hooks
 
         hooks.each do |hook|
           return false unless hook.run
         end
+      else
+        puts "Skipping callbacks...".foreground(:red).bright
       end
 
       success

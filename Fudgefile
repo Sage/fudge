@@ -6,11 +6,32 @@ task_group :docs do
   yard :coverage => 100
 end
 
+task_group :shout_about_success do
+  on_success do
+    shell 'echo "WOOHOO BUILD PASSED"'
+  end
+end
+
+task_group :shout_about_failure do
+  on_failure do
+    shell 'echo "NOOOOOOOOOH BUILD FAILED"'
+  end
+end
+
+task_group :shout_about_success_and_failure do
+  task_group :shout_about_success
+  task_group :shout_about_failure
+end
+
 build :default do
   task_group :spec
   task_group :docs
+
+  task_group :shout_about_success_and_failure
 end
 
 build :nodoc do
   task_group :spec
+
+  task_group :shout_about_success_and_failure
 end

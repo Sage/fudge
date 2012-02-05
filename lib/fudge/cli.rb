@@ -20,9 +20,10 @@ RUBY
     end
 
     desc "build [BUILD_NAME]", "Run a build with the given name (default: 'default')"
+    method_option :callbacks, :type => :boolean, :default => false
     def build(build_name='default')
       description = Fudge::Parser.new.parse('Fudgefile')
-      Fudge::Runner.new(description).run_build(build_name)
+      Fudge::Runner.new(description).run_build(build_name, options)
     end
   end
 end
