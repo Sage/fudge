@@ -13,7 +13,7 @@ module Fudge
 
       def run
         @output, success = run_command(cmd)
-        return unless success
+        return false unless success
         return check_for_output
       end
 
