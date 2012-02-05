@@ -27,7 +27,7 @@ describe Fudge::Tasks::InDirectory do
     let(:path) { File.expand_path('spec', FileUtils.pwd) }
 
     before :each do
-      subject.tasks << [task, []]
+      subject.tasks << task
     end
 
     it "should change to the given directory and run child tasks" do

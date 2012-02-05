@@ -1,7 +1,10 @@
 module Fudge
   module Tasks
     class Task
+      attr_reader :args
+
       def initialize(*args)
+        @args = args
         options = args.extract_options!
 
         options.each do |k,v|

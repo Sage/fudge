@@ -1,5 +1,5 @@
 require 'rainbow'
-require 'active_support/core_ext/array'
+require 'active_support/core_ext'
 
 module Fudge
   autoload :Build, 'fudge/build'

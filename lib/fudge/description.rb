@@ -24,9 +24,9 @@ module Fudge
       klass = Fudge::Tasks.discover(name)
 
       task = klass.new(*args)
-      current_scope.tasks << [task, args]
+      current_scope.tasks << task
 
-      yield if block_given?
+      with_scope(task) { yield if block_given? }
     end
 
     # Adds a task group to the current description or includes a task group

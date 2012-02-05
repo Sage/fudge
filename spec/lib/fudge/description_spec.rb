@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Fudge::Description do
   let(:build) { subject.builds.values.first }
-  let(:build_tasks) { build.tasks.map { |obj,args| obj } }
+  let(:build_tasks) { build.tasks.map }
+
   def make_build
     subject.build :default do
       subject.task :dummy
@@ -61,6 +62,16 @@ describe Fudge::Description do
 
     it "should super method_missing if no task found" do
       expect { subject.non_existeng_task :foo, :bar }.to raise_error(NoMethodError)
+    end
+
+    it "should add tasks recursively to composite tasks" do
+      subject.build :default do
+        subject.dummy_composite do
+          subject.dummy
+        end
+      end
+
+      build_tasks.first.tasks.first.should be_a DummyTask
     end
   end
 

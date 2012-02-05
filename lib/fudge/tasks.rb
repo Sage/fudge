@@ -23,6 +23,7 @@ module Fudge
     require 'fudge/tasks/composite_task'
     require 'fudge/tasks/each_directory'
     require 'fudge/tasks/in_directory'
+    require 'fudge/tasks/clean_bundler_env'
     require 'fudge/tasks/rake'
     require 'fudge/tasks/rspec'
     require 'fudge/tasks/yard'

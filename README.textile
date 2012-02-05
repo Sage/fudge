@@ -168,3 +168,88 @@ This will make the @LoudTask@ task available in your Fudgefile's like so:
     build :some_name do
       task :loud
     end
+
+h3. Extending the Shell task
+
+Many tasks simply run a shell command and may accept some extra configuration options. To define a task of this kind, you can sublcass @Shell@ and simply define the @cmd@ method:
+
+    class LsTask < Fudge::Tasks::Shell
+      def cmd
+        "ls #{arguments}"
+      end
+    end
+
+The @arguments@ method is provided by the @Shell@ base class and will be a string of all other positional arguments passed to the task. For example:
+
+    build :default do
+      task :ls, '-l', '-a'
+    end
+
+would run the command @ls -l -a@.
+
+You can take hash-like options, which will automatically be set if you have an attribute with the same name. For example:
+
+    class LsTask < Fudge::Tasks::Shell
+      attr_accessor :all
+
+      def cmd
+        arguments << ' -a' if all
+        "ls #{arguments}"
+      end
+    end
+
+Now this task can be used like so:
+
+    build :default do
+      task :ls, :all => true
+    end
+
+h3. Checking output with the Shell task
+
+You can define that some output from a command is required by responding to @check_for@ with a regexp. For example:
+
+    class LsTask < Fudge::Tasks::Shell
+      def cmd
+        "ls #{arguments}"
+      end
+
+      def check_for
+        /4 files found/
+      end
+    end
+
+The above task will only pass if the output contains "4 files found".
+
+If you want to do some further processing on the contents matched by the regexp, you can provide an array with the second element being a lambda, which wil be called to process the output:
+
+    class LsTask < Fudge::Tasks::Shell
+      def cmd
+        "ls #{arguments}"
+      end
+
+      def check_for
+        [/(\d+) files found/, lambda { |n| n.to_i >= 4 }]
+      end
+    end
+
+The above task will only pass if the output contains "n files found", where n is a number, and also n is at least 4.
+
+h3. Defining composite tasks
+
+Some tasks may require you to run a number of commands one after the other. You can hook into other fudge tasks by using the @task@ class macro:
+
+    class DeployTask < Fudge::Tasks::CompositeTask
+      def self.name
+        :deploy
+      end
+
+      task :shell, 'build_docs.sh'
+      task :shell, 'cp -r docs/ /var/ww/deploy/docs'
+    end
+    Fudge::Tasks.register(DeployTask)
+
+The above will run the given tasks in the order defined, and only pass if both tasks pass. It can then be used in a FudgeFile like so:
+
+    build :default do
+      task :deploy
+    end

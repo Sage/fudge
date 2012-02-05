@@ -29,7 +29,7 @@ describe Fudge::Tasks::EachDirectory do
     end
 
     before :each do
-      subject.tasks << [task, []]
+      subject.tasks << task
     end
 
     it "should change to the given directories and run child tasks" do

@@ -1,13 +1,8 @@
 require 'spec_helper'
 
 class DummyTask2 < DummyTask
-  attr_accessor :args
-
   def self.name
     :dummy2
-  end
-  def initialize(*args)
-    self.args = args
   end
 end
 Fudge::Tasks.register(DummyTask2)
@@ -17,8 +12,8 @@ describe Fudge::Tasks::CompositeTask do
 
   describe :run do
     before :each do
-      subject.tasks << [DummyTask.new, []]
-      subject.tasks << [DummyTask2.new, []]
+      subject.tasks << DummyTask.new
+      subject.tasks << DummyTask2.new
     end
 
     it "should run all tasks defined and return true if they all succeed" do
@@ -33,6 +28,20 @@ describe Fudge::Tasks::CompositeTask do
       DummyTask2.any_instance.should_not_receive(:run)
 
       subject.run.should be_false
+    end
+  end
+
+  describe "Class Methods" do
+    describe :task do
+      class AnotherCompositeTask < Fudge::Tasks::CompositeTask
+        task :shell, 'foo', 'bar'
+      end
+
+      subject { AnotherCompositeTask.new }
+
+      it "should define a task for each new instance of the composite task" do
+        subject.should run_command 'foo bar'
+      end
     end
   end
 end
