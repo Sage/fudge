@@ -1,11 +1,13 @@
 module Fudge
   module Tasks
-    class CompositeTask
-      attr_reader :tasks, :description
+    class CompositeTask < Task
+      attr_reader :tasks
+      attr_accessor :description
 
       # Sets the tasks to an initial empty array
-      def initialize(description=nil, &block)
-        @description = description
+      def initialize(*args, &block)
+        super
+
         @tasks = []
         instance_eval(&block) if block
       end
@@ -13,11 +15,14 @@ module Fudge
       # Adds a task to this task as a child
       def task(task_type, *args, &block)
         klass = Fudge::Tasks.discover(task_type)
-        instance = if klass < CompositeTask
-                     klass.new(description, *args, &block)
-                   else
-                     klass.new(*args, &block)
-                   end
+
+        instance_args = if klass < CompositeTask
+                          insert_options(args, :description => description)
+                        else
+                          args
+                        end
+
+        instance = klass.new(*instance_args, &block)
         @tasks << [instance, args]
       end
 
@@ -41,6 +46,15 @@ module Fudge
             args.join(', ').foreground(:yellow).bright
 
           return unless t.run
+        end
+      end
+
+      private
+      def insert_options(array, hash)
+        if array.last.is_a? Hash
+          array[0...1] + [array.last.merge(hash)]
+        else
+          array + [hash]
         end
       end
     end

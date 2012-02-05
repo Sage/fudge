@@ -57,18 +57,37 @@ describe Fudge::Description do
   end
 
   it "should allow the use of task groups through nested layers of composite tasks" do
-      subject.task_group :group1 do
-        task :dummy
+    subject.task_group :group1 do
+      task :dummy
+    end
+
+    subject.build :default do
+      task :dummy_composite do
+        task_group :group1
       end
+    end
 
-      subject.build :default do
-        task :dummy_composite do
-          task_group :group1
-        end
+    subject.builds[:default].run
+
+    DummyTask.ran.should be_true
+  end
+
+  it "should allow the use of task grouops through nested layers of composite nodes when options are given" do
+    subject.task_group :group1 do
+      task :dummy
+    end
+
+    subject.build :default do
+      task :dummy_composite, :hello, :foobar => true do
+        task_group :group1
       end
+    end
 
-      subject.builds[:default].run
+    subject.builds[:default].run
 
-      DummyTask.ran.should be_true
+    # Check that the options are maintained through the call
+    subject.builds[:default].tasks.first[0].args.should have(2).items
+    subject.builds[:default].tasks.first[0].args[1][:foobar].should be_true
+    DummyTask.ran.should be_true
   end
 end

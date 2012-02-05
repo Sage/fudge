@@ -13,7 +13,7 @@ module Fudge
 
     # Adds a build to the current description
     def build(name, &block)
-      @builds[name] = Build.new(self, &block)
+      @builds[name] = Build.new(:description => self, &block)
     end
 
     # Adds a task group to the current description

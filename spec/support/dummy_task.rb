@@ -14,6 +14,13 @@ end
 Fudge::Tasks.register(DummyTask)
 
 class DummyCompositeTask < Fudge::Tasks::CompositeTask
+  attr_accessor :args
+
+  def initialize(*args)
+    super
+    self.args = args
+  end
+
   def self.name
     :dummy_composite
   end
