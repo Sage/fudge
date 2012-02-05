@@ -6,8 +6,8 @@ module Fudge
         :in_directory
       end
 
-      def initialize(directory)
-        super()
+      def initialize(directory, *args)
+        super
         @directory = directory
       end
 

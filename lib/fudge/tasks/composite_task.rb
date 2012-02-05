@@ -22,6 +22,7 @@ module Fudge
                           args
                         end
 
+        p klass
         instance = klass.new(*instance_args, &block)
         @tasks << [instance, args]
       end

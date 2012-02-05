@@ -9,7 +9,7 @@ module Fudge
       end
 
       def initialize(pattern, *args)
-        super
+        super(*args)
 
         @pattern = pattern
       end
