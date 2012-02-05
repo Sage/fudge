@@ -1,20 +1,20 @@
 task_group :spec do
-  rspec :coverage => 100
+  task :rspec, :coverage => 100
 end
 
 task_group :docs do
-  yard :coverage => 100
+  task :yard, :coverage => 100
 end
 
 task_group :shout_about_success do
   on_success do
-    shell 'echo "WOOHOO BUILD PASSED"'
+    task :shell, 'echo "WOOHOO BUILD PASSED"'
   end
 end
 
 task_group :shout_about_failure do
   on_failure do
-    shell 'echo "NOOOOOOOOOH BUILD FAILED"'
+    task :shell, 'echo "NOOOOOOOOOH BUILD FAILED"'
   end
 end
 

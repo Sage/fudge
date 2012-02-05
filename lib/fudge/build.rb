@@ -3,6 +3,7 @@ module Fudge
   #
   class Build < Tasks::CompositeTask
     attr_accessor :callbacks
+    attr_reader :success_hooks, :failure_hooks
 
     def initialize(*args)
       @success_hooks = []
@@ -10,18 +11,6 @@ module Fudge
 
       super
     end
-
-    def on_success(&block)
-      task = Fudge::Tasks::CompositeTask.new(
-        :description => description, &block)
-      @success_hooks << task
-    end
-
-    def on_failure(&block)
-      @failure_hooks << Fudge::Tasks::CompositeTask.new(
-        :description => description, &block)
-    end
-
 
     def run
       success = super

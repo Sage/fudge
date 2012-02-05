@@ -13,7 +13,8 @@ end
 Fudge::Tasks.register(DummyTask2)
 
 describe Fudge::Tasks::CompositeTask do
-  subject { described_class.new do; end }
+  let(:desc) { Fudge::Description.new '' }
+  subject { described_class.new :description => desc do; end }
 
   describe :initialize do
     it "should yield itself" do
