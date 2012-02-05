@@ -19,7 +19,7 @@ module Fudge
           next if exclude && exclude.include?(dir)
 
           Dir.chdir dir do
-            puts "In directory #{dir}:"
+            puts "--> In directory".foreground(:red) + " #{dir}:".foreground(:red).bright
             return false unless super
           end
         end

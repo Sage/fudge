@@ -27,8 +27,8 @@ module Fudge
       end
 
       # Adds a task group to this task with all tasks as children
-      def task_group(name)
-        instance_eval(&description.find_task_group(name))
+      def task_group(name, *args)
+        instance_exec(*args, &description.find_task_group(name))
       end
 
       # Allows the syntax of missing out the task keyword

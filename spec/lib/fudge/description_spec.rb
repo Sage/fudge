@@ -47,6 +47,20 @@ describe Fudge::Description do
       DummyTask.ran.should be_true
     end
 
+    it "should allow passing arguments to task groups" do
+      subject.task_group :special_group do |which|
+        task which
+      end
+
+      subject.build :default do
+        task_group :special_group, :dummy
+      end
+
+      subject.builds[:default].run
+
+      DummyTask.ran.should be_true
+    end
+
     it "should raise an exception if task group not found" do
       expect do
         subject.build :default do
@@ -54,40 +68,40 @@ describe Fudge::Description do
         end
       end.to raise_error Fudge::Exceptions::TaskGroupNotFound
     end
-  end
 
-  it "should allow the use of task groups through nested layers of composite tasks" do
-    subject.task_group :group1 do
-      task :dummy
-    end
-
-    subject.build :default do
-      task :dummy_composite do
-        task_group :group1
+    it "should allow the use of task groups through nested layers of composite tasks" do
+      subject.task_group :group1 do
+        task :dummy
       end
-    end
 
-    subject.builds[:default].run
-
-    DummyTask.ran.should be_true
-  end
-
-  it "should allow the use of task grouops through nested layers of composite nodes when options are given" do
-    subject.task_group :group1 do
-      task :dummy
-    end
-
-    subject.build :default do
-      task :dummy_composite, :hello, :foobar => true do
-        task_group :group1
+      subject.build :default do
+        task :dummy_composite do
+          task_group :group1
+        end
       end
+
+      subject.builds[:default].run
+
+      DummyTask.ran.should be_true
     end
 
-    subject.builds[:default].run
+    it "should allow the use of task grouops through nested layers of composite nodes when options are given" do
+      subject.task_group :group1 do
+        task :dummy
+      end
 
-    # Check that the options are maintained through the call
-    subject.builds[:default].tasks.first[0].args.should have(2).items
-    subject.builds[:default].tasks.first[0].args[1][:foobar].should be_true
-    DummyTask.ran.should be_true
+      subject.build :default do
+        task :dummy_composite, :hello, :foobar => true do
+          task_group :group1
+        end
+      end
+
+      subject.builds[:default].run
+
+      # Check that the options are maintained through the call
+      subject.builds[:default].tasks.first[0].args.should have(2).items
+      subject.builds[:default].tasks.first[0].args[1][:foobar].should be_true
+      DummyTask.ran.should be_true
+    end
   end
 end
