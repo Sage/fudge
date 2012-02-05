@@ -28,7 +28,7 @@ describe Fudge::Tasks::InDirectory do
 
       subject.run
 
-      subject.tasks.first.pwd.should == File.expand_path('spec', FileUtils.pwd)
+      subject.tasks.first[0].pwd.should == File.expand_path('spec', FileUtils.pwd)
     end
   end
 end

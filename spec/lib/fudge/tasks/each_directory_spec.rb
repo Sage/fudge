@@ -29,7 +29,7 @@ describe Fudge::Tasks::EachDirectory do
       subject.run
 
       dirs = Dir[File.expand_path('../../../../*', __FILE__)].select { |path| File.directory? path }
-      subject.tasks.first.pwds.should == dirs
+      subject.tasks.first[0].pwds.should == dirs
     end
   end
 end

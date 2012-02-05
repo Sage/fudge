@@ -31,4 +31,44 @@ describe Fudge::Description do
       subject.builds[:default].should == build
     end
   end
+
+  describe :task_group do
+    it "should add a task group and allow it to be used in a build" do
+      subject.task_group :group1 do
+        task :dummy
+      end
+
+      subject.build :default do
+        task_group :group1
+      end
+
+      subject.builds[:default].run
+
+      DummyTask.ran.should be_true
+    end
+
+    it "should raise an exception if task group not found" do
+      expect do
+        subject.build :default do
+          task_group :unkown_group
+        end
+      end.to raise_error Fudge::Exceptions::TaskGroupNotFound
+    end
+  end
+
+  it "should allow the use of task groups through nested layers of composite tasks" do
+      subject.task_group :group1 do
+        task :dummy
+      end
+
+      subject.build :default do
+        task :dummy_composite do
+          task_group :group1
+        end
+      end
+
+      subject.builds[:default].run
+
+      DummyTask.ran.should be_true
+  end
 end

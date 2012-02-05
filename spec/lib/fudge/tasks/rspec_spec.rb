@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Fudge::Tasks::Rspec do
   it { should be_registered_as :rspec }
-  it { should be_a Fudge::Tasks::ShellWithCoverage }
 
   describe :run do
     it "should turn on color if not specified" do

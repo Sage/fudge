@@ -19,10 +19,10 @@ RUBY
       end
     end
 
-    desc "build", "Run a build"
-    def build
+    desc "build [BUILD_NAME]", "Run a build with the given name (default: 'default')"
+    def build(build_name='default')
       description = Fudge::Parser.new.parse('Fudgefile')
-      Fudge::Runner.new(description).run_build
+      Fudge::Runner.new(description).run_build(build_name)
     end
   end
 end

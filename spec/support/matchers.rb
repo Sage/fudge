@@ -9,7 +9,7 @@ RSpec::Matchers.define :run_command do |to_match|
     ran = ''
     subject.stub(:run_command) do |cmd|
       ran = cmd
-      'dummy output'
+      ['dummy output', true]
     end
 
     subject.run
@@ -24,7 +24,7 @@ end
 
 RSpec::Matchers.define :succeed_with_output do |output|
   match do |subject|
-    subject.stub(:run_command).and_return(output)
+    subject.stub(:run_command).and_return([output, true])
 
     subject.run
   end

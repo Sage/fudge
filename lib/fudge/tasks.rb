@@ -20,7 +20,6 @@ module Fudge
     # Require all my tasks
     require 'fudge/tasks/task'
     require 'fudge/tasks/shell'
-    require 'fudge/tasks/shell_with_coverage'
     require 'fudge/tasks/composite_task'
     require 'fudge/tasks/each_directory'
     require 'fudge/tasks/in_directory'

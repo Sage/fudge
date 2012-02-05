@@ -1,6 +1,8 @@
 module Fudge
   module Tasks
-    class Yard < ShellWithCoverage
+    class Yard < Shell
+      attr_accessor :coverage
+
       def self.name
         :yard
       end
@@ -11,8 +13,12 @@ module Fudge
         "yard #{arguments}"
       end
 
-      def suffix
-        ' documented'
+      def check_for
+        if coverage
+          [/(\d+\.\d+)% documented/, lambda { |matches| matches[1].to_f >= coverage ? true : 'Insufficient Documentation.' }]
+        else
+          super
+        end
       end
     end
 

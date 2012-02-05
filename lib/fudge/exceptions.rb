@@ -17,5 +17,15 @@ module Fudge
         "No task found with name '#{@task}'"
       end
     end
+
+    class TaskGroupNotFound < Base
+      def initialize(name)
+        @name = name
+      end
+
+      def message
+        "No task group found with name '#{@name}'"
+      end
+    end
   end
 end
