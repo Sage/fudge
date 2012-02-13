@@ -10,7 +10,7 @@ module Fudge
         puts "Fudgefile already exists."
       else
         contents = <<RUBY
-build :default do |b|
+build :default do
   task :rspec
 end
 RUBY
