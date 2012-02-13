@@ -11,7 +11,7 @@ module Fudge
       else
         contents = <<RUBY
 build :default do |b|
-  b.task :rspec
+  task :rspec
 end
 RUBY
         File.open(path, 'w') { |f| f.write(contents) }
