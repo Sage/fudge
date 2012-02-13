@@ -10,8 +10,8 @@ module Fudge
         puts "Fudgefile already exists."
       else
         contents = <<RUBY
-build :default do |b|
-  b.task :rspec
+build :default do
+  task :rspec
 end
 RUBY
         File.open(path, 'w') { |f| f.write(contents) }
