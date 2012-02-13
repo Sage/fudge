@@ -59,7 +59,7 @@ describe Fudge::Cli do
       subject.init
 
       File.open('Fudgefile', 'r') do |f|
-        f.read.should include "build :default do |b|\n  b.task :rspec\nend"
+        f.read.should include "build :default do |b|\n  task :rspec\nend"
       end
     end
 
