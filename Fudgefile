@@ -1,9 +1,9 @@
 task_group :spec do
-  task :rspec, :coverage => 100
+  task :rspec#, :coverage => 100
 end
 
 task_group :docs do
-  task :yard, :coverage => 100
+  task :yard#, :coverage => 100
 end
 
 task_group :shout_about_success do

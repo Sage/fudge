@@ -13,7 +13,7 @@ module Fudge
 
       def run
         Dir.chdir @directory do
-          puts "--> In directory".foreground(:red) + " #{@directory}:".foreground(:red).bright
+          puts "--> In directory".foreground(:cyan) + " #{@directory}:".foreground(:cyan).bright
           super
         end
       end
