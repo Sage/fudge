@@ -49,9 +49,5 @@ module Fudge
 
       with_scope(task) { yield }
     end
-
-    def local_tasks(file)
-      require File.expand_path("../#{file}", File.absolute_path(@path))
-    end
   end
 end

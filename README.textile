@@ -278,20 +278,3 @@ The above will run the given tasks in the order defined, and only pass if both t
   task :deploy
 end
 </code></pre>
-
-h3. Requiring local tasks
-
-Because the Fudgefile is eval'd, using Ruby's built in @require@ method doesn't work with paths.
-
-If you wish to load some local tasks that are in a file but not provided by a gem, you can use @local_tasks@, for example:
-
-<pre><code>local_tasks 'ci/tasks.rb'</code></pre>
-
-This will require a file called @ci/tasks.rb@ in the same directory as your Fudgefile. For example, this is the directory structure expected by the above:
-
-<pre><code>
-root/
-  Fudgefile
-  ci/
-    tasks.rb
-</code></pre>
