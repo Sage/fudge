@@ -6,7 +6,7 @@ class TestInDirectoryTask
     :test_in_directory
   end
 
-  def run
+  def run(options={})
     self.pwd = FileUtils.pwd
   end
 end

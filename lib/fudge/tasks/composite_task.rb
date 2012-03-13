@@ -8,7 +8,7 @@ module Fudge
       end
 
       # Runs the task (by default running all other tasks in order)
-      def run
+      def run(options={})
         tasks.each do |t|
           args_text = t.respond_to?(:args) && t.args ? t.args.join(', ') : ''
 
@@ -16,7 +16,7 @@ module Fudge
             t.class.name.to_s.foreground(:yellow).bright + ' ' +
             args_text.foreground(:yellow).bright
 
-          return unless t.run
+          return unless t.run(options)
         end
       end
     end

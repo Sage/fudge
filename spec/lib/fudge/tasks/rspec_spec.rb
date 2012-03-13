@@ -19,7 +19,10 @@ describe Fudge::Tasks::Rspec do
     it "should default the arguments to spec/" do
       described_class.new(:color => false).should run_command 'rspec spec/'
     end
+
   end
+
+  it_should_behave_like 'bundle aware'
 
   describe :coverage do
     subject { described_class.new :coverage => 99 }

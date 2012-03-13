@@ -11,8 +11,8 @@ module Fudge
         self.arguments = super.join(' ')
       end
 
-      def run
-        @output, success = run_command(cmd)
+      def run(options={})
+        @output, success = run_command(cmd(options))
         return false unless success
         return check_for_output
       end
@@ -66,7 +66,7 @@ module Fudge
       end
 
       # Defines the command to run
-      def cmd
+      def cmd(options={})
         arguments
       end
     end

@@ -4,7 +4,7 @@ RSpec::Matchers.define :be_registered_as do |key|
   end
 end
 
-RSpec::Matchers.define :run_command do |to_match|
+RSpec::Matchers.define :run_command do |to_match, args|
   match do |subject|
     ran = ''
     to_stub = subject.is_a?(Fudge::Tasks::Shell) ? subject : Fudge::Tasks::Shell.any_instance
@@ -14,7 +14,7 @@ RSpec::Matchers.define :run_command do |to_match|
       ['dummy output', true]
     end
 
-    subject.run
+    subject.run(args || {})
 
     if to_match.is_a? Regexp
       ran =~ to_match
@@ -29,5 +29,19 @@ RSpec::Matchers.define :succeed_with_output do |output|
     subject.stub(:run_command).and_return([output, true])
 
     subject.run
+  end
+end
+
+shared_examples_for 'bundle aware' do
+  before :each do
+    @normal_cmd = subject.send(:cmd)
+  end
+
+  it "should prefix the command with bundle exec when bundler is set" do
+    subject.should run_command("bundle exec #{@normal_cmd}", :bundler => true)
+  end
+
+  it "should not prefix the command with bundle exec when bundler is not set" do
+    subject.should run_command(@normal_cmd, :bundler => false)
   end
 end

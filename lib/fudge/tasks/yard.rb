@@ -1,6 +1,8 @@
 module Fudge
   module Tasks
     class Yard < Shell
+      include Helpers::BundleAware
+
       attr_accessor :coverage
 
       def self.name
@@ -9,8 +11,8 @@ module Fudge
 
       private
 
-      def cmd
-        "yard #{arguments}"
+      def cmd(options={})
+        bundle_cmd("yard #{arguments}", options)
       end
 
       def check_for

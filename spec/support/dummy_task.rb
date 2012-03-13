@@ -13,7 +13,7 @@ class DummyTask < Fudge::Tasks::Task
     self.args = args
   end
 
-  def run
+  def run(options={})
     self.class.ran = true
   end
 end

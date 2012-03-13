@@ -9,6 +9,8 @@ describe Fudge::Tasks::Rake do
       subject.should run_command 'rake '
     end
 
+    it_should_behave_like 'bundle aware'
+
     it "should add any arguments given" do
       described_class.new('db:migrate').should run_command 'rake db:migrate'
     end

@@ -12,7 +12,7 @@ module Fudge
       super
     end
 
-    def run
+    def run(options={})
       success = super
       if callbacks
         puts "Running #{success ? 'success' : 'failure'} callbacks...".foreground(:cyan).bright

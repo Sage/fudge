@@ -1,14 +1,16 @@
 module Fudge
   module Tasks
     class Rake < Shell
+      include Helpers::BundleAware
+
       def self.name
         :rake
       end
 
       private
 
-      def cmd
-        "rake #{arguments}"
+      def cmd(options={})
+        bundle_cmd("rake #{arguments}", options)
       end
     end
 

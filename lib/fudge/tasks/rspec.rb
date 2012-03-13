@@ -1,6 +1,8 @@
 module Fudge
   module Tasks
     class Rspec < Shell
+      include Helpers::BundleAware
+
       attr_accessor :color, :coverage
 
       def self.name
@@ -8,9 +10,9 @@ module Fudge
       end
 
       private
-      def cmd
+      def cmd(options={})
         self.arguments = 'spec/' if arguments.blank?
-        "rspec#{' --tty' unless color == false} #{arguments}"
+        bundle_cmd("rspec#{' --tty' unless color == false} #{arguments}", options)
       end
 
       def check_for

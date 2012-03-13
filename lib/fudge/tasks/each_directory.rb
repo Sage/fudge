@@ -14,7 +14,7 @@ module Fudge
         @pattern = pattern
       end
 
-      def run
+      def run(options={})
         Dir[@pattern].select { |path| File.directory? path }.each do |dir|
           next if exclude && exclude.include?(dir)
 

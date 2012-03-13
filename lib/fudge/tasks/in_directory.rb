@@ -11,7 +11,7 @@ module Fudge
         @directory = directory
       end
 
-      def run
+      def run(options={})
         Dir.chdir @directory do
           puts "--> In directory".foreground(:cyan) + " #{@directory}:".foreground(:cyan).bright
           super

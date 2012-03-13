@@ -5,13 +5,17 @@ module Fudge
         :clean_bundler_env
       end
 
-      def run
+      def run(options={})
         old_env = ENV
         keys = ENV.keys.grep(/BUNDLE|RUBY/)
 
         keys.each { |k| ENV[k] = nil }
-        super
+
+        result = super(options.merge(:bundler => true))
+
         keys.each { |k| ENV[k] = old_env[k] }
+
+        result
       end
     end
 

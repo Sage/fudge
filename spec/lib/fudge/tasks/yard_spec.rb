@@ -11,6 +11,8 @@ describe Fudge::Tasks::Yard do
     end
   end
 
+  it_should_behave_like 'bundle aware'
+
   describe :coverage do
     subject { described_class.new :coverage => 99 }
 

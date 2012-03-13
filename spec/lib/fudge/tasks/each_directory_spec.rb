@@ -6,7 +6,7 @@ class TestEachDirectoryTask
     :test_each_directory
   end
 
-  def run
+  def run(options={})
     (self.pwds ||= []) << FileUtils.pwd
   end
 end

@@ -5,7 +5,7 @@ class AnotherDummyTask < DummyTask
     :another_dummy
   end
 
-  def run
+  def run(options={})
     self.class.ran = true
   end
 end
