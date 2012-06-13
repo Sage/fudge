@@ -51,6 +51,9 @@
         <li><a href="./<%= build[:id] %>/"><span class="badge badge-<%= state %>" title="<%= title %>"><%= icon %></span> <%= build[:name] %><% if build[:pulls] %> <span class="label label-info">Pull Requests</span><% end %></a></li>
         <% end %>
       </ul>
+      <p>
+      <a class="btn btn-info" href="#"><i class="icon-plus-sign icon-white"></i> Add Repository</a>
+      </p>
     </div>
   </body>
   <script src="/js/jquery-1.7.2.min.js"></script>
