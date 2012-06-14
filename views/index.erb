@@ -1,61 +1,29 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Testing</title>
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"/>
-  </head>
-  <body>
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <!--<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>-->
-          <a class="brand" href="#">Fudge Server</a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Builds</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-    <div class='container'>
-      <div class='hero-unit'>
-        <h1>Fudge Server</h1>
-        <p>Welcome to fudge continuous integrations server.</p>
-        <p>Add your builds when you can..</p>
-      </div>
-      <ul class="nav nav-tabs nav-stacked">
-        <% @builds.each do |build| %>
-          <%
-            case build[:status]
-            when :pass
-              state ='success'
-              title = 'build is passing'
-              icon = '✓'
-            when :warn
-              state = 'warning'
-              title = '? out of the last 5 builds failed'
-              icon = build[:count]
-            when :fail
-              state = 'important'
-              title = 'build is failing'
-              icon = build[:count]
-            end
-          %>
-        <li><a href="./<%= build[:id] %>/"><span class="badge badge-<%= state %>" title="<%= title %>"><%= icon %></span> <%= build[:name] %><% if build[:pulls] %> <span class="label label-info">Pull Requests</span><% end %></a></li>
-        <% end %>
-      </ul>
-      <p>
-      <a class="btn btn-info" href="#"><i class="icon-plus-sign icon-white"></i> Add Repository</a>
-      </p>
-    </div>
-  </body>
-  <script src="/js/jquery-1.7.2.min.js"></script>
-  <script src="/bootstrap/js/bootstrap.min.js"></script>
-</html>
+<div class='hero-unit'>
+  <h1>Fudge Server</h1>
+  <p>Welcome to fudge continuous integrations server.</p>
+  <p>Add your builds when you can..</p>
+</div>
+<ul class="nav nav-tabs nav-stacked">
+  <% @builds.each do |build| %>
+    <%
+      case build[:status]
+      when :pass
+        state ='success'
+        title = 'build is passing'
+        icon = '✓'
+      when :warn
+        state = 'warning'
+        title = '? out of the last 5 builds failed'
+        icon = build[:count]
+      when :fail
+        state = 'important'
+        title = 'build is failing'
+        icon = build[:count]
+      end
+    %>
+    <li><a href="./repo/<%= build[:id] %>/"><span class="badge badge-<%= state %>" title="<%= title %>"><%= icon %></span> <%= build[:name] %><% if build[:pulls] %> <span class="label label-info">Pull Requests</span><% end %></a></li>
+  <% end %>
+</ul>
+<p>
+<a class="btn btn-info" href="#"><i class="icon-plus-sign icon-white"></i> Add Repository</a>
+</p>
