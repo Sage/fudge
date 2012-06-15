@@ -1,0 +1,19 @@
+<h2>Pull Request Build State</h2>
+<table class='table'>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Title</th>
+      <th>User</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pulls.each do |pull| %>
+      <tr>
+        <td><span class="badge" title="Build State Unknown">?</span></td>
+        <td><%= pull.title %></td>
+        <td><a href="<%= pull.user.url %>"><img src="<%= pull.user.avatar_url %>" width="22" height="22" alt="<%= pull.user.login %>" title="Pull request from <%= pull.user.login %>"></a></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

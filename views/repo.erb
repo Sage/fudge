@@ -1,6 +1,7 @@
 <div class='hero-unit'>
   <h1><%= @build[:name] %></h1>
-  <p><%= @build.inspect %></p>
-  <p><%= @repo.inspect %></p>
+  <%= erb :'partials/repo_summary' %>
 </div>
-
+<div class="container">
+  <%= erb :'partials/pull_requests' %>
+</div>
