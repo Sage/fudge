@@ -13,7 +13,7 @@ TMP_PASS = 'yourpass'
 class TestApp < Sinatra::Base
   use Rack::Session::Cookie
   use OmniAuth::Builder do
-    provider :github, SECRET, TOKEN
+    provider :github, SECRET, TOKEN, scope: "user,repo, gist"
   end
 
   BUILDS = [
@@ -40,7 +40,7 @@ class TestApp < Sinatra::Base
     @build = find_build(params['name'])
     auth = session[:github]
     @client = Octokit::Client.new(:oauth_token => auth[:token])
-    @client = Octokit::Client.new(:login => TMP_USER, :password => TMP_PAS)
+    #@client = Octokit::Client.new(:login => TMP_USER, :password => TMP_PAS)
     @repo = @client.repo @build[:repo]
     @pulls = @client.pull_requests @build[:repo]
     erb :repo
