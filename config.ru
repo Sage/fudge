@@ -1,2 +1,2 @@
-require 'test_sinatra'
-run TestApp
+require 'lib/main_app'
+run MainApp

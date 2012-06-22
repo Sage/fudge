@@ -32,6 +32,7 @@ class TestApp < Sinatra::Base
     github[:token] = auth_hash[:credentials][:token]
     github[:user] = auth_hash[:uid]
     session[:github] = github
+    p github
     redirect "/"
   end
 
