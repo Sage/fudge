@@ -5,7 +5,7 @@ Plan of Action
 
 1. Authentication
   [X] Not logged in, ask to sign in via github
-  [ ] Sign in via GitHub
+  [X] Sign in via GitHub
   [ ] First user signup, github, created as admin
   [ ] non public pages redirect to /
 2. Repo contoller
@@ -18,7 +18,7 @@ Plan of Action
   [ ] if job already, do not, or update
   [ ] when pull request, create job
 4. Workers
-  [ ] watch jobs table, spawn up to x processes to run job(s)
+  [ ] watch jobs table/webservice, spawn up to x processes to run job(s)
   [ ] job runs fudge build <branch>/<default>
 
 DB Models

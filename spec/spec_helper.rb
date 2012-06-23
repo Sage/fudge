@@ -15,4 +15,12 @@ RSpec.configure do |config|
   config.filter_run :focus
   include Rack::Test::Methods
   require 'support/rack'
+
+  #Transactional Fixtures
+  config.around(:each) do |example|
+    ActiveRecord::Base.transaction do
+      example.run
+      raise ActiveRecord::Rollback
+    end
+  end
 end

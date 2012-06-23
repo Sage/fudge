@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Testing</title>
+    <title>FudgeServer</title>
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"/>
   </head>
   <body>
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">Fudge Server</a>
+          <a class="brand" href="/">Fudge Server</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Builds</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li class="active"><a href="/">Builds</a></li>
+            </ul>
+            <ul class="nav pull-right">
+              <li class=pull-right"><p class="pull-right navbar-text"><% if current_user %>Welcome, <%= current_user.name %><% else %>not logged in<% end %></p></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

@@ -4,3 +4,4 @@ log/*
 db/*.sqlite
 tags
 gems.tags
+gitenv
