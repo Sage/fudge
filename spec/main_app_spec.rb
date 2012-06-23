@@ -6,6 +6,8 @@ describe MainApp do
   describe '/' do
     context "when logged in" do
       before :each do
+        @user = User.create :name => "Bob Smith"
+        rack_session[:userid] = @user.id
         get '/'
       end
 
@@ -16,6 +18,16 @@ describe MainApp do
 
       it "renders list of repositories" do
         last_response.body.should include "Watched Repositories"
+      end
+    end
+
+    context "when not logged in" do
+      before :each do
+        get '/'
+      end
+
+      it "does not show list of repositories" do
+        last_response.body.should_not include "Watched Repositories"
       end
     end
   end

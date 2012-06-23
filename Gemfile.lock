@@ -1,7 +1,20 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    activemodel (3.2.1)
+      activesupport (= 3.2.1)
+      builder (~> 3.0.0)
+    activerecord (3.2.1)
+      activemodel (= 3.2.1)
+      activesupport (= 3.2.1)
+      arel (~> 3.0.0)
+      tzinfo (~> 0.3.29)
+    activesupport (3.2.1)
+      i18n (~> 0.6)
+      multi_json (~> 1.0)
     addressable (2.2.8)
+    arel (3.0.2)
+    builder (3.0.0)
     diff-lcs (1.1.3)
     faraday (0.8.1)
       multipart-post (~> 1.1)
@@ -17,6 +30,7 @@ GEM
       guard (>= 1.1)
     hashie (1.2.0)
     httpauth (0.1)
+    i18n (0.6.0)
     listen (0.4.5)
       rb-fchange (~> 0.0.5)
       rb-fsevent (~> 0.9.1)
@@ -64,13 +78,16 @@ GEM
       rack (~> 1.3, >= 1.3.6)
       rack-protection (~> 1.2)
       tilt (~> 1.3, >= 1.3.3)
+    sqlite3 (1.3.6)
     thor (0.15.3)
     tilt (1.3.3)
+    tzinfo (0.3.33)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord
   foreman
   guard-rspec
   octokit
@@ -79,3 +96,4 @@ DEPENDENCIES
   rack-test
   rspec
   sinatra
+  sqlite3

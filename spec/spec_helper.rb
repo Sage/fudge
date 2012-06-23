@@ -5,7 +5,8 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'rack/test'
-require 'main_app'
+ENV['RACK_ENV'] = 'test'
+require File.expand_path('../../config/application', __FILE__)
 
 
 RSpec.configure do |config|

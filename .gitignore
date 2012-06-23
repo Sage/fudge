@@ -1,2 +1,6 @@
 .DS_Store
 *.swp
+log/*
+db/*.sqlite
+tags
+gems.tags
