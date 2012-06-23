@@ -1,2 +1,2 @@
-require 'lib/main_app'
+require 'config/application'
 run MainApp

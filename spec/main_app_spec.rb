@@ -29,6 +29,10 @@ describe MainApp do
       it "does not show list of repositories" do
         last_response.body.should_not include "Watched Repositories"
       end
+
+      it "renders the sign in message" do
+        last_response.body.should include "/auth/github"
+      end
     end
   end
 end

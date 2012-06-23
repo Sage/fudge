@@ -1,25 +1,31 @@
 Plan of Action
 ==============
 
-1. First user signup, github, created as admin
+[ ] == TODO,  [X] == DONE
+
+1. Authentication
+  [X] Not logged in, ask to sign in via github
+  [ ] Sign in via GitHub
+  [ ] First user signup, github, created as admin
+  [ ] non public pages redirect to /
 2. Repo contoller
-  - Add repo, setup callback on github for pulls
-  - set watched branch [default suggest :master]
-  - Add watched branch on a repo
-  - List watched and pulls, and current known state
+  [ ] Add repo, setup callback on github for pulls
+  [ ] set watched branch [default suggest :master]
+  [ ] Add watched branch on a repo
+  [ ] List watched and pulls, and current known state
 3. Notification controller
-  - when commit to watched branch, create job
-  - if job already, do not, or update
-  - when pull request, create job
+  [ ] when commit to watched branch, create job
+  [ ] if job already, do not, or update
+  [ ] when pull request, create job
 4. Workers
-  - watch jobs table, spawn up to x processes to run job(s)
-  - job runs fudge build <branch>/<default>
+  [ ] watch jobs table, spawn up to x processes to run job(s)
+  [ ] job runs fudge build <branch>/<default>
 
 DB Models
 =========
 
-User: id, ghname, token, email, admin
-Repos: id, repo_path, name
-Watched: id, repoid, branch, build_status
-Pull Requests: id, repoid, pullid, open, build_status
-Builds: id, type?, repo/pullid, status, timestamp, build_time, output?
+[X] User: id, ghname, token, email, admin
+[ ] Repos: id, repo_path, name
+[ ] Watched: id, repoid, branch, build_status
+[ ] Pull Requests: id, repoid, pullid, open, build_status
+[ ] Builds: id, type?, repo/pullid, status, timestamp, build_time, output?
