@@ -15,6 +15,7 @@ RSpec.configure do |config|
   config.filter_run :focus
   include Rack::Test::Methods
   require 'support/rack'
+  require 'support/markup'
 
   #Transactional Fixtures
   config.around(:each) do |example|

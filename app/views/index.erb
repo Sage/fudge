@@ -3,7 +3,7 @@
   <p>Welcome to FudgeServer continuous integration server.</p>
 </div>
 <% if current_user %>
-  <h2>Watched Repositories</h2>
+  <%= erb :repo_list %>
 <% else %>
   <p>You need to sign in to access the builds.</p>
   <p><a class="btn btn-primary btn-large" href="/auth/github">Sign in with GitHub</a></p>

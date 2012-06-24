@@ -23,6 +23,20 @@ describe MainApp do
       it "renders list of repositories" do
         last_response.body.should include "Watched Repositories"
       end
+
+      it "includes a link to add a repository" do
+        last_response.body.should match link_to '/repos/new', 'Add Repository'
+      end
+
+      context "when there are repositories" do
+      end
+
+      context "when there are no repositories" do
+        it "prompts the use to add one" do
+          last_response.body.should include "no repositories"
+          last_response.body.should include "add a repository"
+        end
+      end
     end
 
     context "when not logged in" do

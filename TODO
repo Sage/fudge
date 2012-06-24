@@ -9,6 +9,8 @@ Plan of Action
   [ ] First user signup, github, created as admin
   [ ] non public pages redirect to /
 2. Repo contoller
+  [ ] List registered repos on home page
+  [X] Add repo button on home page
   [ ] Add repo, setup callback on github for pulls
   [ ] set watched branch [default suggest :master]
   [ ] Add watched branch on a repo
