@@ -31,3 +31,4 @@ ActiveRecord::Base.establish_connection(env[:db])
 
 require 'models/user.rb'
 require 'main_app'
+require 'repo_app'

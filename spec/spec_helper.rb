@@ -16,6 +16,7 @@ RSpec.configure do |config|
   include Rack::Test::Methods
   require 'support/rack'
   require 'support/markup'
+  require 'support/users'
 
   #Transactional Fixtures
   config.around(:each) do |example|

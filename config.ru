@@ -1,2 +1,7 @@
 require 'config/application'
-run MainApp
+map '/' do
+  run MainApp
+end
+map '/repos' do
+  run RepoApp
+end
