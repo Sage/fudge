@@ -7,12 +7,12 @@ Plan of Action
   [X] Not logged in, ask to sign in via github
   [X] Sign in via GitHub
   [ ] First user signup, github, created as admin
-  [ ] non public pages redirect to /
+  [X] non public pages redirect to /
 2. Repo contoller
   [ ] List registered repos on home page
   [X] Add repo button on home page
   [ ] Add repo, setup callback on github for pulls
-  [ ] set watched branch [default suggest :master]
+  [X] set watched branch [default suggest :master]
   [ ] Add watched branch on a repo
   [ ] List watched and pulls, and current known state
 3. Notification controller
@@ -27,7 +27,7 @@ DB Models
 =========
 
 [X] User: id, ghname, token, email, admin
-[ ] Repos: id, repo_path, name
-[ ] Watched: id, repoid, branch, build_status
+[X] Repos: id, repo_path, name
+[X] Watched: id, repoid, branch, build_status
 [ ] Pull Requests: id, repoid, pullid, open, build_status
 [ ] Builds: id, type?, repo/pullid, status, timestamp, build_time, output?

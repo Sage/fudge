@@ -9,4 +9,11 @@ class RepoApp < Sinatra::Application
     require_user!
     erb :repo_new
   end
+
+  post '/' do
+    require_user!
+    Repo.create :uri => request.params['repo'] do |r|
+      r.watched.build :branch => request.params['branch']
+    end
+  end
 end

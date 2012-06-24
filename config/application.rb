@@ -30,5 +30,8 @@ ActiveRecord::Base.logger = logger
 ActiveRecord::Base.establish_connection(env[:db])
 
 require 'models/user.rb'
+require 'models/repo.rb'
+require 'models/watched.rb'
+
 require 'main_app'
 require 'repo_app'
