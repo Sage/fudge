@@ -105,8 +105,19 @@ describe MainApp do
     end
 
     context "when user already registered" do
+      before :each do
+        user = User.last
+        user.token = 'oldgithubtoken'
+        user.save
+      end
+
       it "does not add user to the database" do
         expect { get '/auth/github/callback?code=foo' }.to_not change { User.count }
+      end
+
+      it "updates the github token" do
+        get '/auth/github/callback?code=foo'
+        User.last.token.should == 'agithubtoken'
       end
     end
   end

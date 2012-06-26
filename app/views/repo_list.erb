@@ -6,6 +6,14 @@
   <ul class="nav nav-tabs nav-stacked">
   <% @repos.each do |repo| %>
     <li><a href="/repos/<%= repo.id %>"><%= repo.uri %></a></li>
+    <%
+      #client = Octokit::Client.new :oauth_token => current_user.token
+      #r = client.repo('loz/vim_folder')
+      #puts r.to_yaml
+      #pull = client.pulls('loz/vim_folder')
+      #puts 'PULLS'
+      #puts pull.to_yaml
+    %>
   <% end %>
   </ul>
 <% end %>

@@ -1,6 +1,7 @@
 require 'active_record'
 require 'logger'
 require 'erb'
+require 'octokit'
 
 $LOAD_PATH << File.expand_path('../../app', __FILE__)
 
