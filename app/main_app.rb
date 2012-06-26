@@ -12,6 +12,7 @@ class MainApp < Sinatra::Application
   helpers Helpers::Users
 
   get '/' do
+    @repos = Repo.all
     erb :index
   end
 

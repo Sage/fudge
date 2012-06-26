@@ -37,6 +37,23 @@ describe MainApp do
           last_response.body.should include "add a repository"
         end
       end
+
+      context "when there are repositories" do
+        before :each do
+          @repo1 = Repo.create :uri => 'repo1'
+          @repo2 = Repo.create :uri => 'repo2'
+          get '/'
+        end
+
+        it "does not prompt to add" do
+          last_response.body.should_not include "no repositories"
+        end
+
+        it "contains links to each repo" do
+          last_response.body.should match link_to "/repos/#{@repo1.id}", 'repo1'
+          last_response.body.should match link_to "/repos/#{@repo2.id}", 'repo2'
+        end
+      end
     end
 
     context "when not logged in" do

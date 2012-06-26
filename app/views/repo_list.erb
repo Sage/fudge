@@ -1,3 +1,11 @@
 <a class="btn btn-success btn-large" href="/repos/new"><span class="icon-plus icon-white"></span>&nbsp;Add Repository</a>
 <h2>Watched Repositories</h2>
-<p>You have no repositories, you should <a href='/repos/new'>add a repository</a>
+<% if @repos.empty? %>
+  <p>You have no repositories, you should <a href='/repos/new'>add a repository</a>
+<% else %>
+  <ul class="nav nav-tabs nav-stacked">
+  <% @repos.each do |repo| %>
+    <li><a href="/repos/<%= repo.id %>"><%= repo.uri %></a></li>
+  <% end %>
+  </ul>
+<% end %>

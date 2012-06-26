@@ -49,6 +49,12 @@ describe RepoApp do
       it "adds a watched for the repo branch" do
         Repo.last.watched.first.branch.should == 'abranch'
       end
+
+      it "redirects to repo page" do
+        lastid = Repo.last.id
+        last_response.should be_redirect
+        last_response.location.should == "http://example.org/repos/#{lastid}"
+      end
     end
   end
 end

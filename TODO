@@ -9,12 +9,14 @@ Plan of Action
   [ ] First user signup, github, created as admin
   [X] non public pages redirect to /
 2. Repo contoller
-  [ ] List registered repos on home page
+  [X] List registered repos on home page
   [X] Add repo button on home page
   [ ] Add repo, setup callback on github for pulls
   [X] set watched branch [default suggest :master]
   [ ] Add watched branch on a repo
-  [ ] List watched and pulls, and current known state
+  [ ] List watched
+  [ ] List pulls
+  [ ] List current known state for watched and pulls
 3. Notification controller
   [ ] when commit to watched branch, create job
   [ ] if job already, do not, or update

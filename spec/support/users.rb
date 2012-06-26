@@ -11,7 +11,6 @@ shared_examples_for 'restricted resource' do |method, action|
     end
 
     it "does not redirect to '/'" do
-      last_response.should_not be_redirect
       last_response.location.should_not == 'http://example.org/'
     end
   end

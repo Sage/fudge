@@ -12,8 +12,9 @@ class RepoApp < Sinatra::Application
 
   post '/' do
     require_user!
-    Repo.create :uri => request.params['repo'] do |r|
+    newrepo = Repo.create :uri => request.params['repo'] do |r|
       r.watched.build :branch => request.params['branch']
     end
+    redirect "/repos/#{newrepo.id}"
   end
 end
