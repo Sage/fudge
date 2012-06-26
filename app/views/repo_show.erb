@@ -1,0 +1,21 @@
+<div class='hero-unit'>
+  <h1><%= @repo.uri %></h1>
+  <p>This page lists watched branches to build.</p>
+</div>
+<h2>Watched Branches</h2>
+<table class='table'>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Branch</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @repo.watched.each do |watched| %>
+      <tr>
+        <td width="10"><span class="badge" title="Build State Unknown">?</span></td>
+        <td><%= watched.branch %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

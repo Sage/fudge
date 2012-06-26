@@ -32,6 +32,25 @@ describe RepoApp do
       end
     end
 
+    describe 'GET /:id' do
+      before :each do
+        @repo = Repo.create :uri => 'therepo'
+        @repo.watched.create :branch => 'master'
+        @repo.watched.create :branch => 'develop'
+        get '/%d' % @repo.id
+      end
+
+      it "shows the repo name as title" do
+        last_response.body.should include 'therepo'
+      end
+
+      it "lists all watched branches" do
+        last_response.body.should include "Watched Branches"
+        last_response.body.should include "master"
+        last_response.body.should include "develop"
+      end
+    end
+
     describe 'POST /' do
       before :each do
         @data = {'repo' => 'some_repo', 'branch' => 'abranch'}

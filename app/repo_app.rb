@@ -10,6 +10,11 @@ class RepoApp < Sinatra::Application
     erb :repo_new
   end
 
+  get '/:id' do |id|
+    @repo = Repo.find_by_id(id.to_i)
+    erb :repo_show
+  end
+
   post '/' do
     require_user!
     newrepo = Repo.create :uri => request.params['repo'] do |r|

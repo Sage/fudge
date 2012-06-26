@@ -14,7 +14,7 @@ Plan of Action
   [ ] Add repo, setup callback on github for pulls
   [X] set watched branch [default suggest :master]
   [ ] Add watched branch on a repo
-  [ ] List watched
+  [X] List watched
   [ ] List pulls
   [ ] List current known state for watched and pulls
 3. Notification controller

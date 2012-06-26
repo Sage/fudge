@@ -6,6 +6,7 @@ gem 'omniauth-github'
 gem 'foreman'
 gem 'octokit'
 gem 'activerecord'
+gem 'rake'
 
 group :development do
   gem 'sqlite3'
