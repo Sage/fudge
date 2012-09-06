@@ -15,7 +15,10 @@ module Fudge
       end
 
       def run(options={})
-        Dir[@pattern].select { |path| File.directory? path }.each do |dir|
+        # Allow either a string (usually "*") or an array of strings with directories
+        redir = @pattern.kind_of?(String) ? Dir[@pattern] : Dir[*@pattern]
+
+        redir.select { |path| File.directory? path }.each do |dir|
           next if exclude && exclude.include?(dir)
 
           Dir.chdir dir do
