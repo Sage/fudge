@@ -37,5 +37,21 @@ describe Fudge::Tasks::EachDirectory do
 
       task.pwds.should == dirs
     end
+
+    it "should allow explicit specification of directories through an array" do
+      ed2 = described_class.new ["spec/lib","spec/support"]
+      ed2.tasks << task
+      ed2.run
+      task.pwds.should == dirs.sort
+    end
+
+    it "should respect the order of the directories as specified" do
+      ed2 = described_class.new ["spec/support","spec/lib"]
+      ed2.tasks << task
+      ed2.run
+      task.pwds.should_not == dirs.sort
+      task.pwds.sort.should == dirs.sort
+    end
+
   end
 end
