@@ -1,10 +1,12 @@
 module Fudge
   module Tasks
+    # Allow use of Yard as a supported task
     class Yard < Shell
       include Helpers::BundleAware
 
       attr_accessor :coverage
 
+      # Define task name
       def self.name
         :yard
       end

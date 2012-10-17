@@ -1,4 +1,5 @@
 module Fudge
+  # Domain specific language for expressing Tasks in the Fudgefile
   module TaskDSL
     extend ActiveSupport::Concern
 
@@ -6,6 +7,7 @@ module Fudge
       attr_writer :scope
     end
 
+    # Add self to the scope
     def scope
       @scope ||= [self]
     end
