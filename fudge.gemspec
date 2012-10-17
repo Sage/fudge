@@ -5,11 +5,11 @@ require "fudge/version"
 Gem::Specification.new do |s|
   s.name        = "fudge"
   s.version     = Fudge::VERSION
-  s.authors     = %q{Steven Anderson}
-  s.email       = %q{steve@whilefalse.net}
+  s.authors     = %q{Sage One team}
+  s.email       = %q{support@sageone.com}
   s.homepage    = %q{http://github.com/Sage/fudge}
   s.summary     = %q{Fudge CI Server}
-  s.description = %q{Fudge CI Server}
+  s.description = %q{Fudge Continuous Integration Server}
 
   s.rubyforge_project = "fudge"
 
