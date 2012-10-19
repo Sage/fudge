@@ -1,5 +1,6 @@
 module Fudge
   module Tasks
+    # Implementation of base Task
     class Task
       attr_reader :args
 

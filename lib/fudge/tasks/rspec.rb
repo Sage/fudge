@@ -1,10 +1,12 @@
 module Fudge
   module Tasks
+    # Allow use of RSpec as a task
     class Rspec < Shell
       include Helpers::BundleAware
 
       attr_accessor :color, :coverage
 
+      # Define task name
       def self.name
         :rspec
       end

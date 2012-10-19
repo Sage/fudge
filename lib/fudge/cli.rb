@@ -1,6 +1,7 @@
 require 'thor'
 
 module Fudge
+  # Fudge command line interface
   class Cli < Thor
     desc "init", "Initialize a blank Fudgefile"
     def init

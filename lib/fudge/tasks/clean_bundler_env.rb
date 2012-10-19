@@ -1,6 +1,8 @@
 module Fudge
   module Tasks
+    # Provides a sanitized running environment for Bundler
     class CleanBundlerEnv < CompositeTask
+      # Task name
       def self.name
         :clean_bundler_env
       end

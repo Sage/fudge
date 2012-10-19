@@ -1,8 +1,10 @@
 module Fudge
   module Tasks
+    # Allow use of shell commands as tasks
     class Shell < Task
       attr_accessor :arguments, :check_for
 
+      # Define task name
       def self.name
         :shell
       end
@@ -11,6 +13,9 @@ module Fudge
         self.arguments = super.join(' ')
       end
 
+      # Execute the shell command
+      #
+      # @param [Hash] options Any options to pass to the shell
       def run(options={})
         @output, success = run_command(cmd(options))
         return false unless success

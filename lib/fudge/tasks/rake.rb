@@ -1,8 +1,10 @@
 module Fudge
   module Tasks
+    # Allow use of rake as a supported task
     class Rake < Shell
       include Helpers::BundleAware
 
+      # Define task name
       def self.name
         :rake
       end
