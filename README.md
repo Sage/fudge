@@ -1,8 +1,10 @@
-h1. Fudge
+# Fudge [![travis-ci](https://secure.travis-ci.org/Sage/fudge.png)](http://travis-ci.org/#!/Sage/fudge)
+
+## Description
 
 Fudge is a CI build tool for Ruby/Rails projects.
 
-It allows you to:
+### Features
 
 * Define your CI build process in a Ruby DSL.
 * Keep your build definition in your code repository and version control.
@@ -10,66 +12,79 @@ It allows you to:
 * Run common tasks including code coverage assertion.
 * Define custom tasks for your build process.
 
-h2. Installation
+## Installation
 
 Add to your project's Gemfile:
 
-<pre><code>gem 'fudge', :git => 'git@github.com:Sage/fudge.git' </code></pre>
+```
+gem 'fudge', :git => 'git@github.com:Sage/fudge.git'
+```
 
 Run in your project root:
 
-<pre><code>bundle install </code></pre>
+```
+bundle install
+```
 
-h2. Usage
+## Usage
 
 To create a blank Fudgefile, run in your project root:
 
-<pre><code>bundle exec fudge init </code></pre>
+```
+bundle exec fudge init
+```
 
 To run the CI build (this is what you'd put in your CI server):
 
-<pre><code>bundle exec fudge build </code></pre>
+```
+bundle exec fudge build
+```
 
-h2. Fudgefile syntax
+### Fudgefile syntax
 
 To define a build with a given name (or for a given branch):
 
-<pre><code>build :some_name do
+```
+build :some_name do
 end
-</code></pre>
+```
 
 To define some tasks on that build:
 
-<pre><code>build :some_name do
+```
+build :some_name do
   task :rspec, :coverage => 100
 end
-</code></pre>
+```
 
 Any options passed to the task method will be passed to the task's initializer.
 
 You can also use one of the alternative method missing syntax:
 
-<pre><code>build :some_name do |b|
+```
+build :some_name do |b|
   rspec :coverage => 100
 end
-</code></pre>
+```
 
-h3. Composite Tasks
+### Composite Tasks
 
 Some tasks are composite tasks, and can have tasks added to themselves, for example the each_directory task:
 
-<pre><code>build :some_name do
+```
+build :some_name do
   task :each_directory, '*' do
     task :rspec
   end
 end
-</code></pre>
+```
 
-h3. Task Groups
+### Task Groups
 
 You can define task groups to be reused later on in your Fudgefile. For example:
 
-<pre><code>task_group :tests do
+```
+task_group :tests do
   rspec
 end
 
@@ -85,11 +100,12 @@ end
 build :nodoc do
   task_group :tests
 end
-</code></pre>
+```
 
 Task groups can take arguments, so you can make conditional task groups for sharing between build. For example:
 
-<pre><code>task_group :deploy do |to|
+```
+task_group :deploy do |to|
   shell "cp -r site/ #{to}"
 end
 
@@ -100,13 +116,14 @@ end
 build :production do
   task_group :deploy, '/var/www/live'
 end
-</code></pre>
+```
 
-h3. Callbacks
+### Callbacks
 
 You can define success and failure callbacks using the following syntax:
 
-<pre><code>build :default do
+```
+build :default do
   rspec
 
   on_success do
@@ -117,15 +134,18 @@ You can define success and failure callbacks using the following syntax:
     shell 'send_errors.sh'
   end
 end
-</code></pre>
+```
 
 Build will by default run WITHOUT callbacks enabled. To run a build with callbacks, run:
 
-<pre><code>bundle exec fudge build --callbacks </code></pre>
+```
+bundle exec fudge build --callbacks
+```
 
 You can mix task_groups with callbacks however you like, for example:
 
-<pre><code>task_group :deploy do
+```
+task_group :deploy do
   shell 'deploy.sh'
 end
 
@@ -142,9 +162,9 @@ build :default do
 
   task_group :error_callbacks
 end
-</code></pre>
+```
 
-h2. Defining tasks
+### Defining tasks
 
 A task is a class that responds to two methods:
 
@@ -153,7 +173,8 @@ A task is a class that responds to two methods:
 
 For example, here is a simple task which will print some output and always pass:
 
-<pre><code>class LoudTask
+```
+class LoudTask
   def self.name
     :loud
   end
@@ -163,46 +184,51 @@ For example, here is a simple task which will print some output and always pass:
     true
   end
 end
-</code></pre>
+```
 
-h3. Registering your task
+### Registering your task
 
 To make your task available to Fudge, you simply register it in @Fudge::Tasks@:
 
-<pre><code>require 'fudge'
+```
+require 'fudge'
 Fudge::Tasks.register(LoudTask)
-</code></pre>
+```
 
 This will make the @LoudTask@ task available in your Fudgefile's like so:
 
-<pre><code>build :some_name do
+```
+build :some_name do
   task :loud
 end
-</code></pre>
+```
 
-h3. Extending the Shell task
+### Extending the Shell task
 
 Many tasks simply run a shell command and may accept some extra configuration options. To define a task of this kind, you can sublcass @Shell@ and simply define the @cmd@ method:
 
-<pre><code>class LsTask < Fudge::Tasks::Shell
+```
+class LsTask < Fudge::Tasks::Shell
   def cmd
     "ls #{arguments}"
   end
 end
-</code></pre>
+```
 
 The @arguments@ method is provided by the @Shell@ base class and will be a string of all other positional arguments passed to the task. For example:
 
-<pre><code>build :default do
+```
+build :default do
   task :ls, '-l', '-a'
 end
-</code></pre>
+```
 
 would run the command @ls -l -a@.
 
 You can take hash-like options, which will automatically be set if you have an attribute with the same name. For example:
 
-<pre><code>class LsTask < Fudge::Tasks::Shell
+```
+class LsTask < Fudge::Tasks::Shell
   attr_accessor :all
 
   def cmd
@@ -210,20 +236,22 @@ You can take hash-like options, which will automatically be set if you have an a
     "ls #{arguments}"
   end
 end
-</code></pre>
+```
 
 Now this task can be used like so:
 
-<pre><code>build :default do
+```
+build :default do
   task :ls, :all => true
 end
-</code></pre>
+```
 
-h3. Checking output with the Shell task
+### Checking output with the Shell task
 
 You can define that some output from a command is required by responding to @check_for@ with a regexp. For example:
 
-<pre><code>class LsTask < Fudge::Tasks::Shell
+```
+class LsTask < Fudge::Tasks::Shell
   def cmd
     "ls #{arguments}"
   end
@@ -232,13 +260,14 @@ You can define that some output from a command is required by responding to @che
     /4 files found/
   end
 end
-</code></pre>
+```
 
 The above task will only pass if the output contains "4 files found".
 
 If you want to do some further processing on the contents matched by the regexp, you can provide an array with the second element being a lambda, which wil be called to process the output:
 
-<pre><code>class LsTask < Fudge::Tasks::Shell
+```
+class LsTask < Fudge::Tasks::Shell
   def cmd
     "ls #{arguments}"
   end
@@ -247,15 +276,16 @@ If you want to do some further processing on the contents matched by the regexp,
     [/(\d+) files found/, lambda { |n| n.to_i >= 4 }]
   end
 end
-</code></pre>
+```
 
 The above task will only pass if the output contains "n files found", where n is a number, and also n is at least 4.
 
-h3. Defining composite tasks
+### Defining composite tasks
 
 Some tasks may require you to run a number of commands one after the other. You can hook into other fudge tasks by including the Fudge DSL into your composite task:
 
-<pre><code>class DeployTask < Fudge::Tasks::CompositeTask
+```
+class DeployTask < Fudge::Tasks::CompositeTask
   include Fudge::TaskDSL
 
   def self.name
@@ -270,11 +300,12 @@ Some tasks may require you to run a number of commands one after the other. You 
   end
 end
 Fudge::Tasks.register(DeployTask)
-</code></pre>
+```
 
 The above will run the given tasks in the order defined, and only pass if both tasks pass. It can then be used in a FudgeFile like so:
 
-<pre><code>build :default do
+```
+build :default do
   task :deploy
 end
-</code></pre>
+```
