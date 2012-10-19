@@ -1,9 +1,13 @@
 module Fudge
+  # Executes the build
   class Runner
     def initialize(description)
       @description = description
     end
 
+    # Run the specified build
+    #
+    # @param [String] which_build Defaults to 'default'
     def run_build(which_build='default', options={})
       which_build = String.new(which_build)
 

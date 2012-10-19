@@ -1,4 +1,5 @@
 module Fudge
+  # Define default tasks
   module Tasks
     # Registers a task under a given name
     def self.register(task_class)

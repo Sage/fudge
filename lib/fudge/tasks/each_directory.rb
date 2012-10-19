@@ -4,6 +4,7 @@ module Fudge
     class EachDirectory < CompositeTask
       attr_accessor :exclude
 
+      # Define task name
       def self.name
         :each_directory
       end

@@ -1,6 +1,7 @@
 require 'rainbow'
 require 'active_support/all'
 
+# Fudge implementation
 module Fudge
   autoload :Build, 'fudge/build'
   autoload :Cli, 'fudge/cli'

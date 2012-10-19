@@ -1,8 +1,10 @@
 module Fudge
   module Tasks
+    # Allow for tasks to be combined
     class CompositeTask < Task
       attr_accessor :description
 
+      # Define task array
       def tasks
         @tasks ||= []
       end

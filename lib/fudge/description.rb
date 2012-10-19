@@ -36,6 +36,7 @@ module Fudge
       end
     end
 
+    # Add actions to be invoked upon success
     def on_success
       task = Fudge::Tasks::CompositeTask.new
       current_scope.success_hooks << task
@@ -43,6 +44,7 @@ module Fudge
       with_scope(task) { yield }
     end
 
+    # Add actions to be invoked upon failure
     def on_failure
       task = Fudge::Tasks::CompositeTask.new
       current_scope.failure_hooks << task

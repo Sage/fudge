@@ -1,5 +1,6 @@
 module Fudge
   module Helpers
+    # Work with Bundler
     module BundleAware
       private
       def bundle_cmd(original, options={})
