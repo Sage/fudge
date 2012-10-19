@@ -3,7 +3,7 @@ task_group :spec do
 end
 
 task_group :docs do
-  task :yard, :coverage => 96
+  task :yard, :coverage => 100
 end
 
 task_group :shout_about_success do
