@@ -21,7 +21,8 @@ RUBY
       end
     end
 
-    desc "build [BUILD_NAME]", "Run a build with the given name (default: 'default')"
+    desc "build [BUILD_NAME]",
+      "Run a build with the given name (default: 'default')"
     method_option :callbacks, :type => :boolean, :default => false
     # Runs the parsed builds
     # @param [String] build_name the given build to run (default 'default')

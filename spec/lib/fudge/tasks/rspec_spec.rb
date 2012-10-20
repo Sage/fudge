@@ -13,7 +13,8 @@ describe Fudge::Tasks::Rspec do
     end
 
     it "should append any arguments passed in" do
-      described_class.new('foobar', :color => false).should run_command 'rspec foobar'
+      task = described_class.new('foobar', :color => false)
+      task.should run_command 'rspec foobar'
     end
 
     it "should default the arguments to spec/" do

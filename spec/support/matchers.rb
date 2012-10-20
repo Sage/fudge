@@ -7,7 +7,12 @@ end
 RSpec::Matchers.define :run_command do |to_match, args|
   match do |subject|
     ran = ''
-    to_stub = subject.is_a?(Fudge::Tasks::Shell) ? subject : Fudge::Tasks::Shell.any_instance
+
+    if subject.is_a?(Fudge::Tasks::Shell)
+      to_stub = subject
+    else
+      to_stub = Fudge::Tasks::Shell.any_instance
+    end
 
     to_stub.stub(:run_command) do |cmd|
       ran = cmd

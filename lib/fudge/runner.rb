@@ -11,7 +11,8 @@ module Fudge
     def run_build(which_build='default', options={})
       which_build = String.new(which_build)
 
-      puts "Running build ".foreground(:cyan) + which_build.bright.foreground(:yellow)
+      puts "Running build ".foreground(:cyan) +
+        which_build.bright.foreground(:yellow)
 
       # Run the build
       build = @description.builds[which_build.to_sym]

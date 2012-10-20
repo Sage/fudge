@@ -25,7 +25,8 @@ describe Fudge::Tasks::EachDirectory do
   describe :run do
     let(:task) { TestEachDirectoryTask.new }
     let(:dirs) do
-      Dir[File.expand_path('../../../../*', __FILE__)].select { |path| File.directory? path }
+      files = Dir[File.expand_path('../../../../*', __FILE__)]
+      files.select { |path| File.directory? path }
     end
 
     before :each do
