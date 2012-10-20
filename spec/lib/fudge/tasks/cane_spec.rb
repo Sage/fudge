@@ -18,6 +18,14 @@ describe Fudge::Tasks::Cane do
       end
     end
 
+    context 'with :style => false' do
+      subject {described_class.new :style => false }
+
+      it "runs with --no-style" do
+        subject.should run_command "cane --no-style"
+      end
+    end
+
     it { should_not succeed_with_output 'any output from cane is bad' }
     it { should succeed_with_output '' }
   end

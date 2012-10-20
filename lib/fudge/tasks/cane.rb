@@ -22,8 +22,8 @@ module Fudge
 
       def tty_options
         args = []
-        doc = options.fetch(:doc, true)
-        args << "--no-doc" unless doc
+        args << "--no-doc"    unless options.fetch(:doc, true)
+        args << "--no-style"  unless options.fetch(:style, true)
         args
       end
     end
