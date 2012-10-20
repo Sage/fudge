@@ -2,11 +2,11 @@ module Fudge
   module Tasks
     # Implementation of base Task
     class Task
-      attr_reader :args
+      attr_reader :args, :options
 
       def initialize(*args)
         @args = args.dup
-        options = args.extract_options!
+        @options = args.extract_options!
 
         options.each do |k,v|
           send("#{k}=", v) if respond_to?("#{k}=")

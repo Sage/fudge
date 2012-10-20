@@ -12,11 +12,19 @@ module Fudge
       private
 
       def cmd(options={})
-        bundle_cmd("cane", options)
+        cmd = ["cane"] + tty_options
+        bundle_cmd(cmd.join(' '), options)
       end
 
       def check_for
         /\A\Z/
+      end
+
+      def tty_options
+        args = []
+        doc = options.fetch(:doc, true)
+        args << "--no-doc" unless doc
+        args
       end
     end
 
