@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec', '>= 2.8.0'
   s.add_development_dependency 'guard-rspec'
   s.add_development_dependency 'yard'
+  s.add_development_dependency 'cane'
   s.add_development_dependency 'RedCloth'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'rb-inotify'
