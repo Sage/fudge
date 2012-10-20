@@ -15,17 +15,23 @@ module Fudge
     def run(options={})
       success = super
       if callbacks
-        puts "Running #{success ? 'success' : 'failure'} callbacks...".foreground(:cyan).bright
+        message "Running #{success ? 'success' : 'failure'} callbacks..."
         hooks = success ? @success_hooks : @failure_hooks
 
         hooks.each do |hook|
           return false unless hook.run
         end
       else
-        puts "Skipping callbacks...".foreground(:cyan).bright
+        message "Skipping callbacks..."
       end
 
       success
+    end
+
+    private
+
+    def message(message)
+      puts message.foreground(:cyan).bright
     end
   end
 end

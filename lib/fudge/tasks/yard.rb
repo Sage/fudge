@@ -19,10 +19,14 @@ module Fudge
 
       def check_for
         if coverage
-          [/(\d+\.\d+)% documented/, lambda { |matches| matches[1].to_f >= coverage ? true : 'Insufficient Documentation.' }]
+          [/(\d+\.\d+)% documented/, method(:coverage_checker)]
         else
           super
         end
+      end
+
+      def coverage_checker(matches)
+        matches[1].to_f >= coverage ? true : 'Insufficient Documentation.'
       end
     end
 

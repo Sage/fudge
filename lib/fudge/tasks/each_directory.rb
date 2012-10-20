@@ -1,6 +1,7 @@
 module Fudge
   module Tasks
-    # A task which runs a number of other tasks in a given directory (relative to the current directory)
+    # A task which runs a number of other tasks in a given directory
+    # (relative to the current directory)
     class EachDirectory < CompositeTask
       attr_accessor :exclude
 
@@ -16,17 +17,27 @@ module Fudge
       end
 
       def run(options={})
-        # Allow either a string (usually "*") or an array of strings with directories
+        # Allow either a string (usually "*") or an array of strings
+        # with directories
         redir = @pattern.kind_of?(String) ? Dir[@pattern] : Dir[*@pattern]
 
         redir.select { |path| File.directory? path }.each do |dir|
           next if exclude && exclude.include?(dir)
 
           Dir.chdir dir do
-            puts "--> In directory".foreground(:cyan) + " #{dir}:".foreground(:cyan).bright
+            output_dir(dir)
             return false unless super
           end
         end
+      end
+
+      private
+
+      def output_dir(dir)
+        message = ""
+        message << "--> In directory".foreground(:cyan)
+        message << " #{dir}:".foreground(:cyan).bright
+        puts message
       end
     end
 

@@ -63,7 +63,7 @@ describe Fudge::Description do
     end
 
     it "should super method_missing if no task found" do
-      expect { subject.non_existeng_task :foo, :bar }.to raise_error(NoMethodError)
+      expect { subject.no_task :foo, :bar }.to raise_error(NoMethodError)
     end
 
     it "should add tasks recursively to composite tasks" do
@@ -112,39 +112,40 @@ describe Fudge::Description do
       end.to raise_error Fudge::Exceptions::TaskGroupNotFound
     end
 
-    it "should allow the use of task groups through nested layers of composite tasks" do
-      subject.task_group :group1 do
-        subject.task :dummy
-      end
-
-      subject.build :default do
-        subject.task :dummy_composite do
-          subject.task_group :group1
+    context "grouped tasks" do
+      before :each do
+        subject.task_group :group1 do
+          subject.task :dummy
         end
       end
 
-      subject.builds[:default].run
-      DummyTask.ran.should be_true
-    end
-
-    it "should allow the use of task groups through nested layers of composite nodes when options are given" do
-      subject.task_group :group1 do
-        subject.task :dummy
-      end
-
-      subject.build :default do
-        subject.task :dummy_composite, :hello, :foobar => true do
-          subject.task_group :group1
+      it "allows group task reuse in composite tasks" do
+        subject.build :default do
+          subject.task :dummy_composite do
+            subject.task_group :group1
+          end
         end
+
+        subject.builds[:default].run
+        DummyTask.ran.should be_true
       end
 
-      subject.builds[:default].run
+      it "supports when options are given" do
+        subject.build :default do
+          subject.task :dummy_composite, :hello, :foobar => true do
+            subject.task_group :group1
+          end
+        end
 
-      # Check that the options are maintained through the call
-      build_tasks.first.args.should have(2).items
-      build_tasks.first.args[1][:foobar].should be_true
-      DummyTask.ran.should be_true
+        subject.builds[:default].run
+
+        # Check that the options are maintained through the call
+        build_tasks.first.args.should have(2).items
+        build_tasks.first.args[1][:foobar].should be_true
+        DummyTask.ran.should be_true
+      end
     end
+
   end
 
   describe "Callback Hooks" do
@@ -170,7 +171,7 @@ describe Fudge::Description do
           @ran.should == ['FOO', 'BAR']
         end
 
-        it "should fail the build and stop running callbacks if any of the success hooks fail" do
+        it "fails the build HARD when hooks fail" do
           make_build do
             subject.on_success { subject.shell 'fail'; subject.shell 'FOO' }
             subject.on_success { subject.shell 'BAR' }
@@ -213,7 +214,7 @@ describe Fudge::Description do
           @ran.should == ['WOOP', 'BAR']
         end
 
-        it "should fail the build and stop running callbacks if any of the failure hooks fail" do
+        it "fails the build HARD when hooks fail" do
           make_build do
             subject.on_failure { subject.shell 'fail'; subject.shell 'FOO' }
             subject.on_failure { subject.shell 'BAR' }

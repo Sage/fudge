@@ -28,7 +28,11 @@ describe Fudge::Tasks::Shell do
     end
 
     context "with a callable to check the matches" do
-      subject { described_class.new(:ls, :check_for => [/(\d+) files found/, lambda { |matches| matches[1].to_i >= 4 }]) }
+      let(:file_count_matcher) { lambda { |matches| matches[1].to_i >= 4 }}
+      subject do
+        described_class.new :ls,
+          :check_for => [/(\d+) files found/, file_count_matcher]
+      end
 
       it { should_not succeed_with_output "Hello there were 3 files found." }
       it { should succeed_with_output "Hello there were 4 files found." }
