@@ -16,7 +16,7 @@ Fudge is a CI build tool for Ruby/Rails projects.
 
 Add to your project's Gemfile:
 
-```
+```ruby
 gem 'fudge', :git => 'git@github.com:Sage/fudge.git'
 ```
 
@@ -50,14 +50,14 @@ bundle exec fudge build the_build_name
 
 To define a build with a given name (or for a given branch):
 
-```
+```ruby
 build :some_name do
 end
 ```
 
 To define some tasks on that build:
 
-```
+```ruby
 build :some_name do
   task :rspec, :coverage => 100
 end
@@ -67,7 +67,7 @@ Any options passed to the task method will be passed to the task's initializer.
 
 You can also use one of the alternative method missing syntax:
 
-```
+```ruby
 build :some_name do |b|
   rspec :coverage => 100
 end
@@ -77,7 +77,7 @@ end
 
 Some tasks are composite tasks, and can have tasks added to themselves, for example the each_directory task:
 
-```
+```ruby
 build :some_name do
   task :each_directory, '*' do
     task :rspec
@@ -89,7 +89,7 @@ end
 
 You can define task groups to be reused later on in your Fudgefile. For example:
 
-```
+```ruby
 task_group :tests do
   rspec
 end
@@ -110,7 +110,7 @@ end
 
 Task groups can take arguments, so you can make conditional task groups for sharing between build. For example:
 
-```
+```ruby
 task_group :deploy do |to|
   shell "cp -r site/ #{to}"
 end
@@ -128,7 +128,7 @@ end
 
 You can define success and failure callbacks using the following syntax:
 
-```
+```ruby
 build :default do
   rspec
 
@@ -150,7 +150,7 @@ bundle exec fudge build --callbacks
 
 You can mix task_groups with callbacks however you like, for example:
 
-```
+```ruby
 task_group :deploy do
   shell 'deploy.sh'
 end
@@ -179,7 +179,7 @@ A task is a class that responds to two methods:
 
 For example, here is a simple task which will print some output and always pass:
 
-```
+```ruby
 class LoudTask
   def self.name
     :loud
@@ -196,14 +196,14 @@ end
 
 To make your task available to Fudge, you simply register it in @Fudge::Tasks@:
 
-```
+```ruby
 require 'fudge'
 Fudge::Tasks.register(LoudTask)
 ```
 
 This will make the @LoudTask@ task available in your Fudgefile's like so:
 
-```
+```ruby
 build :some_name do
   task :loud
 end
@@ -213,7 +213,7 @@ end
 
 Many tasks simply run a shell command and may accept some extra configuration options. To define a task of this kind, you can sublcass @Shell@ and simply define the @cmd@ method:
 
-```
+```ruby
 class LsTask < Fudge::Tasks::Shell
   def cmd
     "ls #{arguments}"
@@ -223,7 +223,7 @@ end
 
 The @arguments@ method is provided by the @Shell@ base class and will be a string of all other positional arguments passed to the task. For example:
 
-```
+```ruby
 build :default do
   task :ls, '-l', '-a'
 end
@@ -233,7 +233,7 @@ would run the command @ls -l -a@.
 
 You can take hash-like options, which will automatically be set if you have an attribute with the same name. For example:
 
-```
+```ruby
 class LsTask < Fudge::Tasks::Shell
   attr_accessor :all
 
@@ -246,7 +246,7 @@ end
 
 Now this task can be used like so:
 
-```
+```ruby
 build :default do
   task :ls, :all => true
 end
@@ -256,7 +256,7 @@ end
 
 You can define that some output from a command is required by responding to @check_for@ with a regexp. For example:
 
-```
+```ruby
 class LsTask < Fudge::Tasks::Shell
   def cmd
     "ls #{arguments}"
@@ -272,7 +272,7 @@ The above task will only pass if the output contains "4 files found".
 
 If you want to do some further processing on the contents matched by the regexp, you can provide an array with the second element being a lambda, which wil be called to process the output:
 
-```
+```ruby
 class LsTask < Fudge::Tasks::Shell
   def cmd
     "ls #{arguments}"
@@ -290,7 +290,7 @@ The above task will only pass if the output contains "n files found", where n is
 
 Some tasks may require you to run a number of commands one after the other. You can hook into other fudge tasks by including the Fudge DSL into your composite task:
 
-```
+```ruby
 class DeployTask < Fudge::Tasks::CompositeTask
   include Fudge::TaskDSL
 
@@ -310,7 +310,7 @@ Fudge::Tasks.register(DeployTask)
 
 The above will run the given tasks in the order defined, and only pass if both tasks pass. It can then be used in a FudgeFile like so:
 
-```
+```ruby
 build :default do
   task :deploy
 end
