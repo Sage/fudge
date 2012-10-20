@@ -40,6 +40,12 @@ To run the CI build (this is what you'd put in your CI server):
 bundle exec fudge build
 ```
 
+This will run the build named 'default'.  To run a specific build in the Fudgefile:
+
+```
+bundle exec fudge build the_build_name
+```
+
 ### Fudgefile syntax
 
 To define a build with a given name (or for a given branch):
