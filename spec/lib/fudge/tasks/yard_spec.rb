@@ -7,7 +7,8 @@ describe Fudge::Tasks::Yard do
 
   describe :run do
     it "should run yard with any arguments passed in" do
-      described_class.new('-r YardREADME.md').should run_command 'yard -r YardREADME.md'
+      task = described_class.new('-r YardREADME.md')
+      task.should run_command 'yard -r YardREADME.md'
     end
   end
 
