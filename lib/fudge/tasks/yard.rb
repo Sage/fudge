@@ -17,6 +17,15 @@ module Fudge
         bundle_cmd("yard #{arguments}", options)
       end
 
+      def arguments
+        args = super
+        if args.empty?
+          "stats --list-undoc"
+        else
+          args
+        end
+      end
+
       def check_for
         if coverage
           [/(\d+\.\d+)% documented/, method(:coverage_checker)]
