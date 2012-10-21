@@ -6,6 +6,10 @@ describe Fudge::Tasks::Yard do
   it { should be_registered_as :yard }
 
   describe :run do
+    it "runs stats with undocumented by default" do
+      subject.should run_command 'yard stats --list-undoc'
+    end
+
     it "should run yard with any arguments passed in" do
       task = described_class.new('-r YardREADME.md')
       task.should run_command 'yard -r YardREADME.md'
