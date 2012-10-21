@@ -6,6 +6,10 @@ task_group :docs do
   task :yard, :coverage => 100
 end
 
+task_group :codestyle do
+  task :cane
+end
+
 task_group :shout_about_success do
   on_success do
     task :shell, 'echo "WOOHOO BUILD PASSED"'
@@ -26,6 +30,7 @@ end
 build :default do
   task_group :spec
   task_group :docs
+  task_group :codestyle
 
   task_group :shout_about_success_and_failure
 end

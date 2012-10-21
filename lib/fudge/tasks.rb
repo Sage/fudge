@@ -28,5 +28,6 @@ module Fudge
     require 'fudge/tasks/rake'
     require 'fudge/tasks/rspec'
     require 'fudge/tasks/yard'
+    require 'fudge/tasks/cane'
   end
 end
