@@ -1,0 +1,2 @@
+class NotCommented
+end

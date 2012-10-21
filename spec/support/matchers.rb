@@ -4,29 +4,52 @@ RSpec::Matchers.define :be_registered_as do |key|
   end
 end
 
-RSpec::Matchers.define :run_command do |to_match, args|
-  match do |subject|
-    ran = ''
 
-    if subject.is_a?(Fudge::Tasks::Shell)
-      to_stub = subject
-    else
-      to_stub = Fudge::Tasks::Shell.any_instance
+module FudgeMatchers
+  class Run
+    attr_reader :args, :expected, :task
+
+    def initialize(expected, args={})
+      @expected = expected
+      @args = args
     end
 
-    to_stub.stub(:run_command) do |cmd|
-      ran = cmd
-      ['dummy output', true]
+    def matches?(task)
+      @task = task
+      ran = ''
+
+      if task.is_a?(Fudge::Tasks::Shell)
+        to_stub = task
+      else
+        to_stub = Fudge::Tasks::Shell.any_instance
+      end
+
+      to_stub.stub(:run_command) do |cmd|
+        ran = cmd
+        ['dummy output', true]
+      end
+
+      task.run(args || {})
+
+      @actual = ran
+      if expected.is_a? Regexp
+        ran =~ expected
+      else
+        ran == expected
+      end
     end
 
-    subject.run(args || {})
-
-    if to_match.is_a? Regexp
-      ran =~ to_match
-    else
-      ran == to_match
+    def failure_message_for_should
+      message = ""
+      message << "Expected task :#{@task.class.name} "
+      message << "to run:\n  #{@expected}\n"
+      message << "but it ran:\n  #{@actual}"
     end
   end
+end
+
+def run_command(cmd, options={})
+  FudgeMatchers::Run.new cmd, options
 end
 
 RSpec::Matchers.define :succeed_with_output do |output|
