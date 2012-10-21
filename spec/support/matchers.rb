@@ -40,7 +40,10 @@ module FudgeMatchers
     end
 
     def failure_message_for_should
-      "Expected task :#{@task.class.name} to run:\n  #{@expected}\nbut it ran:\n  #{@actual}"
+      message = ""
+      message << "Expected task :#{@task.class.name} "
+      message << "to run:\n  #{@expected}\n"
+      message << "but it ran:\n  #{@actual}"
     end
   end
 end
