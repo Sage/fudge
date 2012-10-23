@@ -6,11 +6,6 @@ module Fudge
 
       attr_accessor :coverage
 
-      # Define task name
-      def self.name
-        :yard
-      end
-
       private
 
       def cmd(options={})

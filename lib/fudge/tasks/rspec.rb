@@ -6,12 +6,8 @@ module Fudge
 
       attr_accessor :color, :coverage
 
-      # Define task name
-      def self.name
-        :rspec
-      end
-
       private
+
       def cmd(options={})
         self.arguments = 'spec/' if arguments.blank?
         bundle_cmd("rspec#{tty_options} #{arguments}", options)

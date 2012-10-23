@@ -142,13 +142,13 @@ build :default do
 end
 ```
 
-Build will by default run WITHOUT callbacks enabled. To run a build with callbacks, run:
+Build will by default run *without* callbacks enabled. To run a build with callbacks, run:
 
 ```
 bundle exec fudge build --callbacks
 ```
 
-You can mix task_groups with callbacks however you like, for example:
+You can mix task groups with callbacks however you like, for example:
 
 ```ruby
 task_group :deploy do
@@ -174,19 +174,20 @@ end
 
 A task is a class that responds to two methods:
 
-@self.name@ => A class method that returns a symbol representing the task. This is what will be used to identify your task in the Fudgefile.
-@run@ => An instance method which carries out the contents of the task. Should return @true@ or @false@ depending on whether the task succeeded.
+ * `self.name` - A class method that returns a symbol representing the task. This is what will be used to identify your task in the Fudgefile. If not defined, it will be derived from the class name (e.g. in below example, it will be `:loud_task`).
+ * `run` - An instance method which carries out the contents of the task. Should return `true` or `false` depending on whether the task succeeded.
 
 For example, here is a simple task which will print some output and always pass:
 
 ```ruby
-class LoudTask
+class LoudTask < Fudge::Tasks::Task
   def self.name
     :loud
   end
 
   def run
     puts "I WAS RUN"
+
     true
   end
 end
@@ -194,14 +195,15 @@ end
 
 ### Registering your task
 
-To make your task available to Fudge, you simply register it in @Fudge::Tasks@:
+To make your task available to Fudge, you simply register it in `Fudge::Tasks`:
 
 ```ruby
 require 'fudge'
+
 Fudge::Tasks.register(LoudTask)
 ```
 
-This will make the @LoudTask@ task available in your Fudgefile's like so:
+This will make the `LoudTask` task available in your Fudgefile's like so:
 
 ```ruby
 build :some_name do
@@ -211,7 +213,7 @@ end
 
 ### Extending the Shell task
 
-Many tasks simply run a shell command and may accept some extra configuration options. To define a task of this kind, you can sublcass @Shell@ and simply define the @cmd@ method:
+Many tasks simply run a shell command and may accept some extra configuration options. To define a task of this kind, you can sublcass `Shell` and simply define the `cmd` method:
 
 ```ruby
 class LsTask < Fudge::Tasks::Shell
@@ -221,7 +223,7 @@ class LsTask < Fudge::Tasks::Shell
 end
 ```
 
-The @arguments@ method is provided by the @Shell@ base class and will be a string of all other positional arguments passed to the task. For example:
+The `arguments` method is provided by the `Shell` base class and will be a string of all other positional arguments passed to the task. For example:
 
 ```ruby
 build :default do
@@ -229,7 +231,7 @@ build :default do
 end
 ```
 
-would run the command @ls -l -a@.
+would run the command `ls -l -a`.
 
 You can take hash-like options, which will automatically be set if you have an attribute with the same name. For example:
 
@@ -254,7 +256,7 @@ end
 
 ### Checking output with the Shell task
 
-You can define that some output from a command is required by responding to @check_for@ with a regexp. For example:
+You can define that some output from a command is required by responding to `check_for` with a regexp. For example:
 
 ```ruby
 class LsTask < Fudge::Tasks::Shell
