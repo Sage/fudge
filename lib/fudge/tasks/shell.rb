@@ -4,11 +4,6 @@ module Fudge
     class Shell < Task
       attr_accessor :arguments, :check_for
 
-      # Define task name
-      def self.name
-        :shell
-      end
-
       def initialize(*args)
         self.arguments = super.join(' ')
       end
@@ -18,6 +13,7 @@ module Fudge
       # @param [Hash] options Any options to pass to the shell
       def run(options={})
         @output, success = run_command(cmd(options))
+
         return false unless success
         return check_for_output
       end

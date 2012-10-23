@@ -4,6 +4,14 @@ module Fudge
     class Task
       attr_reader :args, :options
 
+      # Default name derived from class name.
+      # Can be overriden by specific tasks.
+      #
+      # @return [Symbol]
+      def self.name
+        super.demodulize.underscore.downcase.to_sym
+      end
+
       def initialize(*args)
         @args = args.dup
         @options = args.extract_options!

@@ -13,6 +13,7 @@ module Fudge
       def run(options={})
         tasks.each do |t|
           output_message(t)
+
           return unless t.run(options)
         end
       end
@@ -25,9 +26,12 @@ module Fudge
 
       def output_message(t)
           args_text = join_arguments(t)
-          puts "Running task ".foreground(:blue) +
-            t.class.name.to_s.foreground(:yellow).bright + ' ' +
+
+          puts [
+            "Running task".foreground(:blue),
+            t.class.name.to_s.foreground(:yellow).bright,
             args_text.foreground(:yellow).bright
+          ].join(' ')
       end
     end
   end

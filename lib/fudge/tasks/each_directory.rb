@@ -5,11 +5,6 @@ module Fudge
     class EachDirectory < CompositeTask
       attr_accessor :exclude
 
-      # Define task name
-      def self.name
-        :each_directory
-      end
-
       def initialize(pattern, *args)
         super(*args)
 
@@ -26,6 +21,7 @@ module Fudge
 
           Dir.chdir dir do
             output_dir(dir)
+
             return false unless super
           end
         end
@@ -37,6 +33,7 @@ module Fudge
         message = ""
         message << "--> In directory".foreground(:cyan)
         message << " #{dir}:".foreground(:cyan).bright
+
         puts message
       end
     end
