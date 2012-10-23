@@ -4,11 +4,6 @@ module Fudge
     class Rake < Shell
       include Helpers::BundleAware
 
-      # Define task name
-      def self.name
-        :rake
-      end
-
       private
 
       def cmd(options={})

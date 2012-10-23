@@ -174,19 +174,20 @@ end
 
 A task is a class that responds to two methods:
 
- * `self.name` - A class method that returns a symbol representing the task. This is what will be used to identify your task in the Fudgefile.
+ * `self.name` - A class method that returns a symbol representing the task. This is what will be used to identify your task in the Fudgefile. If not defined, it will be derived from the class name (e.g. in below example, it will be `:loud_task`).
  * `run` - An instance method which carries out the contents of the task. Should return `true` or `false` depending on whether the task succeeded.
 
 For example, here is a simple task which will print some output and always pass:
 
 ```ruby
-class LoudTask
+class LoudTask < Fudge::Tasks::Task
   def self.name
     :loud
   end
 
   def run
     puts "I WAS RUN"
+
     true
   end
 end
@@ -198,6 +199,7 @@ To make your task available to Fudge, you simply register it in `Fudge::Tasks`:
 
 ```ruby
 require 'fudge'
+
 Fudge::Tasks.register(LoudTask)
 ```
 

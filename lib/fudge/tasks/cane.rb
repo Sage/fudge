@@ -4,11 +4,6 @@ module Fudge
     class Cane < Shell
       include Helpers::BundleAware
 
-      # Define task name
-      def self.name
-        :cane
-      end
-
       private
 
       def cmd(options={})
