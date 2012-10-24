@@ -26,6 +26,14 @@ describe Fudge::Tasks::Cane do
       end
     end
 
+    context 'with :max_width => 100' do
+      subject {described_class.new :max_width => 100 }
+
+      it "runs with --style-measure 100" do
+        subject.should run_command "cane --style-measure 100"
+      end
+    end
+
     it { should_not succeed_with_output 'any output from cane is bad' }
     it { should succeed_with_output '' }
   end
