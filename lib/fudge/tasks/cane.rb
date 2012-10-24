@@ -19,7 +19,7 @@ module Fudge
         args = []
         args << "--no-doc"    unless options.fetch(:doc, true)
         args << "--no-style"  unless options.fetch(:style, true)
-        args << "--style-measure #{max}" if max = options.fetch?(:max_width)
+        args << "--style-measure #{mw}" if mw = options.fetch?(:max_width)
         args
       end
     end
