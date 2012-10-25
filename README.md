@@ -98,9 +98,14 @@ task_group :docs do
   yard
 end
 
+task_group :quality do
+  cane
+end
+
 build :some_name do
   task_group :tests
   task_group :docs
+  task_group :quality
 end
 
 build :nodoc do
