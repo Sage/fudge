@@ -11,11 +11,11 @@ module Fudge
       if File.exists?(path)
         puts "Fudgefile already exists."
       else
-        contents = <<RUBY
-build :default do
-  task :rspec
-end
-RUBY
+        contents = ""
+        contents << "build :default do\n"
+        contents << "  task :rspec\n"
+        contents << "end"
+
         File.open(path, 'w') { |f| f.write(contents) }
         puts "Fudgefile created."
       end
