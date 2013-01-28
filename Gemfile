@@ -3,4 +3,4 @@ source "http://rubygems.org"
 # Specify your gem's dependencies in fudge.gemspec
 gemspec
 
-gem "fudge", path="."
+gem "fudge", :path => "."
