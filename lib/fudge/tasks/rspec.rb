@@ -30,13 +30,18 @@ module Fudge
 
       def check_for
         if coverage
-          [Regexp.new(coverage_regex.source + '|' + pre_conditions_regex.source), method(:coverage_checker)]
+          rs1 = coverage_regex.source
+          rs2 = pre_conditions_regex.source
+          regex = Regexp.new(rs1 + '|' + rs2)
+
+          [regex, method(:coverage_checker)]
         else
           super
         end
       end
 
-      # will check if the expected coverage is met, but first will test for pre conditions to pass
+      # will check if the expected coverage is met,
+      # but first will test for pre conditions to pass
       def coverage_checker(matches)
         matches = matches.to_s
         if matches.match(pre_conditions_regex)
@@ -46,8 +51,9 @@ module Fudge
         end
       end
 
-      # checks the matched string from the console output, to see if the number for the
-      # coverage is greater or equal than the expected coverage
+      # checks the matched string from the console output,
+      # to see if the number for the coverage is greater or
+      # equal than the expected coverage
       def test_coverage_threshold(matches)
         if matches.to_f >= coverage
           true
