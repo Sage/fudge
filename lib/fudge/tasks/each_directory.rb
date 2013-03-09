@@ -20,22 +20,13 @@ module Fudge
           next if exclude && exclude.include?(dir)
 
           Dir.chdir dir do
-            output_dir(dir)
+            WithDirectory.new(dir).output
 
             return false unless super
           end
         end
       end
 
-      private
-
-      def output_dir(dir)
-        message = ""
-        message << "--> In directory".foreground(:cyan)
-        message << " #{dir}:".foreground(:cyan).bright
-
-        puts message
-      end
     end
 
     register EachDirectory
