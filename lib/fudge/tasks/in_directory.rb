@@ -11,20 +11,10 @@ module Fudge
 
       def run(options={})
         Dir.chdir @directory do
-          output_dir(@directory)
+          WithDirectory.new(@directory).output
 
           super
         end
-      end
-
-      private
-
-      def output_dir(dir)
-        message = ""
-        message << "--> In directory".foreground(:cyan)
-        message << " #{dir}:".foreground(:cyan).bright
-
-        puts message
       end
     end
 
