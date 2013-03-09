@@ -12,4 +12,6 @@ module Fudge
   autoload :Runner, 'fudge/runner'
   autoload :Tasks, 'fudge/tasks'
   autoload :TaskDSL, 'fudge/task_dsl'
+  autoload :WithDirectory, 'fudge/with_directory'
 end
+
