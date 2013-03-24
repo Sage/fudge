@@ -1,0 +1,43 @@
+[
+  {
+    "id": 33331,
+      "owner": {
+        "url":"https://api.github.com/orgs/OrgTwo",
+        "login":"OrgTwo",
+        "avatar_url":"https://secure.gravatar.com/avatar/org2.png",
+        "id":5678
+      },
+      "name": "OrgTwo Repo",
+      "full_name": "OrgTwo/TheirRepo",
+      "description": "Org One Repository",
+      "private": true,
+      "fork": false,
+      "url": "https://api.github.com/repos/OrgTwo/TheirRepo",
+      "html_url": "https://github.com/OrgTwo/TheirRepo",
+      "git_url":"git://github.com/OrgTwo/TheirRepo.git",
+      "ssh_url":"git@github.com:OrgTwo/TheirRepo.git",
+      "clone_url":"https://github.com/OrgTwo/TheirRepo.git",
+      "master_branch": "master"
+  },
+  {
+    "id": 33331,
+      "owner": {
+        "url":"https://api.github.com/orgs/OrgTwo",
+        "login":"OrgTwo",
+        "avatar_url":"https://secure.gravatar.com/avatar/org2.png",
+        "id":5678
+      },
+      "name": "OrgTwo Other Repo",
+      "full_name": "OrgTwo/TheirOtherRepo",
+      "description": "Their Other Repository",
+      "private": false,
+      "fork": false,
+      "url": "https://api.github.com/repos/OrgTwo/TheirOtherRepo",
+      "html_url": "https://github.com/OrgTwo/TheirOtherRepo",
+      "git_url":"git://github.com/OrgTwo/TheirOtherRepo.git",
+      "ssh_url":"git@github.com:OrgTwo/TheirOtherRepo.git",
+      "clone_url":"https://github.com/OrgTwo/TheirOtherRepo.git",
+      "master_branch": "master"
+  }
+]
+

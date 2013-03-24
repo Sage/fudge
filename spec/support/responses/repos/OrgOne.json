@@ -1,0 +1,43 @@
+[
+  {
+    "id": 22221,
+      "owner": {
+        "url":"https://api.github.com/orgs/OrgOne",
+        "login":"OrgOne",
+        "avatar_url":"https://secure.gravatar.com/avatar/org1.png",
+        "id":1234
+      },
+      "name": "OrgOne Repo",
+      "full_name": "OrgOne/SomeRepo",
+      "description": "Org One Repository",
+      "private": true,
+      "fork": false,
+      "url": "https://api.github.com/repos/OrgOne/SomeRepo",
+      "html_url": "https://github.com/OrgOne/SomeRepo",
+      "git_url":"git://github.com/OrgOne/SomeRepo.git",
+      "ssh_url":"git@github.com:OrgOne/SomeRepo.git",
+      "clone_url":"https://github.com/OrgOne/SomeRepo.git",
+      "master_branch": "master"
+  },
+  {
+    "id": 22221,
+      "owner": {
+        "url":"https://api.github.com/orgs/OrgOne",
+        "login":"OrgOne",
+        "avatar_url":"https://secure.gravatar.com/avatar/org1.png",
+        "id":1234
+      },
+      "name": "OrgOne Other Repo",
+      "full_name": "OrgOne/SomeOtherRepo",
+      "description": "Some Other Repository",
+      "private": false,
+      "fork": false,
+      "url": "https://api.github.com/repos/OrgOne/SomeOtherRepo",
+      "html_url": "https://github.com/OrgOne/SomeOtherRepo",
+      "git_url":"git://github.com/OrgOne/SomeOtherRepo.git",
+      "ssh_url":"git@github.com:OrgOne/SomeOtherRepo.git",
+      "clone_url":"https://github.com/OrgOne/SomeOtherRepo.git",
+      "master_branch": "master"
+  }
+]
+

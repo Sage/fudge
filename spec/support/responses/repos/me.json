@@ -1,0 +1,44 @@
+[
+  {
+    "id": 12345,
+      "owner": {
+        "login": "me",
+        "id": 1,
+        "avatar_url": "https://github.com/images/error/octocat_happy.gif",
+        "gravatar_id": "somehexcode",
+        "url": "https://api.github.com/users/me"
+      },
+      "name": "My Repo",
+      "full_name": "me/MyRepo",
+      "description": "My Own Repository",
+      "private": false,
+      "fork": false,
+      "url": "https://api.github.com/repos/me/MyRepo",
+      "html_url": "https://github.com/me/MyRepo",
+      "git_url":"git://github.com/me/MyRepo.git",
+      "ssh_url":"git@github.com:me/MyRepo.git",
+      "clone_url":"https://github.com/me/MyRepo.git",
+      "master_branch": "master"
+  },
+  {
+    "id": 5678,
+      "owner": {
+        "login": "me",
+        "id": 1,
+        "avatar_url": "https://github.com/images/error/octocat_happy.gif",
+        "gravatar_id": "somehexcode",
+        "url": "https://api.github.com/users/me"
+      },
+      "name": "My Other Repo",
+      "full_name": "me/MyOtherRepo",
+      "description": "My Other Repository",
+      "private": false,
+      "fork": false,
+      "url": "https://api.github.com/repos/me/MyOtherRepo",
+      "html_url": "https://github.com/me/MyOtherRepo",
+      "git_url":"git://github.com/me/MyOtherRepo.git",
+      "ssh_url":"git@github.com:me/MyOtherRepo.git",
+      "clone_url":"https://github.com/me/MyOtherRepo.git",
+      "master_branch": "master"
+  }
+]
