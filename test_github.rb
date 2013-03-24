@@ -1,18 +1,22 @@
 require 'octokit'
 
 params = $*
-token = params[0]
+username = params[0]
+password = params[1]
 
-puts "Connecting to GitHub with token: #{token}"
 
-client = Octokit::Client.new :oauth_token => token
+p "Connecting As #{username}/#{password}"
 
-repo = client.repo 'loz/vim_folder'
+client = Octokit::Client.new :login => username, :password => password
 
-hookconfig = { :url => 'http://pushover.herokuapp.com/endpoints/cab0bcf7b5f0f10ff709' }
-options = {
-  :active => true,
-  :events => ['pull_request', 'push']
-}
+puts client.organization_repositories('Sage').to_json
+puts client.repos.to_json
+
+
+#hookconfig = { :url => 'http://pushover.herokuapp.com/endpoints/cab0bcf7b5f0f10ff709' }
+#options = {
+#  :active => true,
+#  :events => ['pull_request', 'push']
+#}
 # Creates a hook for pull request
 #p client.create_hook('loz/vim_folder', 'web', hookconfig, options)
