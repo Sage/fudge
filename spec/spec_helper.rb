@@ -15,6 +15,7 @@ RSpec.configure do |config|
   config.filter_run :focus
   include Rack::Test::Methods
   require 'support/rack'
+  require 'support/github'
   require 'support/markup'
   require 'support/users'
 

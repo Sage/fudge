@@ -1,0 +1,14 @@
+[
+  {
+    "url":"https://api.github.com/orgs/OrgOne",
+    "login":"OrgOne",
+    "avatar_url":"https://secure.gravatar.com/avatar/org1.png",
+    "id":1234
+  },
+  {
+    "url":"https://api.github.com/orgs/OrgTwo",
+    "login":"OrgTwo",
+    "avatar_url":"https://secure.gravatar.com/avatar/org2.png",
+    "id":5678
+  }
+]
