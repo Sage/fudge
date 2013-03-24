@@ -4,6 +4,7 @@ require 'erb'
 require 'octokit'
 
 $LOAD_PATH << File.expand_path('../../app', __FILE__)
+$LOAD_PATH << File.expand_path('../../lib', __FILE__)
 
 #Load database.yml
 config_file = File.expand_path("../database.yml", __FILE__)
@@ -33,6 +34,9 @@ ActiveRecord::Base.establish_connection(env[:db])
 require 'models/user.rb'
 require 'models/repo.rb'
 require 'models/watched.rb'
+
+require 'org'
+require 'account'
 
 require 'main_app'
 require 'repo_app'

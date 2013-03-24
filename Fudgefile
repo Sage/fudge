@@ -1,0 +1,3 @@
+build :default do
+  task :rspec
+end

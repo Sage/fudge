@@ -10,3 +10,9 @@ namespace :db do
   end
 end
 
+task :default => :fudge
+
+# Test Fudge using Fudge
+task :fudge do
+  exec 'fudge build 2> /dev/null'
+end

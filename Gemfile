@@ -9,6 +9,7 @@ gem 'activerecord'
 gem 'rake'
 
 group :development do
+  gem 'fudge'
   gem 'sqlite3'
   gem 'rspec'
   gem 'guard-rspec'
