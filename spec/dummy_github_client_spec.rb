@@ -18,4 +18,16 @@ describe DummyGithubClient do
       org.id.should == 1234
     end
   end
+
+  describe :organization_repositories do
+    it "returns Repo hashes from the sample reponse" do
+      repos = subject.organization_repositories('OrgTwo')
+      repos.should have(2).items
+      repo = repos.first
+      repo.name.should == 'OrgTwo Repo'
+      repo.description.should == 'Org Two Repository'
+      repo.private.should be_true
+      repo.git_url.should == 'git://github.com/OrgTwo/TheirRepo.git'
+    end
+  end
 end

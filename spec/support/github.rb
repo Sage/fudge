@@ -9,6 +9,10 @@ class DummyGithubClient
     read_json("organizations/response")
   end
 
+  def organization_repositories(org)
+    read_json("repos/#{org}")
+  end
+
   def organization(name)
     organizations.detect do |org|
       org.login == name
