@@ -5,6 +5,7 @@ end
 
 require 'rspec'
 require 'fudge'
+require 'fudge/rspec/matchers'
 
 Dir[File.expand_path('../../spec/support/*', __FILE__)].each { |f| require f }
 
