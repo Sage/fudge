@@ -17,7 +17,7 @@ module FudgeMatchers
 
     def matches?(task)
       @task = task
-      ran = ''
+      ran = []
 
       if task.is_a?(Fudge::Tasks::Shell)
         to_stub = task
@@ -26,7 +26,7 @@ module FudgeMatchers
       end
 
       to_stub.stub(:run_command) do |cmd|
-        ran = cmd
+        ran << cmd
         ['dummy output', true]
       end
 
@@ -34,9 +34,9 @@ module FudgeMatchers
 
       @actual = ran
       if expected.is_a? Regexp
-        ran =~ expected
+        ran.any? {|cmd| cmd =~ expected}
       else
-        ran == expected
+        ran.include? expected
       end
     end
 
