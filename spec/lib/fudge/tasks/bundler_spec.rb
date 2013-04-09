@@ -11,6 +11,7 @@ class TestBundlerAwareTask
 end
 
 class TestNonBundlerAwareTask
+
   def self.name
     :test_non_bundle_aware
   end
@@ -32,6 +33,13 @@ describe Fudge::Tasks::CleanBundlerEnv do
         subject.tasks << bundle_aware_task
         subject.tasks << non_bundle_aware_task
 
+        subject.run.should be_true
+      end
+
+      it "runs each task with a clean bundle env" do
+        Bundler.should_receive(:with_clean_env).and_call_original
+
+        subject.tasks << bundle_aware_task
         subject.run.should be_true
       end
     end
