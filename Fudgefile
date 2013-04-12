@@ -10,6 +10,10 @@ task_group :codestyle do
   task :cane
 end
 
+task_group :complexity do
+  task :flog, :exclude => 'spec/', :max => 20, :methods => true
+end
+
 task_group :shout_about_success do
   on_success do
     task :shell, 'echo "WOOHOO BUILD PASSED"'
@@ -31,6 +35,7 @@ build :default do
   task_group :spec
   task_group :docs
   task_group :codestyle
+  task_group :complexity
 
   task_group :shout_about_success_and_failure
 end
