@@ -41,14 +41,14 @@ EOF
 
   describe :run do
     it "runs flog on the codebase" do
-      subject.should run_command "flog `find . | grep -e '\.rb$'`"
+      subject.should run_command "flog `find . | grep -e '\\.rb$'`"
     end
 
     context 'with :exclude => pattern' do
       subject {described_class.new :exclude => 'spec/'}
 
       it "filters out the pattern" do
-        with_pattern = "flog `find . | grep -e '\.rb$' | grep -v -e 'spec/'`"
+        with_pattern = "flog `find . | grep -e '\\.rb$' | grep -v -e 'spec/'`"
         subject.should run_command with_pattern
       end
     end
@@ -57,7 +57,7 @@ EOF
       subject {described_class.new :methods => true}
 
       it "runs with methods only flag" do
-        with_pattern = "flog -m `find . | grep -e '\.rb$'`"
+        with_pattern = "flog -m `find . | grep -e '\\.rb$'`"
         subject.should run_command with_pattern
       end
     end

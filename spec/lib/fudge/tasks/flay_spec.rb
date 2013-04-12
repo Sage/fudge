@@ -20,14 +20,14 @@ EOF
 
   describe :run do
     it "runs flay on the codebase" do
-      subject.should run_command "flay --diff `find . | grep -e '\.rb$'`"
+      subject.should run_command "flay --diff `find . | grep -e '\\.rb$'`"
     end
 
     context 'with :exclude => pattern' do
       subject {described_class.new :exclude => 'spec/'}
 
       it "filters out the pattern" do
-        cmd = "flay --diff `find . | grep -e '\.rb$' | grep -v -e 'spec/'`"
+        cmd = "flay --diff `find . | grep -e '\\.rb$' | grep -v -e 'spec/'`"
         subject.should run_command cmd
       end
     end

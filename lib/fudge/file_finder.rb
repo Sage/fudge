@@ -21,7 +21,7 @@ module Fudge
     def find_filters
       filters = []
       filters << 'find .'
-      filters << "grep -e '\.rb$'"
+      filters << "grep -e '\\.rb$'"
       filters << exclude_filter
       filters.compact
     end
