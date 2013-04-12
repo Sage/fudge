@@ -34,11 +34,8 @@ module Fudge
       end
 
       def flog_ruby_files
-        cmd = []
-        cmd << "flog"
-        cmd += tty_options
-        cmd << "`#{find_filters.join(' | ')}`"
-        cmd.join(' ')
+        finder = FileFinder.new(options)
+        finder.generate_command("flog", tty_options)
       end
 
       def check_for
@@ -73,20 +70,6 @@ module Fudge
         lines = output.scan(check_regex)
         _, average, max, _ = lines
         [average.first.to_f, max.first.to_f]
-      end
-
-      def find_filters
-        filters = []
-        filters << 'find .'
-        filters << "grep -e '\.rb$'"
-        filters << exclude_filter
-        filters.compact
-      end
-
-      def exclude_filter
-        if (pattern = options[:exclude])
-          "grep -v -e '#{pattern}'"
-        end
       end
 
       def tty_options
