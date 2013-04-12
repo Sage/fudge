@@ -19,6 +19,10 @@ module Fudge
         /((\d+\.\d+)%\) covered)/
       end
 
+      def check_regex
+        Regexp.union(coverage_regex, pre_conditions_regex)
+      end
+
       def cmd(options={})
         self.arguments = 'spec/' if arguments.blank?
         bundle_cmd("rspec#{tty_options} #{arguments}", options)
@@ -30,11 +34,7 @@ module Fudge
 
       def check_for
         if coverage
-          rs1 = coverage_regex.source
-          rs2 = pre_conditions_regex.source
-          regex = Regexp.new(rs1 + '|' + rs2)
-
-          [regex, method(:coverage_checker)]
+          [check_regex, method(:coverage_checker)]
         else
           super
         end
