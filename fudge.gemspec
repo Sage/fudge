@@ -27,6 +27,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rb-fsevent' #guard dependency
   s.add_development_dependency 'yard'
   s.add_development_dependency 'cane'
+  s.add_development_dependency 'flog'
+  s.add_development_dependency 'flay'
+  s.add_development_dependency 'ruby2ruby'
   s.add_development_dependency 'RedCloth'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'rb-inotify'
