@@ -1,3 +1,4 @@
+#Task Output Checker
 class Fudge::OutputChecker
   attr_reader :checker, :regex, :pass_block, :match
 
@@ -5,6 +6,7 @@ class Fudge::OutputChecker
     @checker = checker
   end
 
+  #Validates output against initialized checker
   def check(output)
     return true unless checker # We're ok if no output defined
     extract_matchers
