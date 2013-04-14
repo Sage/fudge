@@ -66,10 +66,14 @@ module Fudge
       end
 
       def extract_scores(matches)
-        output = matches.string
-        lines = output.scan(check_regex)
+        lines = extract_lines(matches)
         _, average, max, _ = lines
         [average.first.to_f, max.first.to_f]
+      end
+
+      def extract_lines(matches)
+        output = matches.string
+        output.scan(check_regex)
       end
 
       def tty_options
