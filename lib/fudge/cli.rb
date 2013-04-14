@@ -6,19 +6,8 @@ module Fudge
     desc "init", "Initialize a blank Fudgefile"
     # Initalizes the blank Fudgefile
     def init
-      path = File.expand_path('Fudgefile', Dir.pwd)
-
-      if File.exists?(path)
-        puts "Fudgefile already exists."
-      else
-        contents = ""
-        contents << "build :default do\n"
-        contents << "  task :rspec\n"
-        contents << "end"
-
-        File.open(path, 'w') { |f| f.write(contents) }
-        puts "Fudgefile created."
-      end
+      generator = Fudge::Generator.new(Dir.pwd)
+      generator.write_fudgefile
     end
 
     desc "build [BUILD_NAME]",
