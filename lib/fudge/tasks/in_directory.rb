@@ -10,9 +10,7 @@ module Fudge
       end
 
       def run(options={})
-        Dir.chdir @directory do
-          WithDirectory.new(@directory).output
-
+        WithDirectory.new(@directory).inside do
           super
         end
       end
