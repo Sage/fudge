@@ -9,18 +9,30 @@ module Fudge
     #
     # @param [String] which_build Defaults to 'default'
     def run_build(which_build='default', options={})
-      which_build = String.new(which_build)
+      output_start(which_build)
+      status = run(which_build, options)
+      output_status(status)
+    end
+
+    private
+
+    def output_start(which)
+      which_build = String.new(which)
 
       puts "Running build ".foreground(:cyan) +
         which_build.bright.foreground(:yellow)
+    end
 
+    def run(which, options)
       # Run the build
-      build = @description.builds[which_build.to_sym]
+      build = @description.builds[which.to_sym]
       build.callbacks = options[:callbacks]
-      status = build.run
+      build.run
+    end
 
+    def output_status(success)
       # Output status
-      if status
+      if success
         puts "Build SUCCEEDED!".foreground(:green).bright
       else
         raise Exceptions::BuildFailed

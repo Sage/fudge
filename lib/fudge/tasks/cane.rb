@@ -17,12 +17,24 @@ module Fudge
 
       def tty_options
         args = []
-        args << "--no-doc"    unless options.fetch(:doc, true)
-        args << "--no-style"  unless options.fetch(:style, true)
+        args << doc_options
+        args << style_options
+        args << style_width_options
+        args.compact
+      end
+
+      def doc_options
+        "--no-doc" unless options.fetch(:doc, true)
+      end
+
+      def style_options
+        "--no-style"  unless options.fetch(:style, true)
+      end
+
+      def style_width_options
         if options.has_key?(:max_width)
-          args << "--style-measure #{options.fetch(:max_width)}"
+          "--style-measure #{options.fetch(:max_width)}"
         end
-        args
       end
     end
 
