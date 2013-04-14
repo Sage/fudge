@@ -13,5 +13,7 @@ module Fudge
   autoload :Tasks, 'fudge/tasks'
   autoload :TaskDSL, 'fudge/task_dsl'
   autoload :WithDirectory, 'fudge/with_directory'
+  autoload :OutputChecker, 'fudge/output_checker.rb'
+  autoload :FileFinder, 'fudge/file_finder.rb'
 end
 
