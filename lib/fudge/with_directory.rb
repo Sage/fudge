@@ -6,8 +6,17 @@ class Fudge::WithDirectory
     @dir = dir
   end
 
-  #Ouputs message for a directory
-  def output
+  # Executes a block inside the directory
+  def inside
+    Dir.chdir(dir) do
+      output_message
+      yield
+    end
+  end
+
+  private
+
+  def output_message
     message = ""
     message << "--> In directory".foreground(:cyan)
     message << " #{dir}:".foreground(:cyan).bright
