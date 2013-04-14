@@ -14,8 +14,7 @@ module Fudge
       def run(options={})
         directories.each do |dir|
           next if skip_directory?(dir)
-          Dir.chdir dir do
-            WithDirectory.new(dir).output
+          WithDirectory.new(dir).inside do
             return false unless super
           end
         end
