@@ -1,6 +1,6 @@
 class DummyTask < Fudge::Tasks::Task
   class << self
-    attr_accessor :ran
+    attr_accessor :ran, :run_options
   end
   attr_accessor :args
 
@@ -15,6 +15,7 @@ class DummyTask < Fudge::Tasks::Task
 
   def run(options={})
     self.class.ran = true
+    self.class.run_options = options
   end
 end
 Fudge::Tasks.register(DummyTask)

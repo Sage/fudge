@@ -21,5 +21,24 @@ describe Fudge::Runner do
 
       expect { subject.run_build }.to raise_error Fudge::Exceptions::BuildFailed
     end
+
+    context "when an output is provided" do
+      let(:output) { StringIO.new }
+
+      before :each do
+        subject.run_build 'default', :output => output
+      end
+
+      it "puts all output to given output instead stdout" do
+        output.string.should_not be_empty
+        output.string.should include "Running build"
+        output.string.should include "default"
+        output.string.should include "Build SUCCEEDED!"
+      end
+
+      it "runs the task passing the output down" do
+        DummyTask.run_options.should == {:output => output}
+      end
+    end
   end
 end

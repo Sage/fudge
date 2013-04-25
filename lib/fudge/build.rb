@@ -13,16 +13,17 @@ module Fudge
     end
 
     def run(options={})
+      output = options[:output] || $stdout
       success = super
       if callbacks
-        message "Running #{success ? 'success' : 'failure'} callbacks..."
+        message "Running #{success ? 'success' : 'failure'} callbacks...", output
         hooks = success ? @success_hooks : @failure_hooks
 
         hooks.each do |hook|
-          return false unless hook.run
+          return false unless hook.run :output => output
         end
       else
-        message "Skipping callbacks..."
+        message "Skipping callbacks...", output
       end
 
       success
@@ -30,8 +31,8 @@ module Fudge
 
     private
 
-    def message(message)
-      puts message.foreground(:cyan).bright
+    def message(message, output)
+      output.puts message.foreground(:cyan).bright
     end
   end
 end

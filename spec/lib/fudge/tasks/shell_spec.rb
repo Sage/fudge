@@ -17,6 +17,26 @@ describe Fudge::Tasks::Shell do
     it "should return true for a successful command" do
       described_class.new(:ls).run.should be_true
     end
+
+    context "when there is an output passed to run" do
+
+      let(:output) { StringIO.new }
+      subject { described_class.new('echo foo') }
+
+      it "prints messages to the output instead of stdout" do
+
+        subject.run :output => output
+
+        output.string.should_not be_empty
+        output.string.should include "foo"
+      end
+
+      it 'uses the output stream when reporting checks on build result' do
+        Fudge::OutputChecker.should_receive(:new).with(anything, output) { stub.as_null_object }
+        subject.run :output => output
+      end
+
+    end
   end
 
   describe :check_for do

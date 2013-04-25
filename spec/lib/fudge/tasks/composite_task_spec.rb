@@ -55,6 +55,21 @@ describe Fudge::Tasks::CompositeTask do
       it "should support defining composite tasks" do
         subject.tasks[1].tasks.first.should be_a DummyTask
       end
+
+      context "when provided an output" do
+        let(:output) { StringIO.new }
+
+        before :each do
+          Fudge::Tasks::Shell.any_instance.stub(:run)
+        end
+
+        it "prints messages to the output instead of stdout" do
+          subject.run :output => output
+
+          output.string.should_not be_empty
+          output.string.should match /Running task.*shell.*foo, bar/
+        end
+      end
     end
   end
 end
