@@ -7,7 +7,7 @@ task_group :docs do
 end
 
 task_group :codestyle do
-  task :cane
+  task :cane, :max_width => 150
 end
 
 task_group :duplication do
