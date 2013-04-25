@@ -13,6 +13,7 @@ module FudgeMatchers
     def initialize(expected, args={})
       @expected = expected
       @args = args
+      @args[:output] ||= $stdout
     end
 
     def matches?(task)
@@ -25,12 +26,13 @@ module FudgeMatchers
         to_stub = Fudge::Tasks::Shell.any_instance
       end
 
-      to_stub.stub(:run_command) do |cmd|
+      to_stub.stub(:run_command) do |cmd, outputio|
+        raise "Run Command requires an output IOStream" unless outputio
         ran << cmd
         ['dummy output', true]
       end
 
-      task.run(args || {})
+      task.run(args)
 
       @actual = ran
       if expected.is_a? Regexp

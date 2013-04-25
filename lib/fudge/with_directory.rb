@@ -1,9 +1,10 @@
 #Directory helpers methods
 class Fudge::WithDirectory
-  attr_reader :dir
+  attr_reader :dir, :output
 
-  def initialize(dir)
+  def initialize(dir, output)
     @dir = dir
+    @output = output
   end
 
   # Executes a block inside the directory
@@ -21,6 +22,6 @@ class Fudge::WithDirectory
     message << "--> In directory".foreground(:cyan)
     message << " #{dir}:".foreground(:cyan).bright
 
-    puts message
+    output.puts message
   end
 end

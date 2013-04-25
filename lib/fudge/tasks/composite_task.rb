@@ -11,8 +11,9 @@ module Fudge
 
       # Runs the task (by default running all other tasks in order)
       def run(options={})
+        output = options[:output] || $stdout
         tasks.each do |t|
-          output_message(t)
+          output_message(t, output)
 
           return unless t.run(options)
         end
@@ -24,12 +25,12 @@ module Fudge
         t.respond_to?(:args) && t.args ? t.args.join(', ') : ''
       end
 
-      def output_message(t)
+      def output_message(t, output)
           message = []
           message << running_coloured
           message << task_name_coloured(t)
           message << args_coloured(t)
-          puts message.join(' ')
+          output.puts message.join(' ')
       end
 
       def running_coloured
