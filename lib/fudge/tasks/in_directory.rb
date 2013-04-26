@@ -10,7 +10,8 @@ module Fudge
       end
 
       def run(options={})
-        WithDirectory.new(@directory).inside do
+        output = options[:output] || $stdout
+        WithDirectory.new(@directory, output).inside do
           super
         end
       end

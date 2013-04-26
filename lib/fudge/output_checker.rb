@@ -1,9 +1,10 @@
 #Task Output Checker
 class Fudge::OutputChecker
-  attr_reader :checker, :regex, :pass_block, :match
+  attr_reader :checker, :regex, :pass_block, :match, :output_io
 
-  def initialize(checker)
+  def initialize(checker, output_io)
     @checker = checker
+    @output_io = output_io
   end
 
   #Validates output against initialized checker
@@ -23,7 +24,7 @@ class Fudge::OutputChecker
     if success?(result)
       true
     else
-      puts error_message(result)
+      output_io.puts error_message(result)
     end
   end
 
@@ -32,7 +33,7 @@ class Fudge::OutputChecker
   end
 
   def error_message(result)
-    result || "Output matched #{checker} but condition failed."
+    result || "Output matched #{@regex} but condition failed."
   end
 
   def extract_matchers
@@ -47,7 +48,7 @@ class Fudge::OutputChecker
   def matches?(output)
     # Do regex match and fail if no match
     return true if (@match = output.match(regex))
-    puts "Output didn't match #{regex}."
+    output_io.puts "Output didn't match #{regex}."
   end
 
 end

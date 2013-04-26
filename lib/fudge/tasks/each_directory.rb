@@ -12,9 +12,10 @@ module Fudge
       end
 
       def run(options={})
+        output = options[:output] || $stdout
         directories.each do |dir|
           next if skip_directory?(dir)
-          WithDirectory.new(dir).inside do
+          WithDirectory.new(dir, output).inside do
             return false unless super
           end
         end
