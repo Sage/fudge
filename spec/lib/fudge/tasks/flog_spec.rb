@@ -5,6 +5,12 @@ describe Fudge::Tasks::Flog do
 
   it_should_behave_like 'bundle aware'
 
+  let(:output_perfect) do
+    <<-EOF
+     0.0: flog total
+     0.0: flog/method average
+EOF
+  end
 
   let(:output_good) do
     <<-EOF
@@ -65,6 +71,7 @@ EOF
     it { should_not succeed_with_output output_good_average_bad_max }
     it { should_not succeed_with_output output_bad_average_good_max }
     it { should succeed_with_output output_good }
+    it { should succeed_with_output output_perfect }
 
     context 'when :max score is supplied' do
       it 'fails when score is higher than max' do

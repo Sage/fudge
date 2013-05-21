@@ -1,3 +1,4 @@
+require 'pry'
 module Fudge
   module Tasks
     # Allow use of Flog complexity analyser
@@ -66,9 +67,19 @@ module Fudge
       end
 
       def extract_scores(matches)
-        lines = extract_lines(matches)
-        _, average, max, _ = lines
-        [average.first.to_f, max.first.to_f]
+        average = max = total = 0
+        extract_lines(matches).each do |value, key|
+          case key
+            when 'flog total'
+              total = value.to_f
+            when 'flog/method average'
+              average = value.to_f
+            else
+              max = value.to_f unless value.nil?
+              break
+          end
+        end
+        [average, max, total]
       end
 
       def extract_lines(matches)
