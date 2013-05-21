@@ -9,4 +9,4 @@
 * Refactoring for [cleanup](https://github.com/Sage/fudge/pull/53)
 * Support for [flog and flay](https://github.com/Sage/fudge/pull/51)
 * Refactoring of [output](https://github.com/Sage/fudge/pull/55) [streams](https://github.com/Sage/fudge/pull/50)
-* Use bundler implmentation for [clean_bundler_env](https://github.com/Sage/fudge/pull/44)
+* Use bundler implementation for [clean_bundler_env](https://github.com/Sage/fudge/pull/44)
