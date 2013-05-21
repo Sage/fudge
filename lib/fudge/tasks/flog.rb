@@ -1,4 +1,3 @@
-require 'pry'
 module Fudge
   module Tasks
     # Allow use of Flog complexity analyser
