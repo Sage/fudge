@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'thor'
   s.add_dependency 'rainbow'
   s.add_dependency 'activesupport'
+  s.add_dependency 'json', '~> 1.7.7'
   s.add_development_dependency 'redcarpet'
   s.add_development_dependency 'rspec', '>= 2.8.0'
   s.add_development_dependency 'guard-rspec'
