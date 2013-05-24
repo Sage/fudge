@@ -53,8 +53,9 @@ EOF
     context 'with :exclude => pattern' do
       subject {described_class.new :exclude => 'spec/'}
 
+      # Test doesn't check result :(
       it "filters out the pattern" do
-        with_pattern = "flog `find . | grep -e '\\.rb$' | grep -v -e 'spec/'`"
+        with_pattern = "flog `find . | grep -e '\\.rb$' | grep -v -E 'spec/'`"
         subject.should run_command with_pattern
       end
     end

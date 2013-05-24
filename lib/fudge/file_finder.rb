@@ -28,7 +28,7 @@ module Fudge
 
     def exclude_filter
       if (pattern = options[:exclude])
-        "grep -v -e '#{pattern}'"
+        "grep -v -E '#{pattern}'"
       end
     end
   end
