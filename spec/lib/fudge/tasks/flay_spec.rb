@@ -26,8 +26,9 @@ EOF
     context 'with :exclude => pattern' do
       subject {described_class.new :exclude => 'spec/'}
 
+      # Test doesn't check result :(
       it "filters out the pattern" do
-        cmd = "flay --diff `find . | grep -e '\\.rb$' | grep -v -e 'spec/'`"
+        cmd = "flay --diff `find . | grep -e '\\.rb$' | grep -v -E 'spec/'`"
         subject.should run_command cmd
       end
     end
