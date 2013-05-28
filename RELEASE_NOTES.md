@@ -1,3 +1,8 @@
+# v0.1.2
+
+## Changes
+* Add support for complex regex. https://github.com/Sage/fudge/issues/59
+
 # v0.1.1
 
 ## Changes
