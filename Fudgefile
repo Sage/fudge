@@ -11,11 +11,11 @@ task_group :codestyle do
 end
 
 task_group :duplication do
-  task :flay, :exclude => 'spec/'
+  task :flay, :exclude => '^\.\/spec\/'
 end
 
 task_group :complexity do
-  task :flog, :exclude => 'spec/', :max => 20, :methods => true
+  task :flog, :exclude => '^\.\/spec\/', :max => 20, :methods => true
 end
 
 task_group :shout_about_success do
