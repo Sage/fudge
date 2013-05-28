@@ -1,3 +1,4 @@
+require 'pry'
 require 'spec_helper'
 
 class TestEachDirectoryTask
@@ -54,5 +55,18 @@ describe Fudge::Tasks::EachDirectory do
       task.pwds.sort.should == dirs.sort
     end
 
+    it "should load fudge_settings.yml in the right directory" do
+      ed2 = described_class.new ["spec/lib"]
+      ed2.tasks << Fudge::Tasks::Shell.new('cat fudge_settings.yml')
+      ed2.run
+      ed2.tasks.first.options[:test].should == "coverage"
+    end
+
+    it "should not load fudge_settings.yml in the wrong directory" do
+      ed2 = described_class.new ["spec/support"]
+      ed2.tasks << Fudge::Tasks::Shell.new('cat fudge_settings.yml')
+      ed2.run
+      ed2.tasks.first.options.size.should == 0
+    end
   end
 end
