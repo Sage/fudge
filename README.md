@@ -21,7 +21,7 @@ Fudge is a CI build tool for Ruby/Rails projects.
 Add to your project's Gemfile:
 
 ```ruby
-gem 'fudge', :git => 'git@github.com:Sage/fudge.git'
+gem 'fudge'
 ```
 
 Run in your project root:
@@ -334,7 +334,7 @@ Sometimes you'll want different options to be used for specific subdirectories. 
 Instead of having all of these values listed explicitly in your Fudgefile you can instead place them in a `fudge_settings.yml` file in each subdirectory.
 
 So instead of this in your Fudgefile...
-```
+```ruby
   in_directory 'meta_addresses' do
     task :flay, :exclude => '^\.\/(db|factories|spec)\/'
     task :flog, :exclude => '^\.\/(db|factories|spec)\/', :max => 20, :average => 5, :methods => true
@@ -345,7 +345,7 @@ So instead of this in your Fudgefile...
   end
 ```
 you can have this in your `Fudgefile`:
-```
+```ruby
   each_directory ['meta_addresses', 'meta_banks'] do
     task :flay, :exclude => '^\.\/(db|factories|spec)\/'
     task :flog, :exclude => '^\.\/(db|factories|spec)\/', :methods => true
