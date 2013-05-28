@@ -333,7 +333,7 @@ Sometimes you'll want different options to be used for specific subdirectories. 
 
 Instead of having all of these values listed explicitly in your Fudgefile you can instead place them in a `fudge_settings.yml` file in each subdirectory.
 
-So instead of this in your Fudgefile...
+So instead of this in your `Fudgefile`...
 ```ruby
   in_directory 'meta_addresses' do
     task :flay, :exclude => '^\.\/(db|factories|spec)\/'
@@ -344,9 +344,9 @@ So instead of this in your Fudgefile...
     task :flog, :exclude => '^\.\/(db|factories|spec)\/', :max => 74.9, :average => 9.1, :methods => true
   end
 ```
-you can have this in your `Fudgefile`:
+you can just have this:
 ```ruby
-  each_directory ['meta_addresses', 'meta_banks'] do
+  each_directory 'meta_*' do
     task :flay, :exclude => '^\.\/(db|factories|spec)\/'
     task :flog, :exclude => '^\.\/(db|factories|spec)\/', :methods => true
   end
