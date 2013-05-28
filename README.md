@@ -327,7 +327,7 @@ build :default do
 end
 ```
 
-### Setting per-directory options
+### Setting per-directory options for tasks
 
 Sometimes you'll want different options to be used for specific subdirectories.  This is especially useful with code metric tools.
 
