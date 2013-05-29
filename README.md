@@ -21,7 +21,7 @@ Fudge is a CI build tool for Ruby/Rails projects.
 Add to your project's Gemfile:
 
 ```ruby
-gem 'fudge', :git => 'git@github.com:Sage/fudge.git'
+gem 'fudge'
 ```
 
 Run in your project root:
@@ -326,3 +326,43 @@ build :default do
   task :deploy
 end
 ```
+
+### Setting per-directory options for tasks
+
+Sometimes you'll want different options to be used for specific subdirectories.  This is especially useful with code metric tools.
+
+Instead of having all of these values listed explicitly in your Fudgefile you can instead place them in a `fudge_settings.yml` file in each subdirectory.
+
+So instead of this in your `Fudgefile`...
+```ruby
+  in_directory 'meta_addresses' do
+    task :flay, :exclude => '^\.\/(db|factories|spec)\/'
+    task :flog, :exclude => '^\.\/(db|factories|spec)\/', :max => 20, :average => 5, :methods => true
+  end
+  in_directory 'meta_banks' do
+    task :flay, :exclude => '^\.\/(db|factories|spec)\/', :max => 172
+    task :flog, :exclude => '^\.\/(db|factories|spec)\/', :max => 74.9, :average => 9.1, :methods => true
+  end
+```
+you can just have this:
+```ruby
+  each_directory 'meta_*' do
+    task :flay, :exclude => '^\.\/(db|factories|spec)\/'
+    task :flog, :exclude => '^\.\/(db|factories|spec)\/', :methods => true
+  end
+```
+and this in your `meta_addresses/fudge_settings.yml`:
+```
+flog:
+  max: 20
+  average: 5
+```
+and this in your `meta_banks/fudge_settings.yml`:
+```
+flay:
+  max: 172
+flog:
+  max: 74.9 
+  average: 9.1
+```
+You can set the default values in your `Fudgefile` and override them only as necessary in specific subdiretories.
