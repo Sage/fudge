@@ -30,7 +30,7 @@ module Fudge
       # the options contained for the specified task
       def task_options(task_name)
         # are there settings for the specified task?
-        return fudge_settings.fetch(task_name, {}).symbolize_keys!
+        fudge_settings.fetch(task_name, {}).symbolize_keys!
       end
 
       # load fudge settings for the current directory
