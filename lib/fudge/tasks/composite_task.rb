@@ -13,15 +13,18 @@ module Fudge
       def run(options={})
         output = options[:output] || $stdout
         tasks.each do |t|
-          # load fudge settings in the current directory
-          t.options.merge!(task_options(t.class.name.to_s)) if defined? t.options
+          apply_directory_settings(t)
           output_message(t, output)
-
           return unless t.run(options)
         end
       end
 
       private
+
+      # load fudge settings in the current directory
+      def apply_directory_settings(task)
+        task.options.merge!(task_options(task.class.name.to_s)) if defined? task.options
+      end
 
       # Load the fudge_settings.yml for the current directory and return
       # the options contained for the specified task
