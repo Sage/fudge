@@ -351,13 +351,13 @@ you can just have this:
     task :flog, :exclude => '^\.\/(db|factories|spec)\/', :methods => true
   end
 ```
-and this in your `meta_addresses/fudge_options.yml`:
+and this in your `meta_addresses/fudge_settings.yml`:
 ```
 flog:
   max: 20
   average: 5
 ```
-and this in your `meta_banks/fudge_options.yml`:
+and this in your `meta_banks/fudge_settings.yml`:
 ```
 flay:
   max: 172
