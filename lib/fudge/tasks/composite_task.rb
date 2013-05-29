@@ -30,12 +30,7 @@ module Fudge
       # the options contained for the specified task
       def task_options(task_name)
         # are there settings for the specified task?
-        if section = fudge_settings[task_name]
-          # convert the options for this task from strings to symbols
-          return section.inject({}){|m,(k,v)| m[k.to_sym] = v; m}
-        end
-        # otherwise, nothing
-        {}
+        return fudge_settings.fetch(task_name, {}).symbolize_keys!
       end
 
       # load fudge settings for the current directory
