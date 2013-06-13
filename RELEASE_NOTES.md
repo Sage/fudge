@@ -1,3 +1,6 @@
+# v0.2.1
+* Updated json dependency from ~>1.7.7 to ~>1.8.0
+
 # v0.2.0
 * Load fudge_settings.yml in each working directory to modify options for the task being processed. https://github.com/Sage/fudge/issues/61
 
