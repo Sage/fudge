@@ -1,3 +1,6 @@
+# v0.2.2
+* Made the default encoding Encoding::UTF_8 to solve issues with regex match of the console output
+
 # v0.2.1
 * Updated json dependency from ~>1.7.7 to ~>1.8.0
 
