@@ -1,13 +1,9 @@
 require 'rainbow'
 require 'active_support/all'
 
-#TODO: I think it will be safe to remove this once we start using Ruby 2.0
 #This will fix errors: invalid byte sequence in US-ASCII (ArgumentError) when UTF-8 chars get
-#in the console output.
-if RUBY_VERSION =~ /1.9/
-  Encoding.default_external = Encoding::UTF_8
-  Encoding.default_internal = Encoding::UTF_8
-end
+#in the console output, ruby pre-2.0 only.
+Encoding.default_external = Encoding.default_internal = Encoding::UTF_8 if RUBY_VERSION =~ /1.9/
 
 # Fudge implementation
 module Fudge
