@@ -33,7 +33,7 @@ module Fudge
       def brakeman_checker(matches)
         score = matches[:score].to_i
         if score > max_score
-          "Duplication Score Higher Than #{max_score}"
+          "Brakeman reported more than #{max_score} issues."
         else
           true
         end
