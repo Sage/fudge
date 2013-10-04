@@ -179,6 +179,54 @@ build :default do
 end
 ```
 
+### Built-in tasks
+Fudge supports several tasks by default. Most of them depend on a gem which also must be included in your project's `Gemfile` (or with `add_development_dependency` in your gem's `.gemspec`).
+
+## brakeman
+Run the [Brakeman](http://brakemanscanner.org/) Rails security scanner.
+```
+    task :brakeman
+```
+will fail if any security warnings are encountered.
+```
+    task :brakeman, :max => 2
+```
+will allow a maximum of two known security issues to get through.
+## cane
+Checks code style using the [cane](https://github.com/square/cane) gem.  This can be run over the entire tree or in the enclosing subdirectory (`each_directory` or `in_directory`). Options can be set in the `.cane` file, but for convenience the `max_width` option can be used to easily override the default line width of 80.
+```
+  cane :max_width => 120
+```
+
+## clean_bundler_env
+Ensures that the code block runs in a clean [Bundler](http://bundler.io/) environment.
+## each_directory
+Run the resulting block in each directory (see examples above).
+```
+  each_directory 'meta_*', :exclude => ['meta_useless', 'meta_broken'] do
+    ...
+  end
+```
+## rake
+Run a `rake` command, requiring that it return success.
+## shell
+Run a generic shell command, requiring that it return success.
+## flay
+Code duplication is detected by [Flay](http://sadi.st/Flay.html).  See examples below.
+## flog
+[Flay](http://sadi.st/Flay.html) calculates code complexity using an ABC metric and allows for maximum individual values and maximum average values.  This can be used to ensure that you are alerted quickly when new complex code is added to your project.  See examples below.
+## in_directory
+Run the resulting block in a specific directory (as with `each_directory`).
+## rspec
+Run `rspec`, enforcing minimum `:coverage` as a percent (using [simplecov](https://github.com/colszowka/simplecov)). See examples above.
+## yard
+Runs [YARD](http://yardoc.org/) to ensure documentation coverage.
+```
+  yard 'stats --list-undoc', :coverage => 100
+```
+will require 100% coverage, and show all code that is not documented.
+
+
 ### Defining tasks
 
 A task is a class that responds to two methods:
