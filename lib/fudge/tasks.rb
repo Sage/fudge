@@ -31,5 +31,6 @@ module Fudge
     require 'fudge/tasks/cane'
     require 'fudge/tasks/flog'
     require 'fudge/tasks/flay'
+    require 'fudge/tasks/brakeman'
   end
 end
