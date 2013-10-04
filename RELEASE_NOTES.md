@@ -1,3 +1,6 @@
+# v0.2.3
+* Fix directory settings so they work for coverage [#66](https://github.com/Sage/fudge/pull/66)
+
 # v0.2.2
 * Made the default encoding Encoding::UTF_8 to solve issues with regex match of the console output
 
@@ -5,10 +8,10 @@
 * Updated json dependency from ~>1.7.7 to ~>1.8.0
 
 # v0.2.0
-* Load fudge_settings.yml in each working directory to modify options for the task being processed. https://github.com/Sage/fudge/issues/61
+* Load fudge_settings.yml in each working directory to modify options for the task being processed. [#61](https://github.com/Sage/fudge/issues/61)
 
 # v0.1.2
-* Add support for complex regex. https://github.com/Sage/fudge/issues/59
+* Add support for complex regex. [#59](https://github.com/Sage/fudge/issues/59)
 
 # v0.1.1
 * Add support for perfect Flog scores.
