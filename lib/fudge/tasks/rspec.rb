@@ -4,8 +4,6 @@ module Fudge
     class Rspec < Shell
       include Helpers::BundleAware
 
-      attr_accessor :color, :coverage
-
       private
 
       # Preconditions to check for coverage, that if not met make the test pass
@@ -60,6 +58,14 @@ module Fudge
         else
           'Insufficient Coverage.'
         end
+      end
+
+      def coverage
+        options[:coverage]
+      end
+
+      def color
+        options[:color]
       end
     end
 
