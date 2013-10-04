@@ -1,3 +1,6 @@
+# v0.3.0
+* Add Brakeman support [#68](https://github.com/Sage/fudge/pull/68)
+
 # v0.2.3
 * Fix directory settings so they work for coverage [#66](https://github.com/Sage/fudge/pull/66)
 
