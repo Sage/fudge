@@ -214,7 +214,7 @@ Run a generic shell command, requiring that it return success.
 #### flay
 Code duplication is detected by [Flay](http://sadi.st/Flay.html).  See examples below.
 #### flog
-[Flay](http://sadi.st/Flay.html) calculates code complexity using an ABC metric and allows for maximum individual values and maximum average values.  This can be used to ensure that you are alerted quickly when new complex code is added to your project.  See examples below.
+[Flog](http://sadi.st/Flog.html) calculates code complexity using an ABC metric and allows for maximum individual values and maximum average values.  This can be used to ensure that you are alerted quickly when new complex code is added to your project.  See examples below.
 #### in_directory
 Run the resulting block in a specific directory (as with `each_directory`).
 #### rspec
