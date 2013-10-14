@@ -1,3 +1,6 @@
+# v0.3.1
+* Fixed rspec bug for passing tests in multiples of 10 without code coverage [#70](https://github.com/Sage/fudge/issues/70)
+
 # v0.3.0
 * Add Brakeman support [#68](https://github.com/Sage/fudge/pull/68)
 

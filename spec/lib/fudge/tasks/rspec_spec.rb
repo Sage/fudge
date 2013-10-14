@@ -33,6 +33,8 @@ describe Fudge::Tasks::Rspec do
     it { should_not succeed_with_output '0.00%) covered' }
     it { should succeed_with_output '99.99999%) covered' }
     it { should succeed_with_output '100.0%) covered' }
-    it { should succeed_with_output '0 examples, 0 failures'}
+    it { should succeed_with_output "\n0 examples, 0 failures"}
+    it { should succeed_with_output "Finished in 0.1 seconds\n70 examples, 0 failures\n700 / 700 LOC (100.0%) covered."}
+    it { should_not succeed_with_output "Finished in 0.6 seconds\n70 examples, 0 failures\n384 / 700 LOC (54.86%) covered."}
   end
 end
