@@ -1,3 +1,6 @@
+# v0.3.2
+* Fix license in gemspec [#72](https://github.com/Sage/fudge/issues/72)
+
 # v0.3.1
 * Fixed rspec bug for passing tests in multiples of 10 without code coverage [#70](https://github.com/Sage/fudge/issues/70)
 
