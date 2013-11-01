@@ -3,13 +3,14 @@ $:.push File.expand_path("../lib", __FILE__)
 require "fudge/version"
 
 Gem::Specification.new do |s|
-  s.name        = "fudge"
+  s.name        = 'fudge'
   s.version     = Fudge::VERSION
   s.authors     = %q{Sage One team}
   s.email       = %q{support@sageone.com}
   s.homepage    = %q{http://github.com/Sage/fudge}
   s.summary     = %q{Fudge CI Server}
   s.description = %q{Fudge Continuous Integration Server}
+  s.license     = 'MIT'
 
   s.rubyforge_project = "fudge"
 
