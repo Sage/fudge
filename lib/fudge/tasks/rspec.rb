@@ -9,7 +9,7 @@ module Fudge
       # Preconditions to check for coverage, that if not met make the test pass
       # for example, if no tests exist, no need to fail
       def pre_conditions_regex
-         /^(0 examples, 0 failures)/ # no tests exist
+         /[^\d](0 examples, 0 failures)/ # no tests exist
       end
 
       # Expression to check for coverage
