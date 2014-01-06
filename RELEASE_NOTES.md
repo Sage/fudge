@@ -1,3 +1,6 @@
+# v0.3.3
+* Fixed rspec bug for no tests [#75](https://github.com/Sage/fudge/issues/75)
+
 # v0.3.2
 * Fix license in gemspec [#72](https://github.com/Sage/fudge/issues/72)
 
