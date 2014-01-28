@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
-require "fudge/version"
+$:.push File.expand_path('../lib', __FILE__)
+require 'fudge/version'
 
 Gem::Specification.new do |s|
   s.name        = 'fudge'
@@ -11,8 +11,6 @@ Gem::Specification.new do |s|
   s.summary     = %q{Fudge CI Server}
   s.description = %q{Fudge Continuous Integration Server}
   s.license     = 'MIT'
-
-  s.rubyforge_project = "fudge"
 
   s.files         = Dir['lib/**/*']
   s.test_files    = Dir['spec/**/*.rb']

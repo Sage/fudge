@@ -1,5 +1,8 @@
+# v0.3.5 (pending)
+* Remove rubyforge references, clean up gemfile/gemspec, bump version [#79](https://github.com/Sage/fudge/pull/79)
+
 # v0.3.4
-* Fix rainbow requirement for strings
+* Fix rainbow requirement for strings [#78](https://github.com/Sage/fudge/pull/78)
 
 # v0.3.3
 * Fixed rspec bug for no tests [#75](https://github.com/Sage/fudge/issues/75)
