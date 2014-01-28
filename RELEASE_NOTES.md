@@ -1,3 +1,6 @@
+# v0.3.4
+* Fix rainbow requirement for strings
+
 # v0.3.3
 * Fixed rspec bug for no tests [#75](https://github.com/Sage/fudge/issues/75)
 
