@@ -32,7 +32,7 @@ describe Fudge::Tasks::Shell do
       end
 
       it 'uses the output stream when reporting checks on build result' do
-        checker = stub.as_null_object
+        checker = double.as_null_object
         Fudge::OutputChecker.should_receive(:new).with(anything, output) { checker }
         subject.run :output => output
       end

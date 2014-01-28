@@ -16,7 +16,7 @@ describe Fudge::Build do
       end
 
       context "when there are callback hooks" do
-        let(:hook) { mock(:Hook) }
+        let(:hook) { double(:Hook) }
 
         before :each do
           subject.callbacks = true
