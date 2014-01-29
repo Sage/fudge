@@ -20,7 +20,7 @@ EOF
 
   describe :run do
     it "runs flay on the codebase" do
-      subject.should run_command "flay --diff `find . | grep -e '\\.rb$'`"
+      subject.should run_command "flay --diff `find . | grep --color=never -e '\\.rb$'`"
     end
 
     context 'with :exclude => pattern' do
@@ -28,7 +28,7 @@ EOF
 
       # Test doesn't check result :(
       it "filters out the pattern" do
-        cmd = "flay --diff `find . | grep -e '\\.rb$' | grep -v -E 'spec/'`"
+        cmd = "flay --diff `find . | grep --color=never -e '\\.rb$' | grep --color=never -v -E 'spec/'`"
         subject.should run_command cmd
       end
     end
