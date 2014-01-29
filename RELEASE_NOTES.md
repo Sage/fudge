@@ -1,6 +1,7 @@
-# v0.3.5 (pending)
+# v0.3.5
 * Remove rubyforge references, clean up gemfile/gemspec, bump version [#79](https://github.com/Sage/fudge/pull/79)
 * Fix deprecation of `mock` in rspec. [#80](https://github.com/Sage/fudge/pull/80)
+* Fix GREP_OPTIONS color bug [#81](https://github.com/Sage/fudge/pull/81)
 
 # v0.3.4
 * Fix rainbow requirement for strings [#78](https://github.com/Sage/fudge/pull/78)
