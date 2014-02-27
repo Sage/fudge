@@ -1,5 +1,4 @@
 require 'rainbow'
-require 'rainbow/ext/string'
 require 'active_support/all'
 
 #This will fix errors: invalid byte sequence in US-ASCII (ArgumentError) when UTF-8 chars get
