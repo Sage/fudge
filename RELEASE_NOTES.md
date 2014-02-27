@@ -1,5 +1,5 @@
 # v0.3.6
-* Downgrade rainbow version required to 1.1.4
+* Downgrade rainbow version required to 1.1.4 to address [#77](https://github.com/Sage/fudge/pull/77) in the short term. [#82](https://github.com/Sage/fudge/pull/82)
 
 # v0.3.5
 * Remove rubyforge references, clean up gemfile/gemspec, bump version [#79](https://github.com/Sage/fudge/pull/79)
