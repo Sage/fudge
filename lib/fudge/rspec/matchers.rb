@@ -20,26 +20,23 @@ module FudgeMatchers
       @task = task
       ran = []
 
-      if task.is_a?(Fudge::Tasks::Shell)
-        to_stub = task
-      else
-        to_stub = Fudge::Tasks::Shell.any_instance
-      end
+      to_stub =
+        if task.is_a?(Fudge::Tasks::Shell)
+          task
+        else
+          Fudge::Tasks::Shell.any_instance
+        end
 
       to_stub.stub(:run_command) do |cmd, outputio|
         raise "Run Command requires an output IOStream" unless outputio
-        ran << cmd
+        ran.push(cmd)
         ['dummy output', true]
       end
 
       task.run(args)
 
       @actual = ran
-      if expected.is_a? Regexp
-        ran.any? {|cmd| cmd =~ expected}
-      else
-        ran.include? expected
-      end
+      run_matches?(ran, expected)
     end
 
     # Failure message
@@ -48,6 +45,15 @@ module FudgeMatchers
       message << "Expected task :#{@task.class.name} "
       message << "to run:\n  #{@expected}\n"
       message << "but it ran:\n  #{@actual}"
+    end
+
+    private
+    def run_matches?(ran, expected)
+      if expected.is_a? Regexp
+        ran.any? {|cmd| cmd =~ expected}
+      else
+        ran.include? expected
+      end
     end
   end
 end

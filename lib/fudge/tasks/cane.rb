@@ -16,11 +16,7 @@ module Fudge
       end
 
       def tty_options
-        args = []
-        args << doc_options
-        args << style_options
-        args << style_width_options
-        args.compact
+        args = [doc_options, style_options, style_width_options].compact
       end
 
       def doc_options

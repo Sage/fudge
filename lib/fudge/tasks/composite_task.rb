@@ -47,11 +47,8 @@ module Fudge
       end
 
       def output_message(t, output)
-          message = []
-          message << running_coloured
-          message << task_name_coloured(t)
-          message << args_coloured(t)
-          output.puts message.join(' ')
+          message = "#{running_coloured} #{task_name_coloured(t)} #{args_coloured(t)}"
+          output.puts message
       end
 
       def running_coloured
