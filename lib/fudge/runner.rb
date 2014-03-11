@@ -19,9 +19,7 @@ module Fudge
 
     def output_start(which, output)
       which_build = String.new(which)
-
-      output.puts "Running build ".foreground(:cyan) +
-        which_build.bright.foreground(:yellow)
+      output.puts %Q(#{'Running build'.foreground(:cyan)} #{which_build.bright.foreground(:yellow)})
     end
 
     def run(which, options)

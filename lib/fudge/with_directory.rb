@@ -18,10 +18,7 @@ class Fudge::WithDirectory
   private
 
   def output_message
-    message = ""
-    message << "--> In directory".foreground(:cyan)
-    message << " #{dir}:".foreground(:cyan).bright
-
+    message = %Q(#{'--> In directory'.foreground(:cyan)} #{"#{dir}:".foreground(:cyan).bright})
     output.puts message
   end
 end

@@ -66,19 +66,9 @@ module Fudge
       end
 
       def extract_scores(matches)
-        average = max = total = 0
-        extract_lines(matches).each do |value, key|
-          case key
-            when 'flog total'
-              total = value.to_f
-            when 'flog/method average'
-              average = value.to_f
-            else
-              max = value.to_f unless value.nil?
-              break
-          end
-        end
-        [average, max, total]
+        values = extract_lines(matches).take(3).map(&:first)
+        total, average, max = values.map(&:to_f)
+        [average, (max || 0.0), total]
       end
 
       def extract_lines(matches)

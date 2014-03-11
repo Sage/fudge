@@ -13,11 +13,11 @@ module Fudge
 
       def run(options={})
         output = options[:output] || $stdout
-        directories.each do |dir|
-          next if skip_directory?(dir)
-          WithDirectory.new(dir, output).inside do
-            return false unless super
-          end
+        directories.all? do |dir|
+          skip_directory?(dir) ||
+            WithDirectory.new(dir, output).inside do
+              super
+            end
         end
       end
 
