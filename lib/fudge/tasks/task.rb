@@ -14,13 +14,13 @@ module Fudge
 
       def initialize(*args)
         @args = args.dup
-        @options = args.extract_options!
+        @options = @args.extract_options!
 
-        options.each do |k,v|
+        @options.each do |k,v|
           send("#{k}=", v) if respond_to?("#{k}=")
         end
 
-        args
+        @args
       end
     end
   end
