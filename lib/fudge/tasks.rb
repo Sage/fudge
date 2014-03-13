@@ -32,5 +32,6 @@ module Fudge
     require 'fudge/tasks/flog'
     require 'fudge/tasks/flay'
     require 'fudge/tasks/brakeman'
+    require 'fudge/tasks/sub_process'
   end
 end

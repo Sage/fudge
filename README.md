@@ -211,6 +211,8 @@ Run the resulting block in each directory (see examples above).
 Run a `rake` command, requiring that it return success.
 #### shell
 Run a generic shell command, requiring that it return success.
+#### sub_process
+Like shell, but does not spawn a new shell to run the command, and allows more control over the command's process and environment.  See examples below.
 #### flay
 Code duplication can be detected by [Flay](http://sadi.st/Flay.html).  See examples below.
 #### flog
@@ -344,6 +346,30 @@ end
 
 The above task will only pass if the output contains "n files found", where n is a number, and also n is at least 4.
 
+### Using the SubProcess task
+
+This task is useful if you want to set an environment variable for a shell command, but the command won't allow the variable to be supplied at the end of the command line. That is, if something like this doesn't work because the command treats the variable assignment as a parameter:
+```ruby
+task :shell, 'awkward_command SOME_VAR=true'
+# This won't work either because shell tries to run a command called SOME_VAR=:
+task :shell, 'SOME_VAR=true awkward_command'
+```
+
+SubProcess allows you to set the variable this way:
+```ruby
+task :sub_process, 'awkward_command', :environment => { 'SOME_VAR' => 'true' }
+```
+
+SubProcess is also useful if you need to manipulate the process's execution environment, for example, by clearing environment variables, or redirecting IO.  For example, this invocatin will unset all environment variables, except SOME_VAR which is explicitly supplied, before running command:
+```ruby
+task :sub_process, 'command', :environment => { 'SOME_VAR' => 'true' },
+                              :spawn_options => { :unsetenv_others => true }
+
+
+See the Ruby doc for [Process::spawn](http://ruby-doc.org/core-2.1.1/Process.html#method-c-spawn) for details of the options that can be passed in `spawn_options`.
+
+This task should otherwise act like the Shell task.
+
 ### Defining composite tasks
 
 Some tasks may require you to run a number of commands one after the other. You can hook into other fudge tasks by including the Fudge DSL into your composite task:
@@ -409,7 +435,7 @@ and this in your `meta_banks/fudge_settings.yml`:
 flay:
   max: 172
 flog:
-  max: 74.9 
+  max: 74.9
   average: 9.1
 ```
 You can set the default values in your `Fudgefile` and override them only as necessary in specific subdiretories.
