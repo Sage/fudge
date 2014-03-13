@@ -11,16 +11,19 @@ module Fudge
     # Allows the caller to set environment variables for the process,
     # and to specify process attributes, as with Process::Spawn.
     #
-    # options:
-    #   environment:  a hash of environment variables to be set for
-    #                 the process.  The keys are strings,
-    #                 corresponding to the variables' names (case
-    #                 sensitive).
-    #   options:      a hash of attributes for the spawned process
-    #                 (see Ruby's Process::spawn documentation for
-    #                 details)
+    # The constructor and {#run #run} method each accept two new
+    # options, {#environment :environment} and {#spawn_options
+    # :spawn_options}.
     class SubProcess < Shell
+      # @!attribute environment
+      #   @return [Hash] environment variables to be set for the
+      #                  process; the keys are strings, corresponding
+      #                  to the variables' names (case sensitive).
       attr_accessor :environment
+      # @!attribute spawn_options
+      #   @return [Hash] attributes for the spawned process (see
+      #                  Ruby's Process::spawn documentation for
+      #                  details)
       attr_accessor :spawn_options
 
       private
