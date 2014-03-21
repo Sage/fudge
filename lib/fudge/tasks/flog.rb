@@ -66,9 +66,13 @@ module Fudge
       end
 
       def extract_scores(matches)
-        values = extract_lines(matches).take(3).map(&:first)
+        values = top_3_lines(matches)
         total, average, max = values.map(&:to_f)
         [average, (max || 0.0), total]
+      end
+
+      def top_3_lines(matches)
+        extract_lines(matches).take(3).map(&:first)
       end
 
       def extract_lines(matches)
