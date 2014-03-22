@@ -365,7 +365,7 @@ SubProcess is also useful if you need to manipulate the process's execution envi
 task :sub_process, 'command', :environment => { 'SOME_VAR' => 'true' },
                               :spawn_options => { :unsetenv_others => true }
 
-
+```
 See the Ruby doc for [Process::spawn](http://ruby-doc.org/core-2.1.1/Process.html#method-c-spawn) for details of the options that can be passed in `spawn_options`.
 
 This task should otherwise act like the Shell task.
