@@ -22,22 +22,23 @@ describe Fudge::Runner do
       expect { subject.run_build }.to raise_error Fudge::Exceptions::BuildFailed
     end
 
-    context "when an output is provided" do
-      let(:output) { StringIO.new }
+    context "when an formatter is provided" do
+      let(:stdout) { StringIO.new }
+      let(:formatter) { Fudge::Formatters::Simple.new(stdout) }
 
       before :each do
-        subject.run_build 'default', :output => output
+        subject.run_build 'default', :formatter => formatter
       end
 
-      it "puts all output to given output instead stdout" do
-        output.string.should_not be_empty
-        output.string.should include "Running build"
-        output.string.should include "default"
-        output.string.should include "Build SUCCEEDED!"
+      it "puts all output to given formatter instead stdout" do
+        stdout.string.should_not be_empty
+        stdout.string.should include "Running build"
+        stdout.string.should include "default"
+        stdout.string.should include "Build SUCCEEDED!"
       end
 
-      it "runs the task passing the output down" do
-        DummyTask.run_options.should == {:output => output}
+      it "runs the task passing the formatter down" do
+        DummyTask.run_options.should == {:formatter => formatter}
       end
     end
   end

@@ -11,10 +11,10 @@ module Fudge
 
       # Runs the task (by default running all other tasks in order)
       def run(options={})
-        output = options[:output] || $stdout
+        formatter = options[:formatter] || Fudge::Formatters::Simple.new
         tasks.each do |t|
           apply_directory_settings(t)
-          output_message(t, output)
+          output_message(t, formatter)
           return unless t.run(options)
         end
       end
@@ -42,27 +42,20 @@ module Fudge
         {}
       end
 
-      def join_arguments(t)
+      def task_name(t)
+        t.class.name.to_s
+      end
+
+      def args_s(t)
         t.respond_to?(:args) && t.args ? t.args.join(', ') : ''
       end
 
-      def output_message(t, output)
-          message = "#{running_coloured} #{task_name_coloured(t)} #{args_coloured(t)}"
-          output.puts message
+      def output_message(t, formatter)
+          formatter.write do |w|
+            w.info("Running task").notice(task_name(t)).notice(args_s(t))
+          end
       end
 
-      def running_coloured
-        "Running task".foreground(:blue)
-      end
-
-      def task_name_coloured(t)
-        t.class.name.to_s.foreground(:yellow).bright
-      end
-
-      def args_coloured(t)
-        args_text = join_arguments(t)
-        args_text.foreground(:yellow).bright
-      end
     end
   end
 end

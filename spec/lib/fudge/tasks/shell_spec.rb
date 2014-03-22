@@ -18,23 +18,24 @@ describe Fudge::Tasks::Shell do
       described_class.new(:ls).run.should be_true
     end
 
-    context "when there is an output passed to run" do
+    context "when there is an formatter passed to run" do
 
       let(:output) { StringIO.new }
+      let(:formatter) { Fudge::Formatters::Simple.new(output) }
       subject { described_class.new('echo foo') }
 
-      it "prints messages to the output instead of stdout" do
+      it "prints messages to the formatter instead of default" do
 
-        subject.run :output => output
+        subject.run :formatter => formatter
 
         output.string.should_not be_empty
         output.string.should include "foo"
       end
 
-      it 'uses the output stream when reporting checks on build result' do
+      it 'uses the formatter when reporting checks on build result' do
         checker = double.as_null_object
-        Fudge::OutputChecker.should_receive(:new).with(anything, output) { checker }
-        subject.run :output => output
+        Fudge::OutputChecker.should_receive(:new).with(anything, formatter) { checker }
+        subject.run :formatter => formatter
       end
 
     end

@@ -13,17 +13,17 @@ module Fudge
     end
 
     def run(options={})
-      output = options[:output] || $stdout
+      formatter = options[:formatter] || Fudge::Formatters::Simple.new
       success = super
       if callbacks
-        message "Running #{success ? 'success' : 'failure'} callbacks...", output
+        message "Running #{success ? 'success' : 'failure'} callbacks...", formatter
         hooks = success ? @success_hooks : @failure_hooks
 
         hooks.each do |hook|
-          return false unless hook.run :output => output
+          return false unless hook.run :formatter => formatter
         end
       else
-        message "Skipping callbacks...", output
+        message "Skipping callbacks...", formatter
       end
 
       success
@@ -31,8 +31,8 @@ module Fudge
 
     private
 
-    def message(message, output)
-      output.puts message.foreground(:cyan).bright
+    def message(message, formatter)
+      formatter.write { |w| w.info(message) }
     end
   end
 end
