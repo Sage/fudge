@@ -1,4 +1,4 @@
 module Fudge
   # Define gem version
-  VERSION = '0.3.8'
+  VERSION = '1.0.0'
 end
