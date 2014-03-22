@@ -8,7 +8,7 @@ module Fudge
     class BuildFailed < Base
       # error message
       def message
-        "Build FAILED!".foreground(:red).bright
+        "Build FAILED!"
       end
     end
 

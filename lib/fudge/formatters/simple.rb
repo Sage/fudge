@@ -3,6 +3,16 @@ module Fudge
     # Simple coloured STDOUT/STDERR formatting
     class Simple
 
+      # ASCII Color Codes
+      CODE = {
+        :off => 0,
+        :bright => 1,
+        :red => 31,
+        :green => 32,
+        :yellow => 33,
+        :cyan => 36
+      }
+
       # Internal wrapper for output
       class Writer
         def initialize(formatter)
@@ -39,22 +49,22 @@ RUBY
 
       # Report Error Message
       def error(message)
-        message.foreground(:red)
+        ascii :red, message
       end
 
       # Report Success Message
       def success(message)
-        message.foreground(:green).bright
+        ascii :bright, :green, message
       end
 
       # Report Information Message
       def info(message)
-        message.foreground(:cyan)
+        ascii :cyan, message
       end
 
       # Report Notice Message
       def notice(message)
-        message.foreground(:yellow)
+        ascii :yellow, message
       end
 
       # Normal information
@@ -77,6 +87,19 @@ RUBY
       # Output a character
       def putc(c)
         stdout.putc(c)
+      end
+
+      private
+
+      def ascii(*args)
+        txt = args.pop
+        codes = args.map { |a| coded(a) }
+        codes << txt << coded(:off)
+        codes.join ''
+      end
+
+      def coded(code)
+        "\e[#{CODE[code]}m"
       end
     end
   end

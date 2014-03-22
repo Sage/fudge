@@ -8,28 +8,28 @@ describe Fudge::Formatters::Simple do
   describe :error do
     it "returns message in RED" do
       string = subject.error "a message"
-      string.should == "a message".foreground(:red)
+      string.should == "\e[31ma message\e[0m"
     end
   end
 
   describe :success do
     it "returns message in BRIGHT GREEN" do
       string = subject.success "a message"
-      string.should == "a message".foreground(:green).bright
+      string.should == "\e[1m\e[32ma message\e[0m"
     end
   end
 
   describe :info do
     it "returns message in CYAN" do
       string = subject.info "a message"
-      string.should == "a message".foreground(:cyan)
+      string.should == "\e[36ma message\e[0m"
     end
   end
 
   describe :notice do
     it "returns message in YELLOW" do
       string = subject.notice "a message"
-      string.should == "a message".foreground(:yellow)
+      string.should == "\e[33ma message\e[0m"
     end
   end
 
@@ -58,10 +58,10 @@ describe Fudge::Formatters::Simple do
       end
 
       stdout.string.should == 'normal' + ' ' +
-                              'notice'.foreground(:yellow) + ' ' +
-                              'info'.foreground(:cyan) + ' ' +
-                              'success'.foreground(:green).bright + ' ' +
-                              'error'.foreground(:red) + "\n"
+                              "\e[33mnotice\e[0m" + ' ' +
+                              "\e[36minfo\e[0m" + ' ' +
+                              "\e[1m\e[32msuccess\e[0m" + ' ' +
+                              "\e[31merror\e[0m" + "\n"
 
     end
   end
