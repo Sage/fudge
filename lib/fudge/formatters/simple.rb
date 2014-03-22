@@ -27,15 +27,14 @@ RUBY
           end
         end
 
-        wrap :normal, :notice, :info, :success
+        wrap :normal, :notice, :info, :success, :error
 
       end
 
-      attr_reader :stdout, :stderr
+      attr_reader :stdout
 
-      def initialize(stdout=$stdout, stderr=$stderr)
+      def initialize(stdout=$stdout)
         @stdout = stdout
-        @stderr = stderr
       end
 
       # Report Error Message
@@ -73,6 +72,11 @@ RUBY
         w = Writer.new(self)
         yield w
         w.write(stdout)
+      end
+
+      # Output a character
+      def putc(c)
+        stdout.putc(c)
       end
     end
   end

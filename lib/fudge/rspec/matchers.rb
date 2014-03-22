@@ -13,7 +13,7 @@ module FudgeMatchers
     def initialize(expected, args={})
       @expected = expected
       @args = args
-      @args[:output] ||= $stdout
+      @args[:formatter] ||= Fudge::Formatters::Simple.new
     end
 
     def matches?(task)
@@ -27,8 +27,8 @@ module FudgeMatchers
           Fudge::Tasks::Shell.any_instance
         end
 
-      to_stub.stub(:run_command) do |cmd, outputio|
-        raise "Run Command requires an output IOStream" unless outputio
+      to_stub.stub(:run_command) do |cmd, formatter|
+        raise "Run Command requires a formatter" unless formatter
         ran.push(cmd)
         ['dummy output', true]
       end

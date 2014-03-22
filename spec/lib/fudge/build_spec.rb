@@ -6,13 +6,14 @@ describe Fudge::Build do
   describe "#run" do
 
     context "when provided an output" do
-      let(:output) { StringIO.new }
+      let(:stdout) { StringIO.new }
+      let(:formatter) { Fudge::Formatters::Simple.new(stdout) }
 
-      it "prints messages to the output instead of stdout" do
-        subject.run :output => output
+      it "prints messages to the formatter instead of default" do
+        subject.run :formatter => formatter
 
-        output.string.should_not be_empty
-        output.string.should include "Skipping callbacks..."
+        stdout.string.should_not be_empty
+        stdout.string.should include "Skipping callbacks..."
       end
 
       context "when there are callback hooks" do
@@ -23,9 +24,9 @@ describe Fudge::Build do
           subject.success_hooks << hook
         end
 
-        it "passes output down to the hook run" do
-          hook.should_receive(:run).with(:output => output).and_return(true)
-          subject.run :output => output
+        it "passesformatter down to the hook run" do
+          hook.should_receive(:run).with(:formatter =>formatter).and_return(true)
+          subject.run :formatter => formatter
         end
       end
     end

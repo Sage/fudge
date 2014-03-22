@@ -2,9 +2,8 @@ require 'spec_helper'
 
 describe Fudge::Formatters::Simple do
   let(:stdout) { StringIO.new }
-  let(:stderr) { StringIO.new }
 
-  subject { described_class.new(stdout, stderr) }
+  subject { described_class.new(stdout) }
 
   describe :error do
     it "returns message in RED" do
@@ -54,13 +53,15 @@ describe Fudge::Formatters::Simple do
         w.normal('normal').
           notice('notice').
           info('info').
-          success('success')
+          success('success').
+          error('error')
       end
 
       stdout.string.should == 'normal' + ' ' +
                               'notice'.foreground(:yellow) + ' ' +
                               'info'.foreground(:cyan) + ' ' +
-                              'success'.foreground(:green).bright + "\n"
+                              'success'.foreground(:green).bright + ' ' +
+                              'error'.foreground(:red) + "\n"
 
     end
   end

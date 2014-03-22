@@ -12,10 +12,10 @@ module Fudge
       end
 
       def run(options={})
-        output = options[:output] || $stdout
+        formatter = options[:formatter] || Fudge::Formatters::Simple.new
         directories.all? do |dir|
           skip_directory?(dir) ||
-            WithDirectory.new(dir, output).inside do
+            WithDirectory.new(dir, formatter).inside do
               super
             end
         end

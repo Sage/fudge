@@ -58,13 +58,14 @@ describe Fudge::Tasks::CompositeTask do
 
       context "when provided an output" do
         let(:output) { StringIO.new }
+        let(:formatter) { Fudge::Formatters::Simple.new(output) }
 
         before :each do
           Fudge::Tasks::Shell.any_instance.stub(:run)
         end
 
         it "prints messages to the output instead of stdout" do
-          subject.run :output => output
+          subject.run :formatter => formatter
 
           output.string.should_not be_empty
           output.string.should match /Running task.*shell.*foo, bar/

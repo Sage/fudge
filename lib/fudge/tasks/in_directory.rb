@@ -10,8 +10,8 @@ module Fudge
       end
 
       def run(options={})
-        output = options[:output] || $stdout
-        WithDirectory.new(@directory, output).inside do
+        formatter = options[:formatter] || Fudge::Formatters::Simple.new
+        WithDirectory.new(@directory, formatter).inside do
           super
         end
       end

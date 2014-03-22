@@ -1,10 +1,11 @@
 require 'spec_helper'
 
 describe Fudge::OutputChecker do
-  let (:output_io) { StringIO.new }
+  let(:output_io) { StringIO.new }
+  let(:formatter) { Fudge::Formatters::Simple.new(output_io) }
 
   describe "#check" do
-    subject { described_class.new /foo/, output_io }
+    subject { described_class.new(/foo/, formatter) }
 
     context "when the output does not match the check" do
        it 'send a mismatch message to the output io' do
@@ -19,7 +20,7 @@ describe Fudge::OutputChecker do
           false
         end
       end
-      subject { described_class.new [/foo/, callable], output_io }
+      subject { described_class.new [/foo/, callable], formatter }
 
       it 'sends error mesage to the output io' do
         subject.check('foo')

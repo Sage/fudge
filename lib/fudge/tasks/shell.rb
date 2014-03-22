@@ -12,30 +12,30 @@ module Fudge
       #
       # @param [Hash] options Any options to pass to the shell
       def run(options={})
-        output_io = options[:output] || $stdout
-        @output, success = run_command(cmd(options), output_io)
+        formatter = options[:formatter] || Fudge::Formatters::Simple.new
+        @output, success = run_command(cmd(options), formatter)
 
         return false unless success
-        return check_for_output(output_io)
+        return check_for_output(formatter)
       end
 
       private
 
-      def run_command(cmd, output_io)
+      def run_command(cmd, formatter)
         output = ''
         IO.popen(cmd) do |f|
           until f.eof?
             bit = f.getc
             output << bit
-            output_io.putc bit
+            formatter.putc bit
           end
         end
 
         [output, $?.success?]
       end
 
-      def check_for_output(output_io)
-        checker = OutputChecker.new(check_for, output_io)
+      def check_for_output(formatter)
+        checker = OutputChecker.new(check_for, formatter)
         checker.check(@output)
       end
 
