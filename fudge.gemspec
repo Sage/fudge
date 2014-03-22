@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
   s.require_paths = %w{lib}
 
   s.add_dependency 'thor'
-  s.add_dependency 'rainbow', '~> 1.1.4'
   s.add_dependency 'activesupport'
   s.add_dependency 'json', '~> 1.8.0'
   s.add_development_dependency 'redcarpet'
