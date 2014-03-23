@@ -1,5 +1,10 @@
+# v1.0.0
+* Reworked output processing [#89](https://github.com/Sage/fudge/pull/89)
+* Removed rainbow dependency [#90](https://github.com/Sage/fudge/pull/90)
+* Update gems for release 0.4.0 [#91](https://github.com/Sage/fudge/pull/91]
+
 # v0.3.8
-* Add SubProcess task, a task to run shell commands with more control over the command's environment and execution than Shell provides.
+* Add SubProcess task, a task to run shell commands with more control over the command environment and execution than Shell provides.
 
 # v0.3.7
 * Fix argument handling in tasks [#85](https://github.com/Sage/fudge/pull/85) fixes [#84](https://github.com/Sage/fudge/issues/84)
