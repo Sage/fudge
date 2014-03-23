@@ -2,6 +2,7 @@ module Fudge
   module Tasks
     # Provides a sanitized running environment for Bundler
     class CleanBundlerEnv < CompositeTask
+      # Run task
       def run(options={})
         Bundler.with_clean_env do
           super(options.merge(:bundler => true))

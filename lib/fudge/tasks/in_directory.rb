@@ -9,6 +9,7 @@ module Fudge
         @directory = directory
       end
 
+      # Run task
       def run(options={})
         formatter = options[:formatter] || Fudge::Formatters::Simple.new
         WithDirectory.new(@directory, formatter).inside do

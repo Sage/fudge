@@ -11,6 +11,7 @@ module Fudge
         @pattern = pattern
       end
 
+      # Run task
       def run(options={})
         formatter = options[:formatter] || Fudge::Formatters::Simple.new
         directories.all? do |dir|

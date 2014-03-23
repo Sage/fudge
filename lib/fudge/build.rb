@@ -12,6 +12,7 @@ module Fudge
       super
     end
 
+    # Run task
     def run(options={})
       formatter = options[:formatter] || Fudge::Formatters::Simple.new
       success = super
