@@ -1,4 +1,4 @@
-# v1.0.0
+# v0.4.0
 * Reworked output processing [#89](https://github.com/Sage/fudge/pull/89)
 * Removed rainbow dependency [#90](https://github.com/Sage/fudge/pull/90)
 * Update gems for release 0.4.0 [#91](https://github.com/Sage/fudge/pull/91]
