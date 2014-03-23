@@ -1,7 +1,7 @@
 # v0.4.0
 * Reworked output processing [#89](https://github.com/Sage/fudge/pull/89)
 * Removed rainbow dependency [#90](https://github.com/Sage/fudge/pull/90)
-* Update gems for release 0.4.0 [#91](https://github.com/Sage/fudge/pull/91]
+* Update gems for release 0.4.0 [#91](https://github.com/Sage/fudge/pull/91)
 * New projects can use Yard without errors [#74](https://github.com/Sage/fudge/issues/74)
 
 # v0.3.8
