@@ -10,10 +10,10 @@ module Fudge
     #Writes the fudgefile to initialized directory unless on present
     def write_fudgefile
       if exists?
-        puts "Fudgefile already exists."
+        "Fudgefile already exists."
       else
         writer { |file| file << build_templated }
-        puts "Fudgefile created."
+        "Fudgefile created."
       end
     end
 
