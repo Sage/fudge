@@ -1,3 +1,5 @@
+require 'yaml'
+
 module Fudge
   module Tasks
     # Allow for tasks to be combined
@@ -37,7 +39,7 @@ module Fudge
       def fudge_settings
         fpath = "#{Dir.pwd}/fudge_settings.yml"
         if File.exist?(fpath)
-          return YAML.load_file(fpath)
+          return ::YAML.load_file(fpath)
         end
         {}
       end

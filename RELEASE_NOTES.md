@@ -1,3 +1,6 @@
+# v0.4.1
+* Fix problem with YAML in activesupport 4.1.0 [#92](https://github.com/Sage/fudge/pull/92)
+
 # v0.4.0
 * Reworked output processing [#89](https://github.com/Sage/fudge/pull/89)
 * Removed rainbow dependency [#90](https://github.com/Sage/fudge/pull/90)
