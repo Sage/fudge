@@ -15,8 +15,8 @@ module Fudge
     end
 
     # Adds a build to the current description
-    def build(name)
-      @builds[name] = build = Build.new
+    def build(name, options={})
+      @builds[name] = build = Build.new(options)
       with_scope(build) { yield }
     end
 

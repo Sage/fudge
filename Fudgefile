@@ -35,7 +35,7 @@ task_group :shout_about_success_and_failure do
   task_group :shout_about_failure
 end
 
-build :default do
+build :default, :about => 'Runs unit tests, and checks test coverage, documentation coverage, and code style and complexity' do
   task_group :spec
   task_group :docs
   task_group :codestyle
@@ -45,7 +45,7 @@ build :default do
   task_group :shout_about_success_and_failure
 end
 
-build :nodoc do
+build :nodoc, :about => 'Runs unit tests' do
   task_group :spec
 
   task_group :shout_about_success_and_failure

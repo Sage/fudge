@@ -50,12 +50,31 @@ This will run the build named 'default'.  To run a specific build in the Fudgefi
 bundle exec fudge build the_build_name
 ```
 
+To list builds defined in your Fudgefile:
+
+```
+bundle exec fudge list
+```
+
+The list of builds can be filtered to include only those whose name match a given string (case-insensitive):
+
+```
+bundle exec fudge list a_build_name
+```
+
 ### Fudgefile syntax
 
 To define a build with a given name (or for a given branch):
 
 ```ruby
 build :some_name do
+end
+```
+
+An optional description can be provided by supplying an about string (descriptions, if supplied, are output by the list command):
+
+```ruby
+build :some_name, :about => "Runs Rspec unit tests" do
 end
 ```
 

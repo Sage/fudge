@@ -2,8 +2,13 @@ module Fudge
   # Represents a build defined in the FudgeFile
   #
   class Build < Tasks::CompositeTask
+    # @!attribute about
+    #   @return [String] a brief description of the build; this is
+    #                    output by the 'list' command
+    attr_accessor :about
     attr_accessor :callbacks
     attr_reader :success_hooks, :failure_hooks
+    attr_reader :description
 
     def initialize(*args)
       @success_hooks = []
