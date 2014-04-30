@@ -6,9 +6,10 @@ module Fudge
     #   @return [String] a brief description of the build; this is
     #                    output by the 'list' command
     attr_accessor :about
-    attr_accessor :callbacks
+    attr_accessor :callbacks, :time
     attr_reader :success_hooks, :failure_hooks
     attr_reader :description
+    attr_reader :formatter
 
     def initialize(*args)
       @success_hooks = []
@@ -19,26 +20,36 @@ module Fudge
 
     # Run task
     def run(options={})
-      formatter = options[:formatter] || Fudge::Formatters::Simple.new
+      start_time = Time.new
+      init_formatter(options)
       success = super
       if callbacks
-        message "Running #{success ? 'success' : 'failure'} callbacks...", formatter
-        hooks = success ? @success_hooks : @failure_hooks
-
-        hooks.each do |hook|
-          return false unless hook.run :formatter => formatter
-        end
+        return false unless run_callbacks(success)
       else
-        message "Skipping callbacks...", formatter
+        message "Skipping callbacks..."
       end
+      message "Finished in #{"%.2f" % (Time.new - start_time)} seconds." if time
 
       success
     end
 
     private
 
-    def message(message, formatter)
+    def message(message)
       formatter.write { |w| w.info(message) }
+    end
+
+    def init_formatter(options)
+      @formatter = options[:formatter] || Fudge::Formatters::Simple.new
+    end
+
+    def run_callbacks(success)
+      message "Running #{success ? 'success' : 'failure'} callbacks..."
+      hooks = success ? @success_hooks : @failure_hooks
+
+      hooks.each do |hook|
+        return false unless hook.run :formatter => formatter
+      end
     end
   end
 end
