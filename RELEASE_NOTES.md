@@ -1,3 +1,6 @@
+# v0.5.1 - not released yet
+* Add `--time` option to `build` command, prints out time spent for the build. [#97](https://github.com/Sage/fudge/pull/97)
+
 # v0.5.0
 * Add `list` command to CLI, which outputs a list of builds defined in the Fudgefile.
 

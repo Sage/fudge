@@ -29,6 +29,21 @@ describe Fudge::Build do
           subject.run :formatter => formatter
         end
       end
+
+      context "when the `time` flag is set" do
+        before do
+          subject.callbacks = true
+          allow(subject).to receive(:run_callbacks).and_return(true)
+          subject.time = true
+        end
+
+        it "should print out the time of the build" do
+          expect(subject).to receive(:message) do |message|
+            expect(message).to match /Finished in \d+.\d\d seconds./
+          end
+          subject.run :formatter => formatter
+        end
+      end
     end
   end
 end
