@@ -9,12 +9,14 @@ module Fudge
       #
       # @return [Symbol]
       def self.name
-        super.demodulize.underscore.downcase.to_sym
+        name = /(\w+::)*(?<class>\w+\z)/.match(super)[:class]
+        underscored = name.gsub(/(?<pre>[^_])(?<char>[A-Z])/, "\\k<pre>_\\k<char>")
+        underscored.downcase.to_sym
       end
 
       def initialize(*args)
         @args = args.dup
-        @options = @args.extract_options!
+        @options = @args[-1].kind_of?(Hash) ? @args.delete_at(-1) : {}
 
         @options.each do |k,v|
           send("#{k}=", v) if respond_to?("#{k}=")

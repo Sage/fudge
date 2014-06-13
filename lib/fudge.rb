@@ -1,5 +1,3 @@
-require 'active_support/all'
-
 #This will fix errors: invalid byte sequence in US-ASCII (ArgumentError) when UTF-8 chars get
 #in the console output, ruby pre-2.0 only.
 Encoding.default_external = Encoding.default_internal = Encoding::UTF_8 if RUBY_VERSION =~ /1.9/
@@ -21,4 +19,3 @@ module Fudge
   autoload :FileFinder, 'fudge/file_finder'
   autoload :Formatters, 'fudge/formatters'
 end
-

@@ -1,3 +1,6 @@
+# v0.5.1
+* Remove dependency on activesupport.
+
 # v0.5.0
 * Add `list` command to CLI, which outputs a list of builds defined in the Fudgefile.
 
