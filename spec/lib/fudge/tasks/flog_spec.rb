@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Fudge::Tasks::Flog do
-  it { should be_registered_as :flog }
+  it { is_expected.to be_registered_as :flog }
 
   it_should_behave_like 'bundle aware'
 
@@ -45,9 +45,9 @@ EOF
 EOF
   end
 
-  describe :run do
+  describe '#run' do
     it "runs flog on the codebase" do
-      subject.should run_command "flog `find . | grep --color=never -e '\\.rb$'`"
+      expect(subject).to run_command "flog `find . | grep --color=never -e '\\.rb$'`"
     end
 
     context 'with :exclude => pattern' do
@@ -56,7 +56,7 @@ EOF
       # Test doesn't check result :(
       it "filters out the pattern" do
         with_pattern = "flog `find . | grep --color=never -e '\\.rb$' | grep --color=never -v -E 'spec/'`"
-        subject.should run_command with_pattern
+        expect(subject).to run_command with_pattern
       end
     end
 
@@ -65,32 +65,32 @@ EOF
 
       it "runs with methods only flag" do
         with_pattern = "flog -m `find . | grep --color=never -e '\\.rb$'`"
-        subject.should run_command with_pattern
+        expect(subject).to run_command with_pattern
       end
     end
 
-    it { should_not succeed_with_output output_good_average_bad_max }
-    it { should_not succeed_with_output output_bad_average_good_max }
-    it { should succeed_with_output output_good }
-    it { should succeed_with_output output_perfect }
+    it { is_expected.not_to succeed_with_output output_good_average_bad_max }
+    it { is_expected.not_to succeed_with_output output_bad_average_good_max }
+    it { is_expected.to succeed_with_output output_good }
+    it { is_expected.to succeed_with_output output_perfect }
 
     context 'when :max score is supplied' do
       it 'fails when score is higher than max' do
         task = described_class.new :max => 9.9
-        task.should_not succeed_with_output output_good
+        expect(task).not_to succeed_with_output output_good
 
         task = described_class.new :max => 10.0
-        task.should succeed_with_output output_good
+        expect(task).to succeed_with_output output_good
       end
     end
 
     context 'when :average score is supplied' do
       it 'fails when average is higher than :average' do
         task = described_class.new :average => 4.9
-        task.should_not succeed_with_output output_good
+        expect(task).not_to succeed_with_output output_good
 
         task = described_class.new :average => 5.0
-        task.should succeed_with_output output_good
+        expect(task).to succeed_with_output output_good
       end
     end
   end

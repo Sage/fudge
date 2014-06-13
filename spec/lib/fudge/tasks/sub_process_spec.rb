@@ -5,7 +5,7 @@ describe Fudge::Tasks::SubProcess do
   let(:output) { StringIO.new }
   let(:formatter) { Fudge::Formatters::Simple.new(output) }
 
-  describe :run do
+  describe '#run' do
     it "takes a command and runs it" do
       expect(described_class.new(:ls)).to run_command [{}, 'ls', {}]
     end
@@ -15,11 +15,11 @@ describe Fudge::Tasks::SubProcess do
     end
 
     it "returns false for an unsuccessful command" do
-      expect(described_class.new(:ls, '--newnre').run).to be_false
+      expect(described_class.new(:ls, '--newnre').run).to be_falsey
     end
 
     it "returns true for a successful command" do
-      expect(described_class.new(:ls).run).to be_true
+      expect(described_class.new(:ls).run).to be_truthy
     end
 
     context "when given environment variables" do

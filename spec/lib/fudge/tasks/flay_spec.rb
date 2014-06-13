@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Fudge::Tasks::Flay do
-  it { should be_registered_as :flay }
+  it { is_expected.to be_registered_as :flay }
 
   it_should_behave_like 'bundle aware'
 
@@ -18,9 +18,9 @@ Total score (lower is better) = 100
 EOF
   end
 
-  describe :run do
+  describe '#run' do
     it "runs flay on the codebase" do
-      subject.should run_command "flay --diff `find . | grep --color=never -e '\\.rb$'`"
+      expect(subject).to run_command "flay --diff `find . | grep --color=never -e '\\.rb$'`"
     end
 
     context 'with :exclude => pattern' do
@@ -29,20 +29,20 @@ EOF
       # Test doesn't check result :(
       it "filters out the pattern" do
         cmd = "flay --diff `find . | grep --color=never -e '\\.rb$' | grep --color=never -v -E 'spec/'`"
-        subject.should run_command cmd
+        expect(subject).to run_command cmd
       end
     end
 
-    it { should_not succeed_with_output output_bad }
-    it { should succeed_with_output output_good }
+    it { is_expected.not_to succeed_with_output output_bad }
+    it { is_expected.to succeed_with_output output_good }
 
     context 'when :max score is supplied' do
       it 'fails when score is higher than max' do
         task = described_class.new :max => 99
-        task.should_not succeed_with_output output_bad
+        expect(task).not_to succeed_with_output output_bad
 
         task = described_class.new :max => 100
-        task.should succeed_with_output output_bad
+        expect(task).to succeed_with_output output_bad
       end
     end
   end

@@ -18,7 +18,7 @@ describe Fudge::Cli do
     AnotherDummyTask.ran = false
   end
 
-  describe :build do
+  describe ".build" do
     before :each do
       contents = <<-RUBY
           build :default do
@@ -30,26 +30,26 @@ describe Fudge::Cli do
           end
         RUBY
       file = double(File, read: contents, path: 'here')
-      File.stub(:open) { |&block| block.yield file }
+      allow(File).to receive(:open) { |&block| block.yield file }
     end
 
     context "when not given a build name" do
       it "runs the default build" do
         subject.build 'default'
-        expect(DummyTask.ran).to be_true
+        expect(DummyTask.ran).to be_truthy
       end
     end
 
     context "when given a build name" do
       it "runs the only the named build" do
         subject.build 'other'
-        expect(DummyTask.ran).to be_false
-        expect(AnotherDummyTask.ran).to be_true
+        expect(DummyTask.ran).to be_falsey
+        expect(AnotherDummyTask.ran).to be_truthy
       end
     end
   end
 
-  describe :init do
+  describe ".init" do
     let (:file_state) { { exists: false, content: '' } }
     let (:override_file_state) do
       ->(exists, content) {
@@ -60,18 +60,18 @@ describe Fudge::Cli do
 
     before :each do
       file = double(File)
-      file.stub(:<<) { |str| file_state[:content] = str }
-      file.stub(:read) { file_state[:content] }
-      File.stub(:open) do |&block|
+      allow(file).to receive(:<<) { |str| file_state[:content] = str }
+      allow(file).to receive(:read) { file_state[:content] }
+      allow(File).to receive(:open) do |&block|
         file_state[:exists] = true
         block.yield file
       end
-      File.stub(:exists?) { |_| file_state[:exists] }
+      allow(File).to receive(:exists?) { |_| file_state[:exists] }
 
       @output = ''
       shell = double('Thor::Shell')
-      shell.stub(:say) { |what| @output = what }
-      subject.stub(:shell).and_return(shell)
+      allow(shell).to receive(:say) { |what| @output = what }
+      allow(subject).to receive(:shell).and_return(shell)
     end
 
     context "when a Fudgefile does not exist in the current directory" do
@@ -117,7 +117,7 @@ describe Fudge::Cli do
     end
   end
 
-  describe :list do
+  describe ".list" do
     before :each do
       contents = <<-RUBY
           build :default do
@@ -129,12 +129,12 @@ describe Fudge::Cli do
           end
         RUBY
       file = double(File, read: contents, path: 'here')
-      File.stub(:open) { |&block| block.yield file }
+      allow(File).to receive(:open) { |&block| block.yield file }
 
       @output = ''
       shell = double('Thor::Shell')
-      shell.stub(:print_table) { |tab| @output = tab.map { |build, desc| "#{build}\t#{desc}" }.join("\n") }
-      subject.stub(:shell).and_return(shell)
+      allow(shell).to receive(:print_table) { |tab| @output = tab.map { |build, desc| "#{build}\t#{desc}" }.join("\n") }
+      allow(subject).to receive(:shell).and_return(shell)
     end
 
     context "when not given a filter string" do

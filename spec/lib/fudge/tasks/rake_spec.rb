@@ -1,18 +1,18 @@
 require 'spec_helper'
 
 describe Fudge::Tasks::Rake do
-  it { should be_registered_as :rake }
-  it { should be_a Fudge::Tasks::Shell }
+  it { is_expected.to be_registered_as :rake }
+  it { is_expected.to be_a Fudge::Tasks::Shell }
 
-  describe :run do
+  describe '#run' do
     it "should be rake by default" do
-      subject.should run_command 'rake '
+      expect(subject).to run_command 'rake '
     end
 
     it_should_behave_like 'bundle aware'
 
     it "should add any arguments given" do
-      described_class.new('db:migrate').should run_command 'rake db:migrate'
+      expect(described_class.new('db:migrate')).to run_command 'rake db:migrate'
     end
   end
 end
