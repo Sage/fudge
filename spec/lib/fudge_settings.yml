@@ -1,2 +1,3 @@
 shell:
   test: 'coverage'
+  1: 'should not raise'

@@ -1,9 +1,8 @@
 module Fudge
   # Domain specific language for expressing Tasks in the Fudgefile
   module TaskDSL
-    extend ActiveSupport::Concern
-
-    included do
+    # Sets up attr_writers the including class will need
+    def self.included(base)
       attr_writer :scope
     end
 
