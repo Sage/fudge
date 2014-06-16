@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Fudge::Tasks::Brakeman do
-  it { should be_registered_as :brakeman }
+  it { is_expected.to be_registered_as :brakeman }
 
   it_should_behave_like 'bundle aware'
 
@@ -40,21 +40,21 @@ Model Warnings:
 EOF
   end
 
-  describe :run do
+  describe '#run' do
     it 'runs brakeman on the codebase' do
-      subject.should run_command 'brakeman '
+      expect(subject).to run_command 'brakeman '
     end
 
-    it { should_not succeed_with_output output_bad }
-    it { should succeed_with_output output_good }
+    it { is_expected.not_to succeed_with_output output_bad }
+    it { is_expected.to succeed_with_output output_good }
 
     context 'when :max score is supplied' do
       it 'fails when score is higher than max' do
         task = described_class.new :max => 0
-        task.should_not succeed_with_output output_bad
+        expect(task).not_to succeed_with_output output_bad
 
         task = described_class.new :max => 1
-        task.should succeed_with_output output_bad
+        expect(task).to succeed_with_output output_bad
       end
     end
   end

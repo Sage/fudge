@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Fudge::Build do
-  it { should be_a Fudge::Tasks::CompositeTask }
+  it { is_expected.to be_a Fudge::Tasks::CompositeTask }
 
   describe "#run" do
 
@@ -12,8 +12,8 @@ describe Fudge::Build do
       it "prints messages to the formatter instead of default" do
         subject.run :formatter => formatter
 
-        stdout.string.should_not be_empty
-        stdout.string.should include "Skipping callbacks..."
+        expect(stdout.string).not_to be_empty
+        expect(stdout.string).to include "Skipping callbacks..."
       end
 
       context "when there are callback hooks" do
@@ -25,7 +25,7 @@ describe Fudge::Build do
         end
 
         it "passesformatter down to the hook run" do
-          hook.should_receive(:run).with(:formatter =>formatter).and_return(true)
+          expect(hook).to receive(:run).with(:formatter =>formatter).and_return(true)
           subject.run :formatter => formatter
         end
       end

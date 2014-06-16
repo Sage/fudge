@@ -22,9 +22,9 @@ class TestNonBundlerAwareTask
 end
 
 describe Fudge::Tasks::CleanBundlerEnv do
-  it { should be_registered_as :clean_bundler_env }
+  it { is_expected.to be_registered_as :clean_bundler_env }
 
-  describe :run do
+  describe '#run' do
     let(:bundle_aware_task) { TestBundlerAwareTask.new }
     let(:non_bundle_aware_task) { TestNonBundlerAwareTask.new }
 
@@ -33,14 +33,14 @@ describe Fudge::Tasks::CleanBundlerEnv do
         subject.tasks << bundle_aware_task
         subject.tasks << non_bundle_aware_task
 
-        subject.run.should be_true
+        expect(subject.run).to be_truthy
       end
 
       it "runs each task with a clean bundle env" do
-        Bundler.should_receive(:with_clean_env).and_call_original
+        expect(Bundler).to receive(:with_clean_env).and_call_original
 
         subject.tasks << bundle_aware_task
-        subject.run.should be_true
+        expect(subject.run).to be_truthy
       end
     end
   end

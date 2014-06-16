@@ -8,11 +8,11 @@ describe Fudge::WithDirectory do
 
   describe "#inside" do
     it "outputs the directory change, yielding the block" do
-      Dir.should_receive(:chdir).with('/some/dir').and_yield
+      expect(Dir).to receive(:chdir).with('/some/dir').and_yield
       subject.inside do
       end
 
-      output.string.should match /In directory.*\/some\/dir/
+      expect(output.string).to match /In directory.*\/some\/dir/
     end
   end
 end

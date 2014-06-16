@@ -10,7 +10,7 @@ describe Fudge::OutputChecker do
     context "when the output does not match the check" do
        it 'send a mismatch message to the output io' do
           subject.check('bar')
-          output_io.string.should include "Output didn't match (?-mix:foo)."
+          expect(output_io.string).to include "Output didn't match (?-mix:foo)."
        end
     end
 
@@ -25,7 +25,7 @@ describe Fudge::OutputChecker do
       it 'sends error mesage to the output io' do
         subject.check('foo')
 
-        output_io.string.should include "Output matched (?-mix:foo) but condition failed."
+        expect(output_io.string).to include "Output matched (?-mix:foo) but condition failed."
       end
     end
   end

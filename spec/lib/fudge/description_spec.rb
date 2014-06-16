@@ -1,8 +1,13 @@
 require 'spec_helper'
 
 describe Fudge::Description do
+  let(:input) { '' }
+  let(:file) { StringIO.new(input).tap { |s| allow(s).to receive(:path).and_return('') } }
+  subject { described_class.new(file) }
+
   let(:build) { subject.builds.values.first }
-  let(:build_tasks) { build.tasks.map }
+  let(:build_tasks) { build.tasks.dup }
+
 
   def make_build
     subject.build :default do
@@ -12,38 +17,34 @@ describe Fudge::Description do
     build.callbacks = callbacks
   end
 
-  let(:input) { '' }
-  let(:file) { StringIO.new(input).tap { |s| s.stub(:path).and_return('') } }
-  subject { described_class.new file }
-
-  describe :initialize do
+  describe "#initialize" do
     let(:input) { 'build :foo do; end' }
 
     it "should add the builds in the given string" do
-      subject.builds[:foo].should be_a Fudge::Build
+      expect(subject.builds[:foo]).to be_a Fudge::Build
     end
   end
 
-  describe :build do
+  describe "#build" do
     it "should create a new build and add it to the builds array" do
-      subject.builds.should be_empty
+      expect(subject.builds).to be_empty
 
       subject.build :some_branch do
       end
 
-      subject.builds.should have(1).item
-      subject.builds[:some_branch].should be_a Fudge::Build
+      expect(subject.builds.size).to eq(1)
+      expect(subject.builds[:some_branch]).to be_a Fudge::Build
     end
   end
 
-  describe :task do
+  describe "#task" do
     it "should add a task to the current scope" do
       subject.build :default do
         subject.task :dummy
       end
 
-      build_tasks.should have(1).item
-      build_tasks.first.should be_a DummyTask
+      expect(build_tasks.size).to eq(1)
+      expect(build_tasks.first).to be_a DummyTask
     end
 
     it "should pass arguments to the initializer" do
@@ -51,7 +52,7 @@ describe Fudge::Description do
         subject.task :dummy, :foo, :bar
       end
 
-      build_tasks.first.args.should == [:foo, :bar]
+      expect(build_tasks.first.args).to eq([:foo, :bar])
     end
 
     it "should forward missing methods to task" do
@@ -59,7 +60,7 @@ describe Fudge::Description do
         subject.dummy :foo, :bar
       end
 
-      build_tasks.first.args.should == [:foo, :bar]
+      expect(build_tasks.first.args).to eq([:foo, :bar])
     end
 
     it "should super method_missing if no task found" do
@@ -73,11 +74,11 @@ describe Fudge::Description do
         end
       end
 
-      build_tasks.first.tasks.first.should be_a DummyTask
+      expect(build_tasks.first.tasks.first).to be_a DummyTask
     end
   end
 
-  describe :task_group do
+  describe "#task_group" do
     it "should add a task group and allow it to be used in a build" do
       subject.task_group :group1 do
         subject.task :dummy
@@ -88,7 +89,7 @@ describe Fudge::Description do
       end
 
       subject.builds[:default].run
-      DummyTask.ran.should be_true
+      expect(DummyTask.ran).to be_truthy
     end
 
     it "should allow passing arguments to task groups" do
@@ -101,7 +102,7 @@ describe Fudge::Description do
       end
 
       subject.builds[:default].run
-      DummyTask.ran.should be_true
+      expect(DummyTask.ran).to be_truthy
     end
 
     it "should raise an exception if task group not found" do
@@ -127,7 +128,7 @@ describe Fudge::Description do
         end
 
         subject.builds[:default].run
-        DummyTask.ran.should be_true
+        expect(DummyTask.ran).to be_truthy
       end
 
       it "supports when options are given" do
@@ -140,9 +141,9 @@ describe Fudge::Description do
         subject.builds[:default].run
 
         # Check that the options are maintained through the call
-        build_tasks.first.args.should have(2).items
-        build_tasks.first.args[1][:foobar].should be_true
-        DummyTask.ran.should be_true
+        expect(build_tasks.first.args.size).to eq(2)
+        expect(build_tasks.first.args[1][:foobar]).to be_truthy
+        expect(DummyTask.ran).to be_truthy
       end
     end
 
@@ -151,13 +152,13 @@ describe Fudge::Description do
   describe "Callback Hooks" do
     before :each do
       @ran = []
-      Fudge::Tasks::Shell.any_instance.stub(:run_command) do |cmd|
-        @ran << cmd
-        ['', cmd != 'fail']
+      allow_any_instance_of(Fudge::Tasks::Shell).to receive(:run_command) do |cmd|
+        @ran << cmd.arguments
+        ['', cmd.arguments != 'fail']
       end
     end
 
-    describe :on_success do
+    describe "#on_success" do
       context "when callbacks is set to true" do
         let(:callbacks) { true }
 
@@ -167,8 +168,8 @@ describe Fudge::Description do
             subject.on_success { subject.shell 'BAR' }
           end
 
-          build.run.should be_true
-          @ran.should == ['FOO', 'BAR']
+          expect(build.run).to be_truthy
+          expect(@ran).to eq(['FOO', 'BAR'])
         end
 
         it "fails the build HARD when hooks fail" do
@@ -177,8 +178,8 @@ describe Fudge::Description do
             subject.on_success { subject.shell 'BAR' }
           end
 
-          build.run.should be_false
-          @ran.should == ['fail']
+          expect(build.run).to be_falsey
+          expect(@ran).to eq(['fail'])
         end
       end
 
@@ -190,15 +191,15 @@ describe Fudge::Description do
             subject.on_success { subject.shell 'echo "WOOP"' }
           end
 
-          build.run.should be_true
-          @ran.should == []
+          expect(build.run).to be_truthy
+          expect(@ran).to eq([])
         end
       end
     end
 
-    describe :on_failure do
+    describe "#on_failure" do
       before :each do
-        DummyTask.any_instance.stub(:run).and_return(false)
+        allow_any_instance_of(DummyTask).to receive(:run).and_return(false)
       end
 
       context "when callbacks is set to true" do
@@ -210,8 +211,8 @@ describe Fudge::Description do
             subject.on_failure { subject.shell 'BAR' }
           end
 
-          build.run.should be_false
-          @ran.should == ['WOOP', 'BAR']
+          expect(build.run).to be_falsey
+          expect(@ran).to eq(['WOOP', 'BAR'])
         end
 
         it "fails the build HARD when hooks fail" do
@@ -220,8 +221,8 @@ describe Fudge::Description do
             subject.on_failure { subject.shell 'BAR' }
           end
 
-          build.run.should be_false
-          @ran.should == ['fail']
+          expect(build.run).to be_falsey
+          expect(@ran).to eq(['fail'])
         end
       end
 
@@ -233,8 +234,8 @@ describe Fudge::Description do
             subject.on_failure { subject.shell 'WOOP' }
           end
 
-          build.run.should be_false
-          @ran.should == []
+          expect(build.run).to be_falsey
+          expect(@ran).to eq([])
         end
       end
     end

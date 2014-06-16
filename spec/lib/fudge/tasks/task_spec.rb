@@ -66,7 +66,7 @@ describe Fudge::Tasks::Task do
 
   describe :name do
     it "should default to implied name from class name" do
-      TestNamespace::SomeTask.name.should == :some_task
+      expect(TestNamespace::SomeTask.name).to eq(:some_task)
     end
   end
 end

@@ -14,15 +14,15 @@ Fudge::Tasks.register(TestEachDirectoryTask)
 
 describe Fudge::Tasks::EachDirectory do
   subject { described_class.new 'spec/*' }
-  it { should be_registered_as :each_directory }
+  it { is_expected.to be_registered_as :each_directory }
 
-  describe :initialize do
+  describe '#initialize' do
     it "should take a directory pattern as first argument" do
       expect { described_class.new }.to raise_error ArgumentError
     end
   end
 
-  describe :run do
+  describe '#run' do
     let(:task) { TestEachDirectoryTask.new }
     let(:dirs) do
       files = Dir[File.expand_path('../../../../*', __FILE__)]
@@ -36,36 +36,36 @@ describe Fudge::Tasks::EachDirectory do
     it "should change to the given directories and run child tasks" do
       subject.run
 
-      task.pwds.should == dirs
+      expect(task.pwds).to eq(dirs)
     end
 
     it "should allow explicit specification of directories through an array" do
       ed2 = described_class.new ["spec/lib","spec/support"]
       ed2.tasks << task
       ed2.run
-      task.pwds.should == dirs.sort
+      expect(task.pwds).to eq(dirs.sort)
     end
 
     it "should respect the order of the directories as specified" do
       ed2 = described_class.new ["spec/support","spec/lib"]
       ed2.tasks << task
       ed2.run
-      task.pwds.should_not == dirs.sort
-      task.pwds.sort.should == dirs.sort
+      expect(task.pwds).not_to eq(dirs.sort)
+      expect(task.pwds.sort).to eq(dirs.sort)
     end
 
     it "should load fudge_settings.yml in the right directory" do
       ed2 = described_class.new ['spec/lib']
       ed2.tasks << Fudge::Tasks::Shell.new('pwd')
       ed2.run
-      ed2.tasks.first.options[:test].should == 'coverage'
+      expect(ed2.tasks.first.options[:test]).to eq('coverage')
     end
 
     it "should not load fudge_settings.yml in the wrong directory" do
       ed2 = described_class.new ['spec/support']
       ed2.tasks << Fudge::Tasks::Shell.new('pwd')
       ed2.run
-      ed2.tasks.first.options.size.should == 0
+      expect(ed2.tasks.first.options.size).to eq(0)
     end
   end
 end

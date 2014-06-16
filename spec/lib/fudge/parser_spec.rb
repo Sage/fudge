@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Fudge::Parser do
   use_tmp_dir
 
-  describe :parse do
+  describe '#parse' do
     before :each do
       @path = 'FudgeFile'
 
@@ -13,11 +13,11 @@ describe Fudge::Parser do
     end
 
     it "should read a file and evaluate it" do
-      subject.parse(@path).should be_a Fudge::Description
+      expect(subject.parse(@path)).to be_a Fudge::Description
     end
 
     it "should pass the contents to the new description" do
-      subject.parse(@path).instance_variable_get(:@foo).should == :bar
+      expect(subject.parse(@path).instance_variable_get(:@foo)).to eq(:bar)
     end
   end
 end

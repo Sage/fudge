@@ -10,29 +10,30 @@ Fudge::Tasks.register(DummyTask2)
 describe Fudge::Tasks::CompositeTask do
   subject { described_class.new do; end }
 
-  describe :run do
+  describe '#run' do
     before :each do
       subject.tasks << DummyTask.new
       subject.tasks << DummyTask2.new
+
+      @task_two_run = false
+      allow_any_instance_of(DummyTask2).to receive(:run) { |*_| @task_two_run = true }
     end
 
     it "should run all tasks defined and return true if they all succeed" do
-      DummyTask.any_instance.should_receive(:run).and_return(true)
-      DummyTask2.any_instance.should_receive(:run).and_return(true)
-
-      subject.run.should be_true
+      expect_any_instance_of(DummyTask).to receive(:run).and_return(true)
+      expect(subject.run).to be_truthy
+      expect(@task_two_run).to be_truthy
     end
 
     it "should return false if any of the tasks fail" do
-      DummyTask.any_instance.should_receive(:run).and_return(false)
-      DummyTask2.any_instance.should_not_receive(:run)
-
-      subject.run.should be_false
+      expect_any_instance_of(DummyTask).to receive(:run).and_return(false)
+      expect(subject.run).to be_falsey
+      expect(@task_two_run).to be_falsey
     end
   end
 
   describe "Using TaskDSL" do
-    describe :task do
+    describe '#task' do
       class AnotherCompositeTask < Fudge::Tasks::CompositeTask
         include Fudge::TaskDSL
 
@@ -49,11 +50,11 @@ describe Fudge::Tasks::CompositeTask do
       subject { AnotherCompositeTask.new }
 
       it "should define a task for each new instance of the composite task" do
-        subject.should run_command 'foo bar'
+        expect(subject).to run_command 'foo bar'
       end
 
       it "should support defining composite tasks" do
-        subject.tasks[1].tasks.first.should be_a DummyTask
+        expect(subject.tasks[1].tasks.first).to be_a DummyTask
       end
 
       context "when provided an output" do
@@ -61,14 +62,14 @@ describe Fudge::Tasks::CompositeTask do
         let(:formatter) { Fudge::Formatters::Simple.new(output) }
 
         before :each do
-          Fudge::Tasks::Shell.any_instance.stub(:run)
+          allow_any_instance_of(Fudge::Tasks::Shell).to receive(:run)
         end
 
         it "prints messages to the output instead of stdout" do
           subject.run :formatter => formatter
 
-          output.string.should_not be_empty
-          output.string.should match /Running task.*shell.*foo, bar/
+          expect(output.string).not_to be_empty
+          expect(output.string).to match /Running task.*shell.*foo, bar/
         end
       end
     end

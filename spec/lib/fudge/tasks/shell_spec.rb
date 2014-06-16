@@ -1,21 +1,21 @@
 require 'spec_helper'
 
 describe Fudge::Tasks::Shell do
-  describe :run do
+  describe '#run' do
     it "should take a command and run it" do
-      described_class.new(:ls).should run_command 'ls'
+      expect(described_class.new(:ls)).to run_command 'ls'
     end
 
     it "should add any arguments given" do
-      described_class.new(:ls, '-l', '-a').should run_command 'ls -l -a'
+      expect(described_class.new(:ls, '-l', '-a')).to run_command 'ls -l -a'
     end
 
     it "should return false for an unsuccessful command" do
-      described_class.new(:ls, '--newnre').run.should be_false
+      expect(described_class.new(:ls, '--newnre').run).to be_falsey
     end
 
     it "should return true for a successful command" do
-      described_class.new(:ls).run.should be_true
+      expect(described_class.new(:ls).run).to be_truthy
     end
 
     context "when there is an formatter passed to run" do
@@ -28,25 +28,25 @@ describe Fudge::Tasks::Shell do
 
         subject.run :formatter => formatter
 
-        output.string.should_not be_empty
-        output.string.should include "foo"
+        expect(output.string).not_to be_empty
+        expect(output.string).to include "foo"
       end
 
       it 'uses the formatter when reporting checks on build result' do
         checker = double.as_null_object
-        Fudge::OutputChecker.should_receive(:new).with(anything, formatter) { checker }
+        expect(Fudge::OutputChecker).to receive(:new).with(anything, formatter) { checker }
         subject.run :formatter => formatter
       end
 
     end
   end
 
-  describe :check_for do
+  describe '#check_for' do
     context "with no callable to check the matches" do
       subject { described_class.new(:ls, :check_for => /4 files found/) }
 
-      it { should succeed_with_output "Hello there were 4 files found." }
-      it { should_not succeed_with_output "Hellow there were 5 files found." }
+      it { is_expected.to succeed_with_output "Hello there were 4 files found." }
+      it { is_expected.not_to succeed_with_output "Hellow there were 5 files found." }
     end
 
     context "with a callable to check the matches" do
@@ -56,9 +56,9 @@ describe Fudge::Tasks::Shell do
           :check_for => [/(\d+) files found/, file_count_matcher]
       end
 
-      it { should_not succeed_with_output "Hello there were 3 files found." }
-      it { should succeed_with_output "Hello there were 4 files found." }
-      it { should succeed_with_output "Hellow there were 5 files found." }
+      it { is_expected.not_to succeed_with_output "Hello there were 3 files found." }
+      it { is_expected.to succeed_with_output "Hello there were 4 files found." }
+      it { is_expected.to succeed_with_output "Hellow there were 5 files found." }
     end
   end
 end
