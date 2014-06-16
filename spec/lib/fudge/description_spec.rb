@@ -6,7 +6,7 @@ describe Fudge::Description do
   subject { described_class.new(file) }
 
   let(:build) { subject.builds.values.first }
-  let(:build_tasks) { build.tasks.map }
+  let(:build_tasks) { build.tasks.dup }
 
 
   def make_build
