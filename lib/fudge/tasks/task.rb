@@ -22,6 +22,11 @@ module Fudge
 
         @args
       end
+
+      private
+      def get_formatter(options = {})
+        options[:formatter] || Fudge::Formatters::Simple.new
+      end
     end
   end
 end

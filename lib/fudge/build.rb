@@ -28,7 +28,7 @@ module Fudge
       else
         message "Skipping callbacks..."
       end
-      message "Finished in #{"%.2f" % (Time.new - start_time)} seconds." if time
+      report_time(start_time, time)
 
       success
     end
@@ -41,6 +41,10 @@ module Fudge
 
     def init_formatter(options)
       @formatter = options[:formatter] || Fudge::Formatters::Simple.new
+    end
+
+    def report_time(start_time, time)
+      message "Finished in #{"%.2f" % (Time.new - start_time)} seconds." if time
     end
 
     def run_callbacks(success)

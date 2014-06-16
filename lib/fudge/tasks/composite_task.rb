@@ -13,7 +13,7 @@ module Fudge
 
       # Runs the task (by default running all other tasks in order)
       def run(options={})
-        formatter = options[:formatter] || Fudge::Formatters::Simple.new
+        formatter = get_formatter(options)
         tasks.each do |t|
           apply_directory_settings(t)
           output_message(t, formatter)
@@ -53,9 +53,11 @@ module Fudge
       end
 
       def output_message(t, formatter)
-          formatter.write do |w|
-            w.info("Running task").notice(task_name(t)).notice(args_s(t))
-          end
+        name = task_name(t)
+        args = args_s(t)
+        formatter.write do |w|
+          w.info("Running task").notice(name).notice(args)
+        end
       end
 
     end
