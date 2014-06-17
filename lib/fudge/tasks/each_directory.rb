@@ -13,7 +13,7 @@ module Fudge
 
       # Run task
       def run(options={})
-        formatter = options[:formatter] || Fudge::Formatters::Simple.new
+        formatter = get_formatter(options)
         directories.all? do |dir|
           skip_directory?(dir) ||
             WithDirectory.new(dir, formatter).inside do

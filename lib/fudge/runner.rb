@@ -26,6 +26,7 @@ module Fudge
       # Run the build
       build = @description.builds[which.to_sym]
       build.callbacks = options[:callbacks]
+      build.time = options[:time]
       build.run :formatter => options[:formatter]
     end
 

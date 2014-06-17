@@ -11,7 +11,7 @@ module Fudge
 
       # Run task
       def run(options={})
-        formatter = options[:formatter] || Fudge::Formatters::Simple.new
+        formatter = get_formatter(options)
         WithDirectory.new(@directory, formatter).inside do
           super
         end

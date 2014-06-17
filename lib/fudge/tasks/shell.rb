@@ -12,7 +12,7 @@ module Fudge
       #
       # @param [Hash] options Any options to pass to the shell
       def run(options={})
-        formatter = options[:formatter] || Fudge::Formatters::Simple.new
+        formatter = get_formatter(options)
         @output, success = run_command(cmd(options), formatter)
 
         return false unless success
