@@ -1,3 +1,6 @@
+# v0.6.1
+* Remove dependency on activesupport.
+
 # v0.6.0
 * Add `--time` option to `build` command, which prints out time spent for the build. [#97](https://github.com/Sage/fudge/pull/97).
 * Update fudge task matchers to support RSpec versions 2 and 3.

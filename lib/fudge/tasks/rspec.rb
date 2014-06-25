@@ -22,7 +22,7 @@ module Fudge
       end
 
       def cmd(options={})
-        self.arguments = 'spec/' if arguments.blank?
+        self.arguments = 'spec/' if (arguments.nil? || arguments.empty?)
         bundle_cmd("rspec#{tty_options} #{arguments}", options)
       end
 
