@@ -11,7 +11,7 @@ task_group :codestyle do
 end
 
 task_group :duplication do
-  task :flay, :exclude => '^\.\/spec\/'
+  task :flay, :exclude => '^\.\/spec\/', :max => 42
 end
 
 task_group :complexity do
