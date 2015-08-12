@@ -1,3 +1,9 @@
+# v0.6.3
+* Add cucumber coverage check
+
+# v0.6.2
+* Add cucumber support.
+
 # v0.6.1
 * Remove dependency on activesupport.
 
