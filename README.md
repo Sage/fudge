@@ -240,6 +240,8 @@ Code duplication can be detected by [Flay](http://sadi.st/Flay.html).  See examp
 Run the resulting block in a specific directory (as with `each_directory`).
 #### rspec
 Run `rspec`, enforcing minimum `:coverage` as a percent (using [simplecov](https://github.com/colszowka/simplecov)). See examples above.
+#### cucumber
+Run `cucumber`, enforcing minimum `:coverage` as a percent (using [simplecov](https://github.com/colszowka/simplecov)), like `rspec`.
 #### yard
 Runs [YARD](http://yardoc.org/) to ensure documentation coverage.
 ```
