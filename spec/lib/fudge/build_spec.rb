@@ -12,8 +12,7 @@ describe Fudge::Build do
       it "prints messages to the formatter instead of default" do
         subject.run :formatter => formatter
 
-        expect(stdout.string).not_to be_empty
-        expect(stdout.string).to include "Skipping callbacks..."
+        expect(stdout.string).to be_empty
       end
 
       context "when there are callback hooks" do

@@ -25,8 +25,6 @@ module Fudge
       success = super
       if callbacks
         return false unless run_callbacks(success)
-      else
-        message "Skipping callbacks..."
       end
       report_time(start_time, time)
 
