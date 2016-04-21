@@ -50,8 +50,8 @@ describe Fudge::Cli do
   end
 
   describe '.init' do
-    let (:file_state) { { exists: false, content: '' } }
-    let (:override_file_state) do
+    let(:file_state) { { exists: false, content: '' } }
+    let(:override_file_state) do
       lambda do |exists, content|
         file_state[:exists] = exists
         file_state[:content] = content

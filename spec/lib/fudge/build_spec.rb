@@ -37,7 +37,7 @@ describe Fudge::Build do
 
         it 'should print out the time of the build' do
           expect(subject).to receive(:message) do |message|
-            expect(message).to match /Finished in \d+.\d\d seconds./
+            expect(message).to match(/Finished in \d+.\d\d seconds./)
           end
           subject.run formatter: formatter
         end

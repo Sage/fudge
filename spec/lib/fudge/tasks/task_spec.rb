@@ -24,7 +24,7 @@ describe Fudge::Tasks::Task do
     end
 
     context 'given options' do
-      let (:task) { MyTask.new cod: 'fanglers' }
+      let(:task) { MyTask.new cod: 'fanglers' }
 
       it 'accepts and sets the options' do
         expect(task.cod).to eq 'fanglers'
@@ -35,7 +35,7 @@ describe Fudge::Tasks::Task do
       end
 
       context 'including an option that is not supported' do
-        let (:task) { MyTask.new cod: 'fanglers', foo: 'bar' }
+        let(:task) { MyTask.new cod: 'fanglers', foo: 'bar' }
 
         it 'ignores the unsupported options' do
           expect(task._methods_missing).to be_nil
@@ -48,7 +48,7 @@ describe Fudge::Tasks::Task do
     end
 
     context 'given arguments and options' do
-      let (:task) { MyTask.new :foo, :bar, cod: 'fanglers' }
+      let(:task) { MyTask.new :foo, :bar, cod: 'fanglers' }
 
       it 'stores the arguments separately from the options' do
         expect(task.args).to match_array [:foo, :bar]

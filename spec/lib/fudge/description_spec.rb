@@ -215,7 +215,10 @@ describe Fudge::Description do
 
         it 'fails the build HARD when hooks fail' do
           make_build do
-            subject.on_failure { subject.shell 'fail'; subject.shell 'FOO' }
+            subject.on_failure do
+              subject.shell 'fail'
+              subject.shell 'FOO'
+            end
             subject.on_failure { subject.shell 'BAR' }
           end
 
