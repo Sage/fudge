@@ -5,7 +5,6 @@ describe Fudge::Tasks::Flay do
 
   it_should_behave_like 'bundle aware'
 
-
   let(:output_good) do
     <<-EOF
 Total score (lower is better) = 0
@@ -19,15 +18,15 @@ EOF
   end
 
   describe '#run' do
-    it "runs flay on the codebase" do
+    it 'runs flay on the codebase' do
       expect(subject).to run_command "flay --diff `find . | grep --color=never -e '\\.rb$'`"
     end
 
     context 'with :exclude => pattern' do
-      subject {described_class.new :exclude => 'spec/'}
+      subject { described_class.new exclude: 'spec/' }
 
       # Test doesn't check result :(
-      it "filters out the pattern" do
+      it 'filters out the pattern' do
         cmd = "flay --diff `find . | grep --color=never -e '\\.rb$' | grep --color=never -v -E 'spec/'`"
         expect(subject).to run_command cmd
       end
@@ -38,10 +37,10 @@ EOF
 
     context 'when :max score is supplied' do
       it 'fails when score is higher than max' do
-        task = described_class.new :max => 99
+        task = described_class.new max: 99
         expect(task).not_to succeed_with_output output_bad
 
-        task = described_class.new :max => 100
+        task = described_class.new max: 100
         expect(task).to succeed_with_output output_bad
       end
     end

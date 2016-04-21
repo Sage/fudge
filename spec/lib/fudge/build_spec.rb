@@ -3,19 +3,18 @@ require 'spec_helper'
 describe Fudge::Build do
   it { is_expected.to be_a Fudge::Tasks::CompositeTask }
 
-  describe "#run" do
-
-    context "when provided an output" do
+  describe '#run' do
+    context 'when provided an output' do
       let(:stdout) { StringIO.new }
       let(:formatter) { Fudge::Formatters::Simple.new(stdout) }
 
-      it "prints messages to the formatter instead of default" do
-        subject.run :formatter => formatter
+      it 'prints messages to the formatter instead of default' do
+        subject.run formatter: formatter
 
         expect(stdout.string).to be_empty
       end
 
-      context "when there are callback hooks" do
+      context 'when there are callback hooks' do
         let(:hook) { double(:Hook) }
 
         before :each do
@@ -23,24 +22,24 @@ describe Fudge::Build do
           subject.success_hooks << hook
         end
 
-        it "passesformatter down to the hook run" do
-          expect(hook).to receive(:run).with(:formatter =>formatter).and_return(true)
-          subject.run :formatter => formatter
+        it 'passesformatter down to the hook run' do
+          expect(hook).to receive(:run).with(formatter: formatter).and_return(true)
+          subject.run formatter: formatter
         end
       end
 
-      context "when the `time` flag is set" do
+      context 'when the `time` flag is set' do
         before do
           subject.callbacks = true
           allow(subject).to receive(:run_callbacks).and_return(true)
           subject.time = true
         end
 
-        it "should print out the time of the build" do
+        it 'should print out the time of the build' do
           expect(subject).to receive(:message) do |message|
-            expect(message).to match /Finished in \d+.\d\d seconds./
+            expect(message).to match(/Finished in \d+.\d\d seconds./)
           end
-          subject.run :formatter => formatter
+          subject.run formatter: formatter
         end
       end
     end

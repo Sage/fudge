@@ -12,11 +12,11 @@ describe Fudge::Parser do
       end
     end
 
-    it "should read a file and evaluate it" do
+    it 'should read a file and evaluate it' do
       expect(subject.parse(@path)).to be_a Fudge::Description
     end
 
-    it "should pass the contents to the new description" do
+    it 'should pass the contents to the new description' do
       expect(subject.parse(@path).instance_variable_get(:@foo)).to eq(:bar)
     end
   end

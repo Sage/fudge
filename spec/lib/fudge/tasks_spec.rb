@@ -7,11 +7,11 @@ class TestTask
 end
 
 describe Fudge::Tasks do
-  describe "Class Methods" do
+  describe 'Class Methods' do
     subject { described_class }
 
     describe '#register' do
-      it "should register a task for a given symbol" do
+      it 'should register a task for a given symbol' do
         subject.register(TestTask)
 
         expect(subject.discover(:foo)).to eq(TestTask)
@@ -19,13 +19,13 @@ describe Fudge::Tasks do
     end
 
     describe '#discover' do
-      it "should return the registered class for the given symbol" do
+      it 'should return the registered class for the given symbol' do
         subject.register(TestTask)
 
         expect(subject.discover(:foo)).to eq(TestTask)
       end
 
-      it "should raise an exception if the task is not found" do
+      it 'should raise an exception if the task is not found' do
         no_task_error = Fudge::Exceptions::TaskNotFound
         expect { subject.discover(:something) }.to raise_error no_task_error
       end

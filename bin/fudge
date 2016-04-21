@@ -6,4 +6,3 @@ rescue Fudge::Exceptions::Base => e
   puts e.message
   exit 1
 end
-

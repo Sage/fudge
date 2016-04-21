@@ -6,7 +6,7 @@ class TestInDirectoryTask
     :test_in_directory
   end
 
-  def run(options={})
+  def run(_options = {})
     self.pwd = FileUtils.pwd
   end
 end
@@ -17,7 +17,7 @@ describe Fudge::Tasks::InDirectory do
   it { is_expected.to be_registered_as :in_directory }
 
   describe '#initialize' do
-    it "should take a directory as first argument" do
+    it 'should take a directory as first argument' do
       expect { described_class.new }.to raise_error ArgumentError
     end
   end
@@ -30,7 +30,7 @@ describe Fudge::Tasks::InDirectory do
       subject.tasks << task
     end
 
-    it "should change to the given directory and run child tasks" do
+    it 'should change to the given directory and run child tasks' do
       subject.run
 
       expect(task.pwd).to eq(path)

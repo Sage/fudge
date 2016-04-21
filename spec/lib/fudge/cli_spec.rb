@@ -5,7 +5,7 @@ class AnotherDummyTask < DummyTask
     :another_dummy
   end
 
-  def run(options={})
+  def run(_options = {})
     self.class.ran = true
   end
 end
@@ -18,7 +18,7 @@ describe Fudge::Cli do
     AnotherDummyTask.ran = false
   end
 
-  describe ".build" do
+  describe '.build' do
     before :each do
       contents = <<-RUBY
           build :default do
@@ -33,15 +33,15 @@ describe Fudge::Cli do
       allow(File).to receive(:open) { |&block| block.yield file }
     end
 
-    context "when not given a build name" do
-      it "runs the default build" do
+    context 'when not given a build name' do
+      it 'runs the default build' do
         subject.build 'default'
         expect(DummyTask.ran).to be_truthy
       end
     end
 
-    context "when given a build name" do
-      it "runs the only the named build" do
+    context 'when given a build name' do
+      it 'runs the only the named build' do
         subject.build 'other'
         expect(DummyTask.ran).to be_falsey
         expect(AnotherDummyTask.ran).to be_truthy
@@ -49,13 +49,13 @@ describe Fudge::Cli do
     end
   end
 
-  describe ".init" do
-    let (:file_state) { { exists: false, content: '' } }
-    let (:override_file_state) do
-      ->(exists, content) {
+  describe '.init' do
+    let(:file_state) { { exists: false, content: '' } }
+    let(:override_file_state) do
+      lambda do |exists, content|
         file_state[:exists] = exists
         file_state[:content] = content
-      }
+      end
     end
 
     before :each do
@@ -74,8 +74,8 @@ describe Fudge::Cli do
       allow(subject).to receive(:shell).and_return(shell)
     end
 
-    context "when a Fudgefile does not exist in the current directory" do
-      it "creates a new FudgeFile" do
+    context 'when a Fudgefile does not exist in the current directory' do
+      it 'creates a new FudgeFile' do
         expect(File).not_to be_exists('Fudgefile')
 
         subject.init
@@ -83,7 +83,7 @@ describe Fudge::Cli do
         expect(File).to be_exists('Fudgefile')
       end
 
-      it "writes a default build into the new Fudgefile" do
+      it 'writes a default build into the new Fudgefile' do
         subject.init
 
         File.open('Fudgefile', 'r') do |f|
@@ -91,33 +91,33 @@ describe Fudge::Cli do
         end
       end
 
-      it "outputs a success message" do
+      it 'outputs a success message' do
         subject.init
         expect(@output).to eq 'Fudgefile created.'
       end
     end
 
-    context "when a Fudgefile already exists in the current directory" do
+    context 'when a Fudgefile already exists in the current directory' do
       before :each do
-        override_file_state.(true, 'foo')
+        override_file_state.call(true, 'foo')
       end
 
-      it "does not modify the existing Fudgefile" do
+      it 'does not modify the existing Fudgefile' do
         expect(File).to be_exists('Fudgefile')
 
         subject.init
 
-        expect(File.open('Fudgefile') { |f| f.read }).to eql 'foo'
+        expect(File.open('Fudgefile', &:read)).to eql 'foo'
       end
 
-      it "outputs a failure message" do
+      it 'outputs a failure message' do
         subject.init
         expect(@output).to eq 'Fudgefile already exists.'
       end
     end
   end
 
-  describe ".list" do
+  describe '.list' do
     before :each do
       contents = <<-RUBY
           build :default do
@@ -137,32 +137,31 @@ describe Fudge::Cli do
       allow(subject).to receive(:shell).and_return(shell)
     end
 
-    context "when not given a filter string" do
-      it "lists all the defined builds" do
+    context 'when not given a filter string' do
+      it 'lists all the defined builds' do
         subject.list
         expect(@output).to eql "default\t\nother\tnot the default"
       end
     end
 
-    context "when given a filter string" do
-      context "that matches one or builds" do
-        it "lists only the builds that match the filter" do
+    context 'when given a filter string' do
+      context 'that matches one or builds' do
+        it 'lists only the builds that match the filter' do
           subject.list 'oth'
           expect(@output).to eql "other\tnot the default"
         end
 
-        it "ignores the case of the filter" do
+        it 'ignores the case of the filter' do
           subject.list 'OTH'
           expect(@output).to eql "other\tnot the default"
         end
       end
 
-      context "that matches no builds" do
-        it "outputs nothing" do
+      context 'that matches no builds' do
+        it 'outputs nothing' do
           expect(@output).to eql ''
         end
       end
     end
   end
-
 end
