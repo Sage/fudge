@@ -24,7 +24,7 @@ module Fudge::Exceptions
       it { is_expected.to be_a String }
     end
 
-    it "should take a task name as a parameter" do
+    it 'should take a task name as a parameter' do
       expect { described_class.new }.to raise_error ArgumentError
     end
   end
@@ -39,7 +39,7 @@ module Fudge::Exceptions
       it { is_expected.to be_a String }
     end
 
-    it "should take a task group name as a parameter" do
+    it 'should take a task group name as a parameter' do
       expect { described_class.new }.to raise_error ArgumentError
     end
   end

@@ -5,7 +5,6 @@ describe Fudge::Tasks::Brakeman do
 
   it_should_behave_like 'bundle aware'
 
-
   let(:output_good) do
     <<-EOF
 | Errors            | 0     |
@@ -50,10 +49,10 @@ EOF
 
     context 'when :max score is supplied' do
       it 'fails when score is higher than max' do
-        task = described_class.new :max => 0
+        task = described_class.new max: 0
         expect(task).not_to succeed_with_output output_bad
 
-        task = described_class.new :max => 1
+        task = described_class.new max: 1
         expect(task).to succeed_with_output output_bad
       end
     end

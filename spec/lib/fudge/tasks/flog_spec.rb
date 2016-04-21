@@ -46,24 +46,24 @@ EOF
   end
 
   describe '#run' do
-    it "runs flog on the codebase" do
+    it 'runs flog on the codebase' do
       expect(subject).to run_command "flog `find . | grep --color=never -e '\\.rb$'`"
     end
 
     context 'with :exclude => pattern' do
-      subject {described_class.new :exclude => 'spec/'}
+      subject { described_class.new exclude: 'spec/' }
 
       # Test doesn't check result :(
-      it "filters out the pattern" do
+      it 'filters out the pattern' do
         with_pattern = "flog `find . | grep --color=never -e '\\.rb$' | grep --color=never -v -E 'spec/'`"
         expect(subject).to run_command with_pattern
       end
     end
 
     context 'with :methods => true' do
-      subject {described_class.new :methods => true}
+      subject { described_class.new methods: true }
 
-      it "runs with methods only flag" do
+      it 'runs with methods only flag' do
         with_pattern = "flog -m `find . | grep --color=never -e '\\.rb$'`"
         expect(subject).to run_command with_pattern
       end
@@ -76,20 +76,20 @@ EOF
 
     context 'when :max score is supplied' do
       it 'fails when score is higher than max' do
-        task = described_class.new :max => 9.9
+        task = described_class.new max: 9.9
         expect(task).not_to succeed_with_output output_good
 
-        task = described_class.new :max => 10.0
+        task = described_class.new max: 10.0
         expect(task).to succeed_with_output output_good
       end
     end
 
     context 'when :average score is supplied' do
       it 'fails when average is higher than :average' do
-        task = described_class.new :average => 4.9
+        task = described_class.new average: 4.9
         expect(task).not_to succeed_with_output output_good
 
-        task = described_class.new :average => 5.0
+        task = described_class.new average: 5.0
         expect(task).to succeed_with_output output_good
       end
     end
