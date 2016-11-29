@@ -4,6 +4,8 @@ module Fudge
   module Tasks
     # Allow for tasks to be combined
     class CompositeTask < Task
+      require 'yaml'
+      
       attr_accessor :description
 
       # Define task array
