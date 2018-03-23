@@ -460,3 +460,11 @@ flog:
   average: 9.1
 ```
 You can set the default values in your `Fudgefile` and override them only as necessary in specific subdiretories.
+
+
+## License
+
+This gem is available as open source under the terms of the
+[MIT licence](LICENSE).
+
+Copyright (c) 2018 Sage Group Plc. All rights reserved.
