@@ -1,9 +1,23 @@
 language: ruby
 rvm:
-  - 2.3.0
+  - 2.3.4
   - 2.2.3
-  - rbx-2
-
-matrix:
-  allow_failures:
-    - rvm: rbx-2
+env:
+  global:
+    secure: JNV26w805Nx0X2q7qVYdT4+WDie66btbFoiuMY/hgUBixaFQU1Viygi/cC3SpSri9tC7Iman10rWJ7/U7J54k8k5fZXEALOX6+ccrgC/ghQR0ZvQJl1FUji6vAoPY+srbgCS/ohOO9ZTgu3vIB+XWQZRUVILRuC8Vd50sj+gk7s=
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+    > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - "./cc-test-reporter before-build"
+after_script:
+  - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+deploy:
+  provider: rubygems
+  api_key:
+    secure: iWL43LU0jreigILWMXTsiVf/zSIXJFpAGXULnSfPcm962FIFH8imfP3EQjvjiQtIioDesRZikCyr39kjcIc5NTVbwTXy2uv4HN91EGYx1PlWfQIEMgj9r0YFQ76bEdhCNxWODYXzvnfFBU0cPQuHXPizODX2Fa2Slhoe36PddjI=
+  gem: fudge
+  on:
+    tags: true
+    repo: Sage/fudge
+    condition: "$TRAVIS_RUBY_VERSION == 2.3.4"
