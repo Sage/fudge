@@ -1,4 +1,5 @@
 # Fudge
+
 [![travis-ci](https://secure.travis-ci.org/Sage/fudge.png)](http://travis-ci.org/#!/Sage/fudge)
 [![Dependency Status](https://gemnasium.com/Sage/fudge.png)](https://gemnasium.com/Sage/fudge)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c9bc4c9cd9da50070f6e/maintainability)](https://codeclimate.com/github/Sage/fudge/maintainability)
