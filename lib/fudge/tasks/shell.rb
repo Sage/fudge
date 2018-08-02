@@ -31,7 +31,7 @@ module Fudge
           end
         end
 
-        unless $?.zero?
+        unless $?.exitstatus.zero?
           formatter.error("Shell command failed. Exit code: #{$?}")
         end
 
