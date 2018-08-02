@@ -35,6 +35,7 @@ module Fudge
       if success
         formatter.write { |w| w.success('Build SUCCEEDED!') }
       else
+        formatter.write { |w| w.error("Build FAILED!") }
         raise Exceptions::BuildFailed
       end
     end
