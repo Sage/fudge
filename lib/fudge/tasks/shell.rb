@@ -23,7 +23,7 @@ module Fudge
 
       def run_command(cmd, formatter)
         output = ''
-        cmd = "command time #{cmd}"
+        cmd = "/usr/bin/time -v #{cmd}"
         IO.popen(cmd) do |f|
           until f.eof?
             bit = f.getc
