@@ -1,9 +1,8 @@
 # Fudge
-[![travis-ci](https://secure.travis-ci.org/Sage/fudge.png)](http://travis-ci.org/#!/Sage/fudge)
-[![Dependency Status](https://gemnasium.com/Sage/fudge.png)](https://gemnasium.com/Sage/fudge)
+[![Build Status](https://travis-ci.org/Sage/fudge.svg?branch=master)](https://travis-ci.org/Sage/fudge)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c9bc4c9cd9da50070f6e/maintainability)](https://codeclimate.com/github/Sage/fudge/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c9bc4c9cd9da50070f6e/test_coverage)](https://codeclimate.com/github/Sage/fudge/test_coverage)
-[![Gem Version](https://badge.fury.io/rb/fudge.png)](http://badge.fury.io/rb/fudge)
+[![Gem Version](https://badge.fury.io/rb/fudge.svg)](https://badge.fury.io/rb/fudge)
 
 ## Description
 
