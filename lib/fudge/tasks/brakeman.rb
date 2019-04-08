@@ -27,7 +27,7 @@ module Fudge
       end
 
       def check_regex
-        /\| Security Warnings \| (?<score>\d+) /
+        /\|?\s?Security Warnings\:?\s?\|?\s?(?<score>\d+)/
       end
 
       def brakeman_checker(matches)

@@ -1,6 +1,9 @@
+# v0.6.4
+* Add support for brakeman 4.5.0 output
+
 # v0.6.3
 * Add cucumber coverage check
-* Rubocop improvements 
+* Rubocop improvements
 
 # v0.6.2
 * Add cucumber support.

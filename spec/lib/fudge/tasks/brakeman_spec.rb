@@ -39,6 +39,16 @@ Model Warnings:
 EOF
   end
 
+  let(:output_good_new) do
+    <<-EOF
+Controllers: 3
+Models: 0
+Templates: 30
+Errors: 0
+Security Warnings: 0
+EOF
+  end
+
   describe '#run' do
     it 'runs brakeman on the codebase' do
       expect(subject).to run_command 'brakeman '
@@ -46,6 +56,7 @@ EOF
 
     it { is_expected.not_to succeed_with_output output_bad }
     it { is_expected.to succeed_with_output output_good }
+    it { is_expected.to succeed_with_output output_good_new }
 
     context 'when :max score is supplied' do
       it 'fails when score is higher than max' do
