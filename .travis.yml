@@ -22,4 +22,4 @@ deploy:
   on:
     tags: true
     repo: Sage/fudge
-    condition: "$TRAVIS_RUBY_VERSION == 2.3.4"
+    condition: "$TRAVIS_RUBY_VERSION == 2.3"
