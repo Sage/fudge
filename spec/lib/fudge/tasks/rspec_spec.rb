@@ -31,6 +31,7 @@ describe Fudge::Tasks::Rspec do
     it { is_expected.not_to succeed_with_output '98.99999%) covered' }
     it { is_expected.not_to succeed_with_output '0.00%) covered' }
     it { is_expected.to succeed_with_output '99.99999%) covered' }
+    fit { is_expected.to succeed_with_output 'Ẅȟö Ḽềƚ Ŧḩȅ ḊŐǵṥ ƠǗẗ 99.99999%) covered' }
     it { is_expected.to succeed_with_output '100.0%) covered' }
     it { is_expected.to succeed_with_output "\n0 examples, 0 failures" }
     it { is_expected.to succeed_with_output "No examples found.\n\n\nFinished in 0.00006 seconds\n\e[32m0 examples, 0 failures\e[0m\n" }
